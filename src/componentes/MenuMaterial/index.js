@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import estilos from './estilos';
 import HomeScreen from '../HomeScreen';
 import Filter from '../HomeScreen/filter'
+import Equipamentos from '../Equipamentos'
 
 function Feed() {
   return (
@@ -27,6 +28,17 @@ function Home() {
     </>
   );
 }
+
+function Equipamento() {
+  return (
+    <>
+     <View style={estilos.TabScreen}>
+   <Equipamentos/>
+    </View>
+    </>   
+  );
+}
+
 
 
 const state = {
@@ -92,10 +104,10 @@ function MyTabsBottom() {
         }}
       />
       <Tab.Screen
-        name="Equipamentos"
-        component={Notifications}
+        name="Equipamento"
+        component={Equipamento}
         options={{
-          tabBarLabel: 'Equipamentos',
+          tabBarLabel: 'Equipamento',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="bell" color={color} size={26} />
           ),
