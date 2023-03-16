@@ -33,7 +33,8 @@ function Equipamento() {
   return (
     <>
      <View style={estilos.TabScreen}>
-   <Equipamentos/>
+
+<Equipamentos></Equipamentos>
     </View>
     </>   
   );

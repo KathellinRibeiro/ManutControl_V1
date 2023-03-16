@@ -28,7 +28,7 @@ const App = () => {
     },[])
 
   return(
-    <SelectList setSelected={setSelected} data={data} onSelect={() => alert(selected)}  placeholder="Selecione o Sensor" />
+    <SelectList setSelected={setSelected} data={data} onSelect={() => alert(selected)}  placeholder="Setor" />
   )
 
 };

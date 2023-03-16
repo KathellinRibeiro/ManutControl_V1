@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Graficos from './graficos';
-import { cores } from '../../estilos';
-import estilos from './estilos';
 
-import Combobox from './comboboxSetor'
 
 import {
     SafeAreaView,
@@ -52,11 +48,11 @@ const App = () => {
         return (
             <>
                 <Text
-                    style={estilos.item}
+                    style={styles.item}
                     onPress={() => getItem(item)}>
                     {item.id}
                     {' - '}
-                    {item.title.toUpperCase()}                
+                    {/* {item.title.toUpperCase()} */}                
                 </Text>
             </>
         );
@@ -68,15 +64,14 @@ const App = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-            <View style={estilos.container}>
+            <View style={styles.container}>
                 <TextInput
-                    style={estilos.filter}
+                    style={styles.textInputStyle}
                     onChangeText={(text) => searchFilter(text)}
                     value={search}
                     underlineColorAndroid="transparent"
                     placeholder="Procure Aqui"
                 />
-                <Combobox></Combobox>
                 <FlatList
                     data={filteredData}
                     keyExtractor={item => item.id}

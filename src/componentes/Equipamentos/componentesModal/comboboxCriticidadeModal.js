@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SelectList } from 'react-native-dropdown-select-list';
 import axios from 'axios';
+import { Alert, Modal, StyleSheet, Text, Pressable, View, TextInput } from 'react-native';
 
 const App = () => {
 
@@ -28,8 +29,15 @@ const App = () => {
     },[])
 
   return(
-    <SelectList setSelected={setSelected} data={data} onSelect={() => alert(selected)}  placeholder="Selecione o Sensor" />
+    <SelectList style={styles.comboboxStyle} setSelected={setSelected} data={data} onSelect={() => alert(selected)} placeholder="Criticidade" />
   )
 
 };
 export default App;
+const styles = StyleSheet.create({
+comboboxStyle: {
+  borderColor: '#0066CC',
+  backgroundColor:'#0066CC'
+
+},
+});

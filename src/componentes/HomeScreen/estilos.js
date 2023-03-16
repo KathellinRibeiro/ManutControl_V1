@@ -29,6 +29,18 @@ export default StyleSheet.create({
         padding: 20,
         borderRadius: 20,
     },
+    filter: {
+        height: 40,
+        borderWidth: 1,
+        paddingLeft: 20,
+        margin: 5,
+        borderColor: '#0066CC',
+    },
+    botaoItem: {
+        height: 40,
+        borderColor: '#0066CC',
+    },
+
     title: {
         fontSize: 32,
     },

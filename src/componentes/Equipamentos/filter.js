@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Graficos from './graficos';
-import { cores } from '../../estilos';
 import estilos from './estilos';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import ModalEditar from './modalEditar';
 
-import Combobox from './comboboxSetor'
+import ComboboxCriticidade from './comboboxCriticidade'
+import ComboboxSensor from './comboboxSensor'
+import ComboboxSetor from './comboboxSetor'
 
 import {
     SafeAreaView,
@@ -12,6 +14,7 @@ import {
     View,
     FlatList,
     TextInput,
+    TouchableOpacity
 } from 'react-native';
 
 const App = () => {
@@ -51,13 +54,29 @@ const App = () => {
     const ItemView = ({ item }) => {
         return (
             <>
-                <Text
-                    style={estilos.item}
-                    onPress={() => getItem(item)}>
-                    {item.id}
-                    {' - '}
-                    {item.title.toUpperCase()}                
-                </Text>
+                <View style={estilos.item}>
+                    <Text
+                        onPress={() => getItem(item)}>
+                        {item.id}
+                        {' - '}
+                        {item.title.toUpperCase()}
+                    </Text>
+
+                    <View style={estilos.containerItem}>
+
+                        {/* <FontAwesome.Button style={estilos.botaoItemEditar} name="edit"
+                        // onPress={}
+                        ></FontAwesome.Button> */}
+
+                        <ModalEditar></ModalEditar>
+                        {/* <FontAwesome.Button style={estilos.botaoItemExcluir} name="remove"
+                        // onPress={}
+                        ></FontAwesome.Button> */}
+
+                    </View>
+
+                </View>
+
             </>
         );
     };
@@ -70,18 +89,21 @@ const App = () => {
         <SafeAreaView style={{ flex: 1 }}>
             <View style={estilos.container}>
                 <TextInput
-                    style={estilos.filter}
+                    style={styles.textInputStyle}
                     onChangeText={(text) => searchFilter(text)}
                     value={search}
                     underlineColorAndroid="transparent"
                     placeholder="Procure Aqui"
                 />
-                <Combobox></Combobox>
+                <ComboboxCriticidade style={styles.combobox}></ComboboxCriticidade>
+                <ComboboxSensor></ComboboxSensor>
+                <ComboboxSetor></ComboboxSetor>
                 <FlatList
                     data={filteredData}
                     keyExtractor={item => item.id}
                     renderItem={ItemView}
                 />
+
             </View>
         </SafeAreaView>
     );
@@ -100,6 +122,12 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     textInputStyle: {
+        height: 40,
+        borderWidth: 1,
+        paddingLeft: 20,
+        margin: 5,
+    },
+    combobox: {
         height: 40,
         borderWidth: 1,
         paddingLeft: 20,
