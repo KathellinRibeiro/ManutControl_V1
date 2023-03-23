@@ -45,8 +45,8 @@ export default function Graficos() {
         }}
         width={(Dimensions.get("screen").width) - 75} // from react-native
         height={80}
-        yAxisLabel="$"
-        yAxisSuffix="k"
+        yAxisLabel=""
+        yAxisSuffix="V"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: "#e26a00",

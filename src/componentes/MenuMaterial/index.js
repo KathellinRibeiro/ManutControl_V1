@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View,SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,6 +10,8 @@ import estilos from './estilos';
 import HomeScreen from '../HomeScreen';
 import Filter from '../HomeScreen/filter'
 import Equipamentos from '../Equipamentos'
+import Alerta from '../Alertas'
+import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 function Feed() {
   return (
@@ -56,9 +58,14 @@ function Profile() {
 
 function Notifications() {
   return (
-    <View style={estilos.TabScreen}>
-      <Text>Notifications!</Text>
+    <>
+      <View style={estilos.TabScreen }>
+     
+  <Alerta/>
+
     </View>
+    </>
+  
   );
 }
 function TopBar() {
@@ -118,7 +125,7 @@ function MyTabsBottom() {
         name="Notifications"
         component={Notifications}
         options={{
-          tabBarLabel: 'Alert',
+          tabBarLabel: 'Alerta',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="bell" color={color} size={26} />
           ),
@@ -128,7 +135,7 @@ function MyTabsBottom() {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Usuário',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),

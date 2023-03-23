@@ -1,16 +1,11 @@
 import * as React from 'react';
 
-
-import Table from './table'
-
-import {Table4} from './table4'
-
-import TableO from './filter'
+import Filter from './filter'
 
 export default function Equipamentos() {
     return (
         <>
-            <TableO></TableO>
+            <Filter></Filter>
         </>
     );
 }
