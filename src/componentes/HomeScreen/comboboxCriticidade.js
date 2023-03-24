@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { SelectList } from 'react-native-dropdown-select-list'
+import { SelectList } from 'react-native-dropdown-select-list';
+import Rotas from '../../RotasManut'
 
 const App = () => {
 
