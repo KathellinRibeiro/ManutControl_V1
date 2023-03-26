@@ -4,10 +4,10 @@ const connectionString = 'http://10.0.2.2:3000/api/';
 
 
 const routesSensor = connectionString + 'sensor/';
-const routesEquipamento = '${connectionString}/routes/databaseEquipamento.js';
+const routesEquipamento = connectionString + 'equipamento/';
 const routesCriticidade = connectionString + 'criticidade/';
 const routesSetor = connectionString + 'setor/';
-const routesStatus = '${connectionString}/routes/databaseStatus.js';
+const routesStatus = connectionString + 'status/';
 
 const rotas = {
     routesSensor: routesSensor,

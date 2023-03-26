@@ -2,10 +2,17 @@ import React, { useState, useEffect } from 'react';
 import estilos from './estilos';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import ModalEditar from './modalEditar';
+import axios from 'axios';
 
-import ComboboxCriticidade from './comboboxCriticidade'
-import ComboboxSensor from './comboboxSensor'
-import ComboboxSetor from './comboboxSetor'
+import ComboboxCriticidade from './comboboxCriticidade';
+import ComboboxSensor from './comboboxSensor';
+import ComboboxSetor from './comboboxSetor';
+
+
+import Rotas from '../../RotasManut';
+
+axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
 import {
     SafeAreaView,
@@ -22,8 +29,10 @@ const App = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [masterData, setMasterData] = useState([]);
 
+
+
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/todos')
+        fetch(Rotas.routesEquipamento + 'getAll')
             .then((response) => response.json())
             .then((responseJson) => {
                 setFilteredData(responseJson);
@@ -38,8 +47,8 @@ const App = () => {
         if (text) {
             const newData = masterData.filter(
                 function (item) {
-                    if (item.title) {
-                        const itemData = item.title.toUpperCase();
+                    if (item.Descricao) {
+                        const itemData = item.Descricao.toUpperCase();
                         const textData = text.toUpperCase();
                         return itemData.indexOf(textData) > -1;
                     }
@@ -57,9 +66,23 @@ const App = () => {
                 <View style={estilos.item}>
                     <Text
                         onPress={() => getItem(item)}>
-                        {item.id}
+                        Nome: 
+                        {item.Descricao.toUpperCase()}
                         {' - '}
-                        {item.title.toUpperCase()}
+                        {item.Tag}
+
+                    </Text>
+                    <Text
+                        onPress={() => getItem(item)}>
+                        Tag:                         
+                        {item.Tag}
+
+                    </Text>
+                    <Text
+                        onPress={() => getItem(item)}>
+                        Status:                         
+                        {item.Status}
+
                     </Text>
 
                     <View style={estilos.containerItem}>
@@ -82,7 +105,7 @@ const App = () => {
     };
 
     const getItem = (item) => {
-        alert('Id : ' + item.id + '\n\nTarefa : ' + item.title + '\n\nCompletada: ' + item.completed);
+        alert('Id : ' + item._id + '\n\nTarefa : ' + item.Descricao + '\n\nCompletada: ');
     };
 
     return (
@@ -100,7 +123,7 @@ const App = () => {
                 <ComboboxSetor></ComboboxSetor>
                 <FlatList
                     data={filteredData}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item._id}
                     renderItem={ItemView}
                 />
 

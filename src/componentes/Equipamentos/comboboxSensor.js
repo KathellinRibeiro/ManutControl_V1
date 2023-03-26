@@ -15,7 +15,7 @@ const App = () => {
   React.useEffect(() => {
     //Get Values from database
     const loadData = async () => {
-    axios.get(Rotas.routesSensor+'getTest')
+    axios.get(Rotas.routesSensor+'getAll')
       .then((response) => {
         // Store Values in Temporary Array
         let newArray = response.data.map((item) => {
