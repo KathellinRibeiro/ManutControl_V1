@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SelectList } from 'react-native-dropdown-select-list';
 import axios from 'axios';
+import Rotas from '../../RotasManut';
 
 const App = () => {
 
@@ -10,11 +11,11 @@ const App = () => {
   React.useEffect(() => {
     //Get Values from database
     const loadData = async () => {
-    axios.get('https://jsonplaceholder.typicode.com/users')
+    axios.get(Rotas.routesCriticidade+'getAll')
       .then((response) => {
         // Store Values in Temporary Array
         let newArray = response.data.map((item) => {
-          return {key: item.id, value: item.name}
+          return {key: item._id, value: item.Descricao}
         })
         //Set Data Variable
         setData(newArray)
