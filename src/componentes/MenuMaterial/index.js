@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View,SafeAreaView } from 'react-native';
+import { Text, View, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -11,6 +11,8 @@ import HomeScreen from '../HomeScreen';
 import Filter from '../HomeScreen/filter'
 import Equipamentos from '../Equipamentos'
 import Alerta from '../Alertas'
+import Usuario from '../Configuracao/Usuario';
+import TestNav from '../Configuracao/Navegation';
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 function Feed() {
@@ -25,7 +27,7 @@ function Home() {
   return (
     <>
       <View style={estilos.TabScreen}>
-        <HomeScreen/>
+        <HomeScreen />
       </View>
     </>
   );
@@ -34,11 +36,11 @@ function Home() {
 function Equipamento() {
   return (
     <>
-     <View style={estilos.TabScreen}>
+      <View style={estilos.TabScreen}>
 
-<Equipamentos></Equipamentos>
-    </View>
-    </>   
+        <Equipamentos></Equipamentos>
+      </View>
+    </>
   );
 }
 
@@ -51,7 +53,9 @@ const state = {
 function Profile() {
   return (
     <View style={estilos.TabScreen}>
-      <Text>Profile!</Text>
+   <TestNav></TestNav>
+      
+     
     </View>
   );
 }
@@ -59,13 +63,13 @@ function Profile() {
 function Notifications() {
   return (
     <>
-      <View style={estilos.TabScreen }>
-     
-  <Alerta/>
+      <View style={estilos.TabScreen}>
 
-    </View>
+        <Alerta />
+
+      </View>
     </>
-  
+
   );
 }
 function TopBar() {
@@ -135,7 +139,7 @@ function MyTabsBottom() {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: 'Usuário',
+          tabBarLabel: 'Configuração',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),

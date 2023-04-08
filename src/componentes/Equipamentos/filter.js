@@ -66,7 +66,7 @@ const App = () => {
                 <View style={estilos.item}>
                     <Text
                         onPress={() => getItem(item)}>
-                        Nome: 
+                        Nome:
                         {item.Descricao.toUpperCase()}
                         {' - '}
                         {item.Tag}
@@ -74,17 +74,27 @@ const App = () => {
                     </Text>
                     <Text
                         onPress={() => getItem(item)}>
-                        Tag:                         
+                        Tag:
                         {item.Tag}
 
                     </Text>
                     <Text
                         onPress={() => getItem(item)}>
-                        Status:                         
-                        {item.Status}
-
+                        Status:
+                        {item.Status.map(({Descricao}) => <Text>{Descricao}</Text>)}
+                    </Text>
+                    <Text
+                        onPress={() => getItem(item)}>
+                        Sensor:
+                        {item.Sensor.map(({Descricao}) => <Text>{Descricao}</Text>)}
                     </Text>
 
+                    <Text
+                        onPress={() => getItem(item)}>
+                        Criticidade:
+                        {item.Criticidade.map(({Descricao}) => <Text>{Descricao}</Text>)}
+                    </Text>
+                
                     <View style={estilos.containerItem}>
 
                         {/* <FontAwesome.Button style={estilos.botaoItemEditar} name="edit"
