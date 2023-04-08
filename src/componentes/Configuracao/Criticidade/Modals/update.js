@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Dimensions, Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, SafeAreaView } from 'react-native';
-import estilos from '../../../estilos';
+import estilos from '../../../../estilos';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 const width = Dimensions.get('screen').width;
 
