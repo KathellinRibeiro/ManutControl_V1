@@ -1,18 +1,76 @@
 import React, { Component } from 'react';
-import {Dimensions, Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, SafeAreaView } from 'react-native';
-import estilos from '../../../../estilos';
+import { Dimensions, Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, SafeAreaView } from 'react-native';
+import estilos from '../../estilos';
+import axios from 'axios';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 const width = Dimensions.get('screen').width;
+import Rotas from '../../../../RotasManut';
+import ComboboxCriticidade from '../Modals/comboboxCriticidade'
 
+axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
+axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
+
+let itemOrigem;
+let descricaoEditada;
+
+
+function excluirItem(item) {
+    console.log(item);
+    console.log(item._id);
+    fetch(Rotas.routesCriticidade + 'delete/' + item._id, {
+        method: 'DELETE',
+    });
+    window.location.reload(true);
+};
+
+function editarItem(item) {
+    console.log(item);
+    console.log(item._id);
+
+
+    fetch(Rotas.routesCriticidade + 'update/' + item._id, {
+        method: 'PUT',
+        body: JSON.stringify({
+            "Descricao": "Baixa",
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+        .then((response) => response.json())
+        .then((json) => console.log(JSON.stringify(json)));
+};
+
+
+function editar() {
+    console.log(descricaoEditada);
+
+
+    fetch(Rotas.routesCriticidade + 'update/' + itemOrigem._id, {
+        method: 'PUT',
+        body: JSON.stringify({
+            "Descricao": descricaoEditada,
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+        .then((response) => response.json())
+        .then((json) => console.log(JSON.stringify(json)));
+};
 
 
 class App extends Component {
     state = {
         modalVisible: false,
     };
-
     render() {
+        itemOrigem = this.props.item;
         const { modalVisible } = this.state;
+
+        console.log(itemOrigem._id);
+        descricaoEditada = itemOrigem.Descricao;
+
         return (
             <View style={styles.centeredView}>
                 <Modal
@@ -26,35 +84,28 @@ class App extends Component {
 
 
                     <View >
-
                         <View style={styles.modalView}>
-                            <Text style={styles.textCardStyle}>Editar Equipamento</Text>
+                            <Text style={styles.textCardStyle}>Editar Criticidade</Text>
                             <View style={styles.cardStyle} >
                             </View>
 
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                    <Text style={styles.text}>Código Equipamento</Text>
-                                    <TextInput style={styles.textInputStyle} placeholder="Nome Equipamento" />
-                                    <View style={styles.comboboxStyle}>
-
-                                    </View>
-                                    <View style={styles.comboboxStyle}>
-
-                                    </View>
-                                    <View style={styles.comboboxStyle}>
-
-
-                                    </View>
+                                    <Text style={styles.text}>{itemOrigem._id}</Text>
+                                    <TextInput style={styles.textInputStyle} id={itemOrigem._id}
+                                        onChangeText={(text) => descricaoEditada = text}
+                                        onChange={(text) => descricaoEditada = text}
+                                        defaultValue={descricaoEditada}
+                                    />
                                 </View>
-
                             </SafeAreaView>
                             <View style={styles.viewButton}>
                                 <Pressable
                                     style={[styles.button, styles.buttonSave]}
-                                    onPress={() => this.setState({ modalVisible: !modalVisible })}>
+                                    onPress={() => editar()}>
                                     <Text style={styles.textStyle}>Salvar</Text>
                                 </Pressable>
+
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
                                     onPress={() => this.setState({ modalVisible: !modalVisible })}>
@@ -65,11 +116,14 @@ class App extends Component {
                         </View>
                     </View>
                 </Modal>
-                <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
+                {/*       <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
                 // onPress={}
                 ></FontAwesome.Button>
-
-                <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => this.setState()} name="remove"
+ */}
+                <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => editarItem(itemOrigem)} name="edit"
+                // onPress={}
+                ></FontAwesome.Button>
+                <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(itemOrigem)} name="remove"
                 // onPress={}
                 ></FontAwesome.Button>
                 {/*        <Pressable
@@ -173,7 +227,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal:'12%',
+        paddingHorizontal: '12%',
 
     },
 });

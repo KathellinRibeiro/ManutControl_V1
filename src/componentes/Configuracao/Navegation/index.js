@@ -2,9 +2,21 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { cores } from '../../../estilos';
-import { Text, View, Button } from 'react-native';
+
+import Criticidade from '../Criticidade'
 import { List, Checkbox } from 'react-native-paper';
 
+import {
+  SafeAreaView,
+  Text,
+  ScrollView,
+  StyleSheet,
+  View,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  StatusBar
+} from 'react-native';
 
 const MyTheme = {
   dark: false,
@@ -19,41 +31,18 @@ const MyTheme = {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
 
-  return (
+  return (    
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
         component={MyComponent}
-        options={{ title: 'Welcome' }}
+        options={{ title: 'Configurações' }}
       />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Usuario" component={UsuarioScreen} />
     </Stack.Navigator>
   );
 };
@@ -70,340 +59,214 @@ class MyComponent extends React.Component {
     expanded4: false,
     expanded5: false,
     expanded6: false
-}
+  }
 
-_handlePress = () =>
+  _handlePress = () =>
     this.setState({
-        expanded: !this.state.expanded,
-        expanded1: false,
-        expanded2: false,
-        expanded3: false,
-        expanded4: false,
-        expanded5: false,
-        expanded6: false
+      expanded: !this.state.expanded,
+      expanded1: false,
+      expanded2: false,
+      expanded3: false,
+      expanded4: false,
+      expanded5: false,
+      expanded6: false
     });
-_handlePres1 = () =>
+  _handlePres1 = () =>
     this.setState({
-        expanded1: !this.state.expanded1,
-        expanded: false,
-        expanded2: false,
-        expanded3: false,
-        expanded4: false,
-        expanded5: false,
-        expanded6: false
+      expanded1: !this.state.expanded1,
+      expanded: false,
+      expanded2: false,
+      expanded3: false,
+      expanded4: false,
+      expanded5: false,
+      expanded6: false
     });
-_handlePres2 = () =>
+  _handlePres2 = () =>
     this.setState({
-        expanded1: false,
-        expanded: false,
-        expanded2: !this.state.expanded2,
-        expanded3: false,
-        expanded4: false,
-        expanded5: false,
-        expanded6: false
+      expanded1: false,
+      expanded: false,
+      expanded2: !this.state.expanded2,
+      expanded3: false,
+      expanded4: false,
+      expanded5: false,
+      expanded6: false
     });
-_handlePres3 = () =>
+  _handlePres3 = () =>
     this.setState({
-        expanded1: false,
-        expanded: false,
-        expanded2: false,
-        expanded3: !this.state.expanded3,
-        expanded4: false,
-        expanded5: false,
-        expanded6: false
+      expanded1: false,
+      expanded: false,
+      expanded2: false,
+      expanded3: !this.state.expanded3,
+      expanded4: false,
+      expanded5: false,
+      expanded6: false
     });
-_handlePres4 = () =>
+  _handlePres4 = () =>
     this.setState({
-        expanded1: false,
-        expanded: false,
-        expanded2: false,
-        expanded3: false,
-        expanded4: !this.state.expanded4,
-        expanded5: false,
-        expanded6: false
+      expanded1: false,
+      expanded: false,
+      expanded2: false,
+      expanded3: false,
+      expanded4: !this.state.expanded4,
+      expanded5: false,
+      expanded6: false
     });
-_handlePres5 = () =>
+  _handlePres5 = () =>
     this.setState({
-        expanded1: false,
-        expanded: false,
-        expanded2: false,
-        expanded3: false,
-        expanded4: false,
-        expanded5: !this.state.expanded5,
-        expanded6: false
+      expanded1: false,
+      expanded: false,
+      expanded2: false,
+      expanded3: false,
+      expanded4: false,
+      expanded5: !this.state.expanded5,
+      expanded6: false
     });
-_handlePres6 = () =>
+  _handlePres6 = () =>
     this.setState({
-        expanded1: false,
-        expanded: false,
-        expanded2: false,
-        expanded3: false,
-        expanded4: false,
-        expanded5: false,
-        expanded6: !this.state.expanded6
+      expanded1: false,
+      expanded: false,
+      expanded2: false,
+      expanded3: false,
+      expanded4: false,
+      expanded5: false,
+      expanded6: !this.state.expanded6
     });
 
-render() {
-  const { navigate } = this.props.navigation;
+  render() {
+    const { navigate } = this.props.navigation;
     return (
+      <SafeAreaView style={style.container}>
+          <ScrollView>
         <List.Section title="Configurações">
-            <List.Accordion
-                title="Usuário"
-                left={props => <List.Icon {...props} icon="folder" />}
-                expanded={this.state.expanded}
-                onPress={this._handlePress}
-            >
-                <List.Item title="Gerenciar Usuário"
-                     onPress={() =>
-                      navigate('Profile', { name: 'Jane' })
-                    }
-                />
-            </List.Accordion>
+          <List.Accordion
+            title="Usuário"
+            left={props => <List.Icon {...props} icon="folder" />}
+            expanded={this.state.expanded}
+            onPress={this._handlePress}
+          >
+            <List.Item title="Gerenciar Usuário"
+              onPress={() =>
+                navigate('Usuario')
+              }
+            />
+          </List.Accordion>
 
-            <List.Accordion
-                title="Equipamentos"
-                left={props => <List.Icon {...props} icon="folder" />}
-                expanded={this.state.expanded1}
-                onPress={this._handlePres1}
-            >
-                <List.Item title="First item" />
-                <List.Item title="Second item" />
-            </List.Accordion>
+          <List.Accordion
+            title="Equipamentos"
+            left={props => <List.Icon {...props} icon="folder" />}
+            expanded={this.state.expanded1}
+            onPress={this._handlePres1}
+          >
+            <List.Item title="First item" />
+            <List.Item title="Second item" />
+          </List.Accordion>
 
-            <List.Accordion
-                title="Indicadores"
-                left={props => <List.Icon {...props} icon="folder" />}
-                expanded={this.state.expanded2}
-                onPress={this._handlePres2}
-            >
-                <List.Item title="MTTR" />
-                <List.Item title="MTBF" />
-                <List.Item title="Disponibilidade" />
-            </List.Accordion>
+          <List.Accordion
+            title="Indicadores"
+            left={props => <List.Icon {...props} icon="folder" />}
+            expanded={this.state.expanded2}
+            onPress={this._handlePres2}
+          >
+            <List.Item title="MTTR" />
+            <List.Item title="MTBF" />
+            <List.Item title="Disponibilidade" />
+          </List.Accordion>
 
-            <List.Accordion
-                title="Sensor"
-                left={props => <List.Icon {...props} icon="folder" />}
-                expanded={this.state.expanded3}
-                onPress={this._handlePres3}
-            >
-                <List.Item title="Gerenciador de sensor" />
-            </List.Accordion>
+          <List.Accordion
+            title="Sensor"
+            left={props => <List.Icon {...props} icon="folder" />}
+            expanded={this.state.expanded3}
+            onPress={this._handlePres3}
+          >
+            <List.Item title="Gerenciador de sensor" />
+          </List.Accordion>
 
-            <List.Accordion
-                title="Setor"
-                left={props => <List.Icon {...props} icon="folder" />}
-                expanded={this.state.expanded4}
-                onPress={this._handlePres4}
-            >
-                <List.Item title="Gerenciador de setor" />
-            </List.Accordion>
-
-            <List.Accordion
-                title="Status"
-                left={props => <List.Icon {...props} icon="folder" />}
-                expanded={this.state.expanded5}
-                onPress={this._handlePres5}
-            >
-                <List.Item title="Gerenciador de status" />
-            </List.Accordion>
+          <List.Accordion
+            title="Setor"
+            left={props => <List.Icon {...props} icon="folder" />}
+            expanded={this.state.expanded4}
+            onPress={this._handlePres4}
+          >
+            <List.Item title="Gerenciador de setor" />
+          </List.Accordion>
 
 
-            <List.Accordion
-                title="Criticidade"
-                left={props => <List.Icon {...props} icon="folder" />}
-                expanded={this.state.expanded6}
-                onPress={this._handlePres6}
-            >
-                <List.Item title="Gerenciador de criticidade" 
-                />
-            </List.Accordion>
+
+          <List.Accordion
+            title="Criticidade"
+            left={props => <List.Icon {...props} icon="folder" />}
+            expanded={this.state.expanded6}
+            onPress={this._handlePres6}
+          >
+            <List.Item title="Gerenciador de criticidade"
+              onPress={() =>
+                navigate('Usuario')
+              }
+            />
+          </List.Accordion>
+          <List.Accordion
+            title="Status"
+            left={props => <List.Icon {...props} icon="folder" />}
+            expanded={this.state.expanded5}
+            onPress={this._handlePres5}
+          >
+            <List.Item title="Gerenciador de status" />
+          </List.Accordion>
+
         </List.Section>
+        </ScrollView>
+      </SafeAreaView>
     );
-}
+  }
 
 }
 
 
 
 
-
-
-const HomeScreen  = ({ navigation }) => {
-
-
-  const [ state = {
-    expanded: false,
-    expanded1: true,
-    expanded2: false,
-    expanded3: false,
-    expanded4: false,
-    expanded5: false,
-    expanded6: false
-}, setState] = React.useState([]);
-
-  
-
-  const _handlePress = () =>
-    setState({
-      expanded: state.expanded,
-      expanded1: false,
-      expanded2: false,
-      expanded3: false,
-      expanded4: false,
-      expanded5: false,
-      expanded6: false
-    });
-    const  _handlePres1 = () =>
-    setState({
-      expanded1: state.expanded1,
-      expanded: false,
-      expanded2: false,
-      expanded3: false,
-      expanded4: false,
-      expanded5: false,
-      expanded6: false
-    });
-    const _handlePres2 = () =>
-    setState({
-      expanded1: false,
-      expanded: false,
-      expanded2: state.expanded2,
-      expanded3: false,
-      expanded4: false,
-      expanded5: false,
-      expanded6: false
-    });
-    const _handlePres3 = () =>
-    setState({
-      expanded1: false,
-      expanded: false,
-      expanded2: false,
-      expanded3: state.expanded3,
-      expanded4: false,
-      expanded5: false,
-      expanded6: false
-    });
-    const _handlePres4 = () =>
-    setState({
-      expanded1: false,
-      expanded: false,
-      expanded2: false,
-      expanded3: false,
-      expanded4: state.expanded4,
-      expanded5: false,
-      expanded6: false
-    });
-    const _handlePres5 = () =>
-    setState({
-      expanded1: false,
-      expanded: false,
-      expanded2: false,
-      expanded3: false,
-      expanded4: false,
-      expanded5: state.expanded5,
-      expanded6: false
-    });
-    const _handlePres6 = () =>
-    setState({
-      expanded1: false,
-      expanded: false,
-      expanded2: false,
-      expanded3: false,
-      expanded4: false,
-      expanded5: false,
-      expanded6: state.expanded6
-    });
-
-      return (
-        <>
-          <List.Section title="Configurações">
-            <List.Accordion
-              title="Usuário"
-              left={props => <List.Icon {...props} icon="folder" />}
-              expanded={state.expanded}
-              onPress={_handlePress}
-            >
-              <List.Item title="Gerenciar Usuário"
-                onPress={() =>
-                  navigation.navigate('Profile', { name: 'Jane' })
-                }
-              />
-            </List.Accordion>     
-
-            
-                <List.Accordion
-                    title="Equipamentos"
-                    left={props => <List.Icon {...props} icon="folder" />}
-                    expanded={state.expanded1}
-                    onPress={_handlePres1}
-                >
-                    <List.Item title="First item" />
-                    <List.Item title="Second item" />
-                </List.Accordion>
-
-                <List.Accordion
-                    title="Indicadores"
-                    left={props => <List.Icon {...props} icon="folder" />}
-                    expanded={state.expanded2}
-                    onPress={_handlePres2}
-                >
-                    <List.Item title="MTTR" />
-                    <List.Item title="MTBF" />
-                    <List.Item title="Disponibilidade" />
-                </List.Accordion>
-
-                <List.Accordion
-                    title="Sensor"
-                    left={props => <List.Icon {...props} icon="folder" />}
-                    expanded={state.expanded3}
-                    onPress={_handlePres3}
-                >
-                    <List.Item title="Gerenciador de sensor" />
-                </List.Accordion>
-
-                <List.Accordion
-                    title="Setor"
-                    left={props => <List.Icon {...props} icon="folder" />}
-                    expanded={state.expanded4}
-                    onPress={_handlePres4}
-                >
-                    <List.Item title="Gerenciador de setor" />
-                </List.Accordion>
-
-                <List.Accordion
-                    title="Status"
-                    left={props => <List.Icon {...props} icon="folder" />}
-                    expanded={state.expanded5}
-                    onPress={_handlePres5}
-                >
-                    <List.Item title="Gerenciador de status" />
-                </List.Accordion>
-
-
-                <List.Accordion
-                    title="Criticidade"
-                    left={props => <List.Icon {...props} icon="folder" />}
-                    expanded={state.expanded6}
-                    onPress={_handlePres6}
-                >
-                    <List.Item title="Gerenciador de criticidade" 
-                      
-                    />
-                </List.Accordion>         
-          </List.Section>
-        </>
-    
-      );
-
-    
-
-};
-const ProfileScreen = ({ navigation, route }) => {
-  return <Text>This is {route.params.name}'s profile</Text>;
+const UsuarioScreen = ({ navigation, route }) => {
+  return <Criticidade></Criticidade>;
 };
 
+
+const style = StyleSheet.create({
+  TextGrafico: {
+    color: '#FFFF',
+    fontWeight: 'bold',
+    fontSize: 20
+  },
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight,
+  },
+  item: {
+    backgroundColor: cores.azulClaro,
+    height: 150,
+    justifyContent: 'center',
+    marginVertical: 8,
+    marginHorizontal: 16,
+    padding: 20,
+    borderRadius: 20,
+  },
+  filter: {
+    height: 40,
+    borderWidth: 1,
+    paddingLeft: 20,
+    margin: 5,
+    borderColor: '#0066CC',
+  },
+  botaoItem: {
+    height: 40,
+    borderColor: '#0066CC',
+  },
+
+  title: {
+    fontSize: 32,
+  },
+
+});
 
 
 
 export default MyStack;
+
