@@ -5,7 +5,7 @@ import axios from 'axios';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 const width = Dimensions.get('screen').width;
 import Rotas from '../../../../RotasManut';
-import ComboboxCriticidade from '../Modals/comboboxCriticidade'
+//import ComboboxCriticidade from '../Modals/comboboxCriticidade'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
@@ -20,7 +20,7 @@ function excluirItem(item) {
     fetch(Rotas.routesCriticidade + 'delete/' + item._id, {
         method: 'DELETE',
     });
-    window.location.reload(true);
+    // window.location.reload(true);
 };
 
 function editarItem(item) {
@@ -116,13 +116,13 @@ class App extends Component {
                         </View>
                     </View>
                 </Modal>
-                {/*       <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
+                <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
                 // onPress={}
                 ></FontAwesome.Button>
- */}
-                <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => editarItem(itemOrigem)} name="edit"
+
+                {/* <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => editar()} name="edit"
                 // onPress={}
-                ></FontAwesome.Button>
+                ></FontAwesome.Button> */}
                 <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(itemOrigem)} name="remove"
                 // onPress={}
                 ></FontAwesome.Button>

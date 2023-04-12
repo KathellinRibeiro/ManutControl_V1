@@ -29,6 +29,16 @@ export default StyleSheet.create({
         paddingTop:25,
         borderRadius: 20,
     },
+    itemMaior: {
+        backgroundColor: cores.azulClaro,
+        height: 165,
+        justifyContent: 'center',
+        marginVertical: 8,
+        marginHorizontal: 16,
+        padding: 20,
+        paddingTop:25,
+        borderRadius: 20,
+    },
     title: {
         fontSize: 32,
     },

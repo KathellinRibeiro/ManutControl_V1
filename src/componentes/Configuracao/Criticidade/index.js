@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import estilos from '../estilos';
+import estilosConfig from '../estilosConfig'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import axios from 'axios';
 
-import ComboboxCriticidade from '../../Equipamentos/comboboxCriticidade';
+//import ComboboxCriticidade from '../Criticidade/Modals/comboboxCriticidade';
 import Rotas from '../../../RotasManut';
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
@@ -51,7 +52,9 @@ const App = () => {
                     }
                 });
             setFilteredData(newData);
-        } else {
+        }
+
+        else {
             setFilteredData(masterData);
         }
         setSearch(text);
@@ -61,20 +64,19 @@ const App = () => {
         return (
             <>
                 <View style={estilos.item}>
-                <Text style={estilos.TextGrafico}
+                    <Text style={estilos.TextGrafico}
                         onPress={() => getItem(item)}>
                         Id:
                         {item._id.toUpperCase()}
-                        
+
                     </Text>
                     <Text style={estilos.TextGrafico}
                         onPress={() => getItem(item)}>
                         Nome:
                         {item.Descricao.toUpperCase()}
-                    </Text>            
+                    </Text>
 
                     <View style={estilos.containerItem}>
-          
                         <Update item={item}></Update>
                     </View>
 
@@ -92,51 +94,24 @@ const App = () => {
         <SafeAreaView style={{ flex: 1 }}>
             <View style={estilos.container}>
                 <TextInput
-                    style={styles.textInputStyle}
+                    style={estilosConfig.textInputStyle}
                     onChangeText={(text) => searchFilter(text)}
                     value={search}
                     underlineColorAndroid="transparent"
                     placeholder="Procure Aqui"
                 />
-                <ComboboxCriticidade style={styles.combobox}></ComboboxCriticidade>
+                {/*            <ComboboxCriticidade
+                    onPress={() =>  console.log(this.props.item)}
+
+                    style={estilosConfig.combobox}></ComboboxCriticidade> */}
                 <FlatList
                     data={filteredData}
                     keyExtractor={item => item._id}
                     renderItem={ItemView}
                 />
-                
-
             </View>
         </SafeAreaView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: 40,
-        backgroundColor: 'white',
-            marginTop: StatusBar.currentHeight,
-    },
-    itemStyle: {
-        backgroundColor: '#0066CC',
-        padding: 10,
-        marginVertical: 8,
-        marginHorizontal: 10,
-        color: 'white',
-    },
-    textInputStyle: {
-        height: 40,
-        borderWidth: 1,
-        paddingLeft: 20,
-        margin: 5,
-    },
-    combobox: {
-        height: 40,
-        borderWidth: 1,
-        paddingLeft: 20,
-        margin: 5,
-        borderColor: '#0066CC',
-    },
-});
 
 export default App;

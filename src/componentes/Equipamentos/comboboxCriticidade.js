@@ -29,7 +29,7 @@ const App = () => {
     },[])
 
   return(
-    <SelectList setSelected={setSelected} data={data} onSelect={() => alert(selected)} placeholder="Selecione a Criticidade" />
+    <SelectList setSelected={setSelected} data={data} item={setSelected} onSelect={() => alert(selected)} placeholder="Selecione a Criticidade" />
   )
 
 };

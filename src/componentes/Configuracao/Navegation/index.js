@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { cores } from '../../../estilos';
 
 import Criticidade from '../Criticidade'
+import Sensor from '../Sensor'
+import Setor from '../Setor'
 import { List, Checkbox } from 'react-native-paper';
 
 import {
@@ -35,7 +37,7 @@ const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
 
-  return (    
+  return (
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
@@ -43,6 +45,9 @@ const MyStack = () => {
         options={{ title: 'Configurações' }}
       />
       <Stack.Screen name="Usuario" component={UsuarioScreen} />
+      <Stack.Screen name="Criticidade" component={CriticidadeScreen} />
+      <Stack.Screen name="Sensor" component={SensorScreen} />
+      <Stack.Screen name="Setor" component={SetorScreen} />
     </Stack.Navigator>
   );
 };
@@ -136,84 +141,90 @@ class MyComponent extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <SafeAreaView style={style.container}>
-          <ScrollView>
-        <List.Section title="Configurações">
-          <List.Accordion
-            title="Usuário"
-            left={props => <List.Icon {...props} icon="folder" />}
-            expanded={this.state.expanded}
-            onPress={this._handlePress}
-          >
-            <List.Item title="Gerenciar Usuário"
-              onPress={() =>
-                navigate('Usuario')
-              }
-            />
-          </List.Accordion>
+        <ScrollView>
+          <List.Section title="Configurações">
+            <List.Accordion
+              title="Usuário"
+              left={props => <List.Icon {...props} icon="folder" />}
+              expanded={this.state.expanded}
+              onPress={this._handlePress}
+            >
+              <List.Item title="Gerenciar Usuário"
+                onPress={() =>
+                  navigate('Usuario')
+                }
+              />
+            </List.Accordion>
 
-          <List.Accordion
-            title="Equipamentos"
-            left={props => <List.Icon {...props} icon="folder" />}
-            expanded={this.state.expanded1}
-            onPress={this._handlePres1}
-          >
-            <List.Item title="First item" />
-            <List.Item title="Second item" />
-          </List.Accordion>
+            <List.Accordion
+              title="Equipamentos"
+              left={props => <List.Icon {...props} icon="folder" />}
+              expanded={this.state.expanded1}
+              onPress={this._handlePres1}
+            >
+              <List.Item title="First item" />
+              <List.Item title="Second item" />
+            </List.Accordion>
 
-          <List.Accordion
-            title="Indicadores"
-            left={props => <List.Icon {...props} icon="folder" />}
-            expanded={this.state.expanded2}
-            onPress={this._handlePres2}
-          >
-            <List.Item title="MTTR" />
-            <List.Item title="MTBF" />
-            <List.Item title="Disponibilidade" />
-          </List.Accordion>
+            <List.Accordion
+              title="Indicadores"
+              left={props => <List.Icon {...props} icon="folder" />}
+              expanded={this.state.expanded2}
+              onPress={this._handlePres2}
+            >
+              <List.Item title="MTTR" />
+              <List.Item title="MTBF" />
+              <List.Item title="Disponibilidade" />
+            </List.Accordion>
 
-          <List.Accordion
-            title="Sensor"
-            left={props => <List.Icon {...props} icon="folder" />}
-            expanded={this.state.expanded3}
-            onPress={this._handlePres3}
-          >
-            <List.Item title="Gerenciador de sensor" />
-          </List.Accordion>
+            <List.Accordion
+              title="Sensor"
+              left={props => <List.Icon {...props} icon="folder" />}
+              expanded={this.state.expanded3}
+              onPress={this._handlePres3}
+            >
+              <List.Item title="Gerenciador de sensor"
+                onPress={() =>
+                  navigate('Sensor')
+                } />
+            </List.Accordion>
 
-          <List.Accordion
-            title="Setor"
-            left={props => <List.Icon {...props} icon="folder" />}
-            expanded={this.state.expanded4}
-            onPress={this._handlePres4}
-          >
-            <List.Item title="Gerenciador de setor" />
-          </List.Accordion>
+            <List.Accordion
+              title="Setor"
+              left={props => <List.Icon {...props} icon="folder" />}
+              expanded={this.state.expanded4}
+              onPress={this._handlePres4}
+            >
+              <List.Item title="Gerenciador de setor" 
+               onPress={() =>
+                  navigate('Setor')
+                }/>
+            </List.Accordion>
 
 
 
-          <List.Accordion
-            title="Criticidade"
-            left={props => <List.Icon {...props} icon="folder" />}
-            expanded={this.state.expanded6}
-            onPress={this._handlePres6}
-          >
-            <List.Item title="Gerenciador de criticidade"
-              onPress={() =>
-                navigate('Usuario')
-              }
-            />
-          </List.Accordion>
-          <List.Accordion
-            title="Status"
-            left={props => <List.Icon {...props} icon="folder" />}
-            expanded={this.state.expanded5}
-            onPress={this._handlePres5}
-          >
-            <List.Item title="Gerenciador de status" />
-          </List.Accordion>
+            <List.Accordion
+              title="Criticidade"
+              left={props => <List.Icon {...props} icon="folder" />}
+              expanded={this.state.expanded6}
+              onPress={this._handlePres6}
+            >
+              <List.Item title="Gerenciador de criticidade"
+                onPress={() =>
+                  navigate('Criticidade')
+                }
+              />
+            </List.Accordion>
+            <List.Accordion
+              title="Status"
+              left={props => <List.Icon {...props} icon="folder" />}
+              expanded={this.state.expanded5}
+              onPress={this._handlePres5}
+            >
+              <List.Item title="Gerenciador de status" />
+            </List.Accordion>
 
-        </List.Section>
+          </List.Section>
         </ScrollView>
       </SafeAreaView>
     );
@@ -228,6 +239,17 @@ const UsuarioScreen = ({ navigation, route }) => {
   return <Criticidade></Criticidade>;
 };
 
+const CriticidadeScreen = ({ navigation, route }) => {
+  return <Criticidade></Criticidade>;
+};
+
+const SensorScreen = ({ navigation, route }) => {
+  return <Sensor></Sensor>;
+};
+
+const SetorScreen = ({ navigation, route }) => {
+  return <Setor></Setor>;
+};
 
 const style = StyleSheet.create({
   TextGrafico: {
