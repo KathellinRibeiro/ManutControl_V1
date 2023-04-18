@@ -53,9 +53,9 @@ const state = {
 function Profile() {
   return (
     <View style={estilos.TabScreen}>
-   <TestNav></TestNav>
-      
-     
+      <TestNav></TestNav>
+
+
     </View>
   );
 }
@@ -115,11 +115,22 @@ function MyTabsBottom() {
           ),
         }}
       />
-      <Tab.Screen
+{/*       <Tab.Screen
         name="Equipamento"
         component={Equipamento}
         options={{
           tabBarLabel: 'Equipamento',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="bell" color={color} size={26} />
+          ),
+        }}
+      /> */}
+
+      <Tab.Screen
+        name="Equipamento"
+        component={Equipamento}
+        options={{
+          tabBarLabel: 'Indicadores',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="bell" color={color} size={26} />
           ),

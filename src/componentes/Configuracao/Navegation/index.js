@@ -6,6 +6,8 @@ import { cores } from '../../../estilos';
 import Criticidade from '../Criticidade'
 import Sensor from '../Sensor'
 import Setor from '../Setor'
+import Status from '../Status'
+import Equipamentos from '../../Equipamentos'
 import { List, Checkbox } from 'react-native-paper';
 
 import {
@@ -48,6 +50,8 @@ const MyStack = () => {
       <Stack.Screen name="Criticidade" component={CriticidadeScreen} />
       <Stack.Screen name="Sensor" component={SensorScreen} />
       <Stack.Screen name="Setor" component={SetorScreen} />
+      <Stack.Screen name="Status" component={StatusScreen} />
+      <Stack.Screen name="Equipamentos" component={EquipamentosScreen} />
     </Stack.Navigator>
   );
 };
@@ -162,7 +166,9 @@ class MyComponent extends React.Component {
               expanded={this.state.expanded1}
               onPress={this._handlePres1}
             >
-              <List.Item title="First item" />
+              <List.Item title="Gerenciador de Equipamentos"   onPress={() =>
+                  navigate('Equipamentos')
+                } />
               <List.Item title="Second item" />
             </List.Accordion>
 
@@ -221,7 +227,10 @@ class MyComponent extends React.Component {
               expanded={this.state.expanded5}
               onPress={this._handlePres5}
             >
-              <List.Item title="Gerenciador de status" />
+              <List.Item title="Gerenciador de status"
+               onPress={() =>
+                navigate('Status')
+              } />
             </List.Accordion>
 
           </List.Section>
@@ -250,6 +259,15 @@ const SensorScreen = ({ navigation, route }) => {
 const SetorScreen = ({ navigation, route }) => {
   return <Setor></Setor>;
 };
+
+const StatusScreen = ({ navigation, route }) => {
+  return <Status></Status>;
+};
+
+const EquipamentosScreen = ({ navigation, route }) => {
+  return <Equipamentos></Equipamentos>;
+};
+
 
 const style = StyleSheet.create({
   TextGrafico: {

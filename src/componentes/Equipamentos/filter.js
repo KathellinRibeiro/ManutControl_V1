@@ -72,6 +72,7 @@ const App = () => {
                         {item.Tag}
 
                     </Text>
+
                     <Text
                         onPress={() => getItem(item)}>
                         Tag:
@@ -81,20 +82,20 @@ const App = () => {
                     <Text
                         onPress={() => getItem(item)}>
                         Status:
-                        {item.Status.map(({Descricao}) => <Text>{Descricao}</Text>)}
+                        {item.Status.map(({ Descricao }) => <Text>{Descricao}</Text>)}
                     </Text>
                     <Text
                         onPress={() => getItem(item)}>
                         Sensor:
-                        {item.Sensor.map(({Descricao}) => <Text>{Descricao}</Text>)}
+                        {item.Sensor.map(({ Descricao }) => <Text>{Descricao}</Text>)}
                     </Text>
 
                     <Text
                         onPress={() => getItem(item)}>
                         Criticidade:
-                        {item.Criticidade.map(({Descricao}) => <Text>{Descricao}</Text>)}
+                        {item.Criticidade.map(({ Descricao }) => <Text>{Descricao}</Text>)}
                     </Text>
-                
+
                     <View style={estilos.containerItem}>
 
                         {/* <FontAwesome.Button style={estilos.botaoItemEditar} name="edit"
@@ -121,6 +122,9 @@ const App = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={estilos.container}>
+                <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
+                // onPress={}
+                ></FontAwesome.Button>
                 <TextInput
                     style={styles.textInputStyle}
                     onChangeText={(text) => searchFilter(text)}
@@ -128,6 +132,7 @@ const App = () => {
                     underlineColorAndroid="transparent"
                     placeholder="Procure Aqui"
                 />
+
                 <ComboboxCriticidade style={styles.combobox}></ComboboxCriticidade>
                 <ComboboxSensor></ComboboxSensor>
                 <ComboboxSetor></ComboboxSetor>
