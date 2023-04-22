@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ListItem } from '@rneui/themed';
 
-
-
 export default function App() {
     return (
         <ListItem.Accordion

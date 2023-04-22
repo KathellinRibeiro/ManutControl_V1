@@ -60,6 +60,11 @@ export default StyleSheet.create({
     },
     botaoItemEditar: {
         justifyContent: 'center',
+        backgroundColor: "#FFFF00",
+    },
+
+    botaoItemIncluir: {
+        justifyContent: 'center',
         backgroundColor: "#008000",
     },
 

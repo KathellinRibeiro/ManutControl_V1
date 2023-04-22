@@ -11,12 +11,17 @@ axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
 let descricaoEditada;
+let metricInicial;
+let metricFinal;
+
 function incluir() {
     console.log(descricaoEditada);
-    fetch(Rotas.routesSetor + 'post', {
+    fetch(Rotas.routesSensor + 'post', {
         method: 'POST',
         body: JSON.stringify({
-            "Nome": descricaoEditada,
+            "name": descricaoEditada,
+            "metric_Inicial": metricInicial,
+            "metric_Final": metricFinal,
         }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -27,23 +32,6 @@ function incluir() {
 };
 
 
-
-function editar() {
-    console.log(descricaoEditada);
-
-
-    fetch(Rotas.routesSetor + 'update/', {
-        method: 'PUT',
-        body: JSON.stringify({
-            "Nome": descricaoEditada,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
-};
 
 
 class App extends Component {
@@ -64,20 +52,30 @@ class App extends Component {
                         this.setState({ modalVisible: !modalVisible });
                     }}>
 
-
                     <View >
                         <View style={styles.modalView}>
-                            <Text style={styles.textCardStyle}>Incluir Setor</Text>
+                            <Text style={styles.textCardStyle}>Incluir Sensor</Text>
                             <View style={styles.cardStyle} >
                             </View>
-
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                <Text>Descição Setor</Text>
+                                    <Text>Descição sensor</Text>
                                     <TextInput style={styles.textInputStyle}
                                         onChangeText={(text) => descricaoEditada = text}
                                         onChange={(text) => descricaoEditada = text}
                                         defaultValue={descricaoEditada}
+                                    />
+                                    <Text>Métrica Inicial</Text>
+                                    <TextInput style={styles.textInputStyle}
+                                        onChangeText={(text) => metricInicial = text}
+                                        onChange={(text) => metricInicial = text}
+                                        defaultValue={metricInicial}
+                                    />
+                                    <Text>Métrica Final</Text>
+                                    <TextInput style={styles.textInputStyle}
+                                        onChangeText={(text) => metricFinal = text}
+                                        onChange={(text) => metricFinal = text}
+                                        defaultValue={metricFinal}
                                     />
                                 </View>
                             </SafeAreaView>

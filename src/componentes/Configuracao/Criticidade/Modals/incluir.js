@@ -13,7 +13,7 @@ axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 let descricaoEditada;
 function incluir() {
     console.log(descricaoEditada);
-    fetch(Rotas.routesSetor + 'post', {
+    fetch(Rotas.routesCriticidade + 'post', {
         method: 'POST',
         body: JSON.stringify({
             "Nome": descricaoEditada,
@@ -63,14 +63,11 @@ class App extends Component {
                         Alert.alert('Modal has been closed.');
                         this.setState({ modalVisible: !modalVisible });
                     }}>
-
-
                     <View >
                         <View style={styles.modalView}>
-                            <Text style={styles.textCardStyle}>Incluir Setor</Text>
+                            <Text style={styles.textCardStyle}>Incluir Criticidade</Text>
                             <View style={styles.cardStyle} >
                             </View>
-
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
                                 <Text>Descição Setor</Text>

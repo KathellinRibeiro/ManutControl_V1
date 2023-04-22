@@ -13,10 +13,10 @@ axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 let descricaoEditada;
 function incluir() {
     console.log(descricaoEditada);
-    fetch(Rotas.routesSetor + 'post', {
+    fetch(Rotas.routesStatus + 'post', {
         method: 'POST',
         body: JSON.stringify({
-            "Nome": descricaoEditada,
+            "Descricao": descricaoEditada,
         }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -27,23 +27,6 @@ function incluir() {
 };
 
 
-
-function editar() {
-    console.log(descricaoEditada);
-
-
-    fetch(Rotas.routesSetor + 'update/', {
-        method: 'PUT',
-        body: JSON.stringify({
-            "Nome": descricaoEditada,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
-};
 
 
 class App extends Component {
@@ -67,13 +50,12 @@ class App extends Component {
 
                     <View >
                         <View style={styles.modalView}>
-                            <Text style={styles.textCardStyle}>Incluir Setor</Text>
+                            <Text style={styles.textCardStyle}>Incluir Status</Text>
                             <View style={styles.cardStyle} >
                             </View>
-
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                <Text>Descição Setor</Text>
+                                <Text>Descição Status</Text>
                                     <TextInput style={styles.textInputStyle}
                                         onChangeText={(text) => descricaoEditada = text}
                                         onChange={(text) => descricaoEditada = text}
