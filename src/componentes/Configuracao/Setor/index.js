@@ -11,7 +11,8 @@ axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
 
-import Update from './Modals/update'
+import Update from './Modals/update';
+import Incluir from './Modals/incluir';
 import {
     SafeAreaView,
     Text,
@@ -93,6 +94,7 @@ const App = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={estilos.container}>
+                <Incluir></Incluir>
                 <TextInput
                     style={estilosConfig.textInputStyle}
                     onChangeText={(text) => searchFilter(text)}

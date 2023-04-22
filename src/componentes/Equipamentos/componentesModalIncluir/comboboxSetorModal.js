@@ -3,8 +3,6 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import axios from 'axios';
 import Rotas from '../../../RotasManut';
 
-
-
 const App = () => {
 
   const [selected, setSelected] = React.useState("");

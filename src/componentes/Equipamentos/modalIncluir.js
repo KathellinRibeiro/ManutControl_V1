@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {Dimensions, Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, SafeAreaView } from 'react-native';
 import estilos from './estilos';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import ComboboxCriticidadeModalEditar from './componentesModal/comboboxCriticidadeModal';
-import ComboboxSensorModalEditar from './componentesModal/comboboxSensorModal';
-import ComboboxSetorModalEditar from './componentesModal/comboboxSetorModal';
+import ComboboxCriticidadeModalIncluir from './componentesModalIncluir/comboboxCriticidadeModal';
+import ComboboxSensorModalIncluir from './componentesModalIncluir/comboboxSensorModal';
+import ComboboxSetorModalIncluir from './componentesModalIncluir/comboboxSetorModal';
 const width = Dimensions.get('screen').width;
 
 
@@ -31,26 +31,23 @@ class App extends Component {
                     <View >
 
                         <View style={styles.modalView}>
-                            <Text style={styles.textCardStyle}>Editar Equipamento</Text>
+                            <Text style={styles.textCardStyle}>Incluir Equipamento</Text>
                             <View style={styles.cardStyle} >
                             </View>
 
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                    <Text style={styles.text}>Código Equipamento</Text>
                                     <TextInput style={styles.textInputStyle} placeholder="Nome Equipamento" />
                                     <View style={styles.comboboxStyle}>
-                                        <ComboboxCriticidadeModalEditar ></ComboboxCriticidadeModalEditar>
+                                        <ComboboxCriticidadeModalIncluir ></ComboboxCriticidadeModalIncluir>
                                     </View>
                                     <View style={styles.comboboxStyle}>
-                                        <ComboboxSensorModalEditar ></ComboboxSensorModalEditar>
+                                        <ComboboxSensorModalIncluir  ></ComboboxSensorModalIncluir >
                                     </View>
                                     <View style={styles.comboboxStyle}>
-                                        <ComboboxSetorModalEditar ></ComboboxSetorModalEditar>
-
+                                        <ComboboxSetorModalIncluir  ></ComboboxSetorModalIncluir >
                                     </View>
                                 </View>
-
                             </SafeAreaView>
                             <View style={styles.viewButton}>
                                 <Pressable
@@ -68,13 +65,11 @@ class App extends Component {
                         </View>
                     </View>
                 </Modal>
-                <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
+                <FontAwesome.Button style={estilos.botaoItemSalvar} onPress={() => this.setState({ modalVisible: true })} name="plus"
                 // onPress={}
                 ></FontAwesome.Button>
 
-                <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => this.setState()} name="remove"
-                // onPress={}
-                ></FontAwesome.Button>
+            
                 {/*        <Pressable
                     style={[styles.button, styles.buttonOpen]}
                     onPress={() => this.setState({ modalVisible: true })}>
@@ -88,9 +83,7 @@ class App extends Component {
 
 const styles = StyleSheet.create({
     centeredView: {
-        flex: 1,
-        marginTop: 22,
-        flexDirection: 'row-reverse',
+        paddingHorizontal:5,
     },
 
     viewButton: {

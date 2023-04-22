@@ -3,10 +3,11 @@ import estilos from './estilos';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import ModalEditar from './modalEditar';
 import axios from 'axios';
+import ModalIncluir from './modalIncluir'
 
-import ComboboxCriticidade from './comboboxCriticidade';
-import ComboboxSensor from './comboboxSensor';
-import ComboboxSetor from './comboboxSetor';
+import ComboboxCriticidadeFilter from './comboboxCriticidade';
+import ComboboxSensorFilter from './comboboxSensor';
+import ComboboxSetorFilter from './comboboxSetor';
 
 
 import Rotas from '../../RotasManut';
@@ -122,9 +123,10 @@ const App = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={estilos.container}>
-                <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
+              {/*   <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
                 // onPress={}
-                ></FontAwesome.Button>
+                ></FontAwesome.Button> */}
+                <ModalIncluir></ModalIncluir>
                 <TextInput
                     style={styles.textInputStyle}
                     onChangeText={(text) => searchFilter(text)}
@@ -133,9 +135,10 @@ const App = () => {
                     placeholder="Procure Aqui"
                 />
 
-                <ComboboxCriticidade style={styles.combobox}></ComboboxCriticidade>
-                <ComboboxSensor></ComboboxSensor>
-                <ComboboxSetor></ComboboxSetor>
+                <ComboboxCriticidadeFilter style={styles.combobox}></ComboboxCriticidadeFilter>
+                <ComboboxSensorFilter></ComboboxSensorFilter>
+                <ComboboxSetorFilter></ComboboxSetorFilter>
+                
                 <FlatList
                     data={filteredData}
                     keyExtractor={item => item._id}

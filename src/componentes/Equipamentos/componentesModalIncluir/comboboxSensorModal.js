@@ -4,7 +4,6 @@ import axios from 'axios';
 import Rotas from '../../../RotasManut';
 
 
-
 const App = () => {
 
   const [selected, setSelected] = React.useState("");
@@ -13,7 +12,7 @@ const App = () => {
   React.useEffect(() => {
     //Get Values from database
     const loadData = async () => {
-      axios.get(Rotas.routesSetor + 'getAll')
+      axios.get(Rotas.routesSensor + 'getAll')
         .then((response) => {
           // Store Values in Temporary Array
           let newArray = response.data.map((item) => {
