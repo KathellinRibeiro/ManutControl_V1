@@ -4,6 +4,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import ModalEditar from './modalEditar';
 import axios from 'axios';
 import ModalIncluir from './modalIncluir'
+import { SelectList } from 'react-native-dropdown-select-list';
 
 import ComboboxCriticidadeFilter from './comboboxCriticidade';
 import ComboboxSensorFilter from './comboboxSensor';
@@ -25,12 +26,98 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+
+function editar(item) {
+    console.log(item);
+}
+let itemCriticidade;
+let itemSensor;
+let itemSetor;
+
 const App = () => {
     const [search, setSearch] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     const [masterData, setMasterData] = useState([]);
 
+    const [selectedCriticidade, setSelectedCriticidade] = React.useState("");
+    const [dataCriticidade, setDataCriticidade] = React.useState([]);
 
+    const [selectedSensor, setSelectedSensor] = React.useState("");
+    const [dataSensor, setDataSensor] = React.useState([]);
+
+    const [selectedSetor, setSelectedSetor] = React.useState("");
+    const [datasetor, setDataSetor] = React.useState([]);
+
+
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            axios.get(Rotas.routesCriticidade + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione a Criticidade' }
+                    let newArray = response.data.map((item) => {
+                        return { key: item.Descricao, value: item.Descricao }
+                    });
+                    newArray.push(arrayOrigem);
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataCriticidade(newArray)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+
+        loadData();
+    }, []);
+
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            axios.get(Rotas.routesSensor + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione o Sensor' }
+                    let newArray = response.data.map((item) => {
+                        return { key: item._id, value: item.name }
+                    });
+                    newArray.push(arrayOrigem);
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataSensor(newArray)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+
+        loadData();
+    }, [])
+
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            axios.get(Rotas.routesSetor + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione o Setor' }
+
+                    let newArray = response.data.map((item) => {
+                        return { key: item._id, value: item.Nome }
+                    });
+                    newArray.push(arrayOrigem);
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataSetor(newArray)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+
+        loadData();
+    }, [])
 
     useEffect(() => {
         fetch(Rotas.routesEquipamento + 'getAll')
@@ -55,10 +142,72 @@ const App = () => {
                     }
                 });
             setFilteredData(newData);
-        } else {
+
+        }
+        else {
             setFilteredData(masterData);
         }
         setSearch(text);
+    };
+
+    const searchFilterCriticidade = (text) => {
+        if (text) {
+            const newData = masterData.filter(
+                function (item) {
+                    if (item.Criticidade) {
+                        itemCriticidade = '';
+                        const teste = item.Criticidade.map(({ Descricao }) => itemCriticidade = { Descricao })
+                        const itemData = teste[1].Descricao.toUpperCase();
+                        const textData = selectedCriticidade.toUpperCase();
+                        return itemData.indexOf(textData) > -1;
+
+                    }
+                });
+            setFilteredData(newData);
+        }
+        else {
+            setFilteredData(masterData);
+        }
+    };
+    const searchFilterSensor = (text) => {
+        if (text) {
+            const newData = masterData.filter(
+                function (item) {
+                    if (item.Sensor) {
+                        itemSensor = '';
+                        const teste = item.Sensor.map(({ Descricao }) => itemSensor = { Descricao })
+                        const itemData = teste[1].Descricao.toUpperCase();
+                        const textData = selectedSensor.toUpperCase();
+                        return itemData.indexOf(textData) > -1;
+
+                    }
+                });
+            setFilteredData(newData);
+        }
+        else {
+            setFilteredData(masterData);
+        }
+    };
+
+
+    const searchFilterSetor = (text) => {
+        if (text) {
+            const newData = masterData.filter(
+                function (item) {
+                    if (item.Setor) {
+                        itemSetor = '';
+                        const teste = item.Setor.map(({ Descricao }) => itemSetor = { Descricao })
+                        const itemData = teste[1].Descricao.toUpperCase();
+                        const textData = selectedSensor.toUpperCase();
+                        return itemData.indexOf(textData) > -1;
+
+                    }
+                });
+            setFilteredData(newData);
+        }
+        else {
+            setFilteredData(masterData);
+        }
     };
 
     const ItemView = ({ item }) => {
@@ -66,7 +215,7 @@ const App = () => {
             <>
                 <View style={estilos.item}>
                     <Text
-                        onPress={() => getItem(item)}>
+                        onPress={() => editar()}>
                         Nome:
                         {item.Descricao.toUpperCase()}
                         {' - '}
@@ -120,10 +269,11 @@ const App = () => {
         alert('Id : ' + item._id + '\n\nTarefa : ' + item.Descricao + '\n\nCompletada: ');
     };
 
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={estilos.container}>
-              {/*   <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
+                {/*   <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
                 // onPress={}
                 ></FontAwesome.Button> */}
                 <ModalIncluir></ModalIncluir>
@@ -134,11 +284,9 @@ const App = () => {
                     underlineColorAndroid="transparent"
                     placeholder="Procure Aqui"
                 />
-
-                <ComboboxCriticidadeFilter style={styles.combobox}></ComboboxCriticidadeFilter>
-                <ComboboxSensorFilter></ComboboxSensorFilter>
-                <ComboboxSetorFilter></ComboboxSetorFilter>
-                
+                <SelectList setSelected={setSelectedCriticidade} data={dataCriticidade} item={setSelectedCriticidade} onSelect={() => searchFilterCriticidade(selectedCriticidade)} placeholder="Selecione a Criticidade" />
+                <SelectList setSelected={setSelectedSensor} data={dataSensor} item={setSelectedCriticidade} onSelect={() => searchFilterSensor(selectedSensor)} placeholder="Selecione o Sensor" />
+                <SelectList setSelected={setSelectedSetor} data={datasetor} item={setSelectedCriticidade} onSelect={() => searchFilterSetor(selectedSetor)} placeholder="Selecione o Setor" />
                 <FlatList
                     data={filteredData}
                     keyExtractor={item => item._id}
