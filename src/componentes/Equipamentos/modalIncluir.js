@@ -10,6 +10,13 @@ import ComboboxSetorModalIncluir from './componentesModalIncluir/comboboxSetorMo
 const width = Dimensions.get('screen').width;
 import Rotas from '../../RotasManut';
 
+
+let descricaoEquipamento;
+
+let dataEntrada=new Date().toLocaleString();
+
+let descricaoTag;
+
 let idCriticidade;
 let descricaoCriticidade;
 
@@ -22,40 +29,41 @@ let metricFinal;
 let idSetor;
 let descricaoSetor;
 
+let idStatus;
+let descricaoStatus;
 
 function incluir() {
     //VALIDAR DEPOIS
     fetch(Rotas.routesEquipamento + 'post', {
         method: 'POST',
         body: JSON.stringify({
-
-            "Descricao": "   ",
-            dataEntrada: "",
-            Tag: "",
+            "Descricao": descricaoEquipamento,
+            "dataEntrada":dataEntrada,
+            "Tag": descricaoTag,
             "Status": [
                 {
-                    "_id": "",
-                    "Descricao": "",
+                    "_id": idStatus,
+                    "Descricao": descricaoStatus,
                 }
             ],
             "Local": [
                 {
-                    "_id": "",
-                    "Descricao": "",
+                    "_id": idSetor,
+                    "Descricao": descricaoSetor,
                 }
             ],
             "Criticidade": [{
-                "_id": "",
-                "Descricao": "",
+                "_id": idCriticidade,
+                "Descricao": descricaoCriticidade,
             }],
 
             "Sensor": [{
-                "_id": "",
-                "Descricao": "",
-                "metric_Inicial": "",
-                "metric_Final": "",
+                "_id": idSensor,    
+                "Descricao": descricaoSensor,
+                "metric_Inicial": metricInicial,
+                "metric_Final":metricFinal,
             }],
-            "Descricao": descricaoEditada,
+
         }),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
@@ -108,8 +116,8 @@ function atribuirParamCrit(data, selected) {
 
 function atribuirParamSensor(data, selected) {
     idSensor = selected.split('_')[0];
-    metricInicial=selected.split('_')[1];
-    metricFinal=selected.split('_')[2];
+    metricInicial = selected.split('_')[1];
+    metricFinal = selected.split('_')[2];
     data = data.filter(function (item) {
         return item.key == selected;
     }).map(({ value }) => descricaoSensor = { value });
@@ -122,11 +130,49 @@ function atribuirParamSetor(data, selected) {
     }).map(({ value }) => descricaoSetor = { value });
     descricaoSetor = descricaoSetor.value;
     idSensor = selected;
-
     console.log(descricaoSetor);
     console.log(idSensor);
 }
+function atribuirParamStatus(data, selected) {
+    data = data.filter(function (item) {
+        return item.key == selected;
+    }).map(({ value }) => descricaoStatus = { value });
+    descricaoStatus = descricaoStatus.value;
+    idStatus = selected;
+    console.log(descricaoStatus);
+    console.log(idStatus);
+}
 
+const Status = () => {
+    const [selectedStatus, setSelectedStatus] = React.useState("");
+    const [dataStatus, setDataStatus] = React.useState([]);
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            axios.get(Rotas.routesStatus + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione o Status' }
+
+                    let newArray = response.data.map((item) => {
+                        return { key: item._id, value: item.Descricao }
+                    });
+                    newArray.push(arrayOrigem);
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataStatus(newArray)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+
+        loadData();
+    }, []);
+    return (
+        <SelectList setSelected={setSelectedStatus} data={dataStatus} onSelect={() => atribuirParamStatus(dataStatus, selectedStatus)} placeholder="Selecione o Status" />
+    )
+}
 
 const Sensor = () => {
     const [selectedSensor, setSelectedSensor] = React.useState("");
@@ -139,7 +185,7 @@ const Sensor = () => {
                     // Store Values in Temporary Array
                     let arrayOrigem = { key: 0, value: 'Selecione o Sensor' }
                     let newArray = response.data.map((item) => {
-                        return { key: item._id+ '_' + item.metric_Inicial + '_' + item.metric_Final, value: item.name  }
+                        return { key: item._id + '_' + item.metric_Inicial + '_' + item.metric_Final, value: item.name }
                     });
                     newArray.push(arrayOrigem);
                     newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
@@ -158,6 +204,10 @@ const Sensor = () => {
         <SelectList setSelected={setSelectedSensor} data={dataSensor} onSelect={() => atribuirParamSensor(dataSensor, selectedSensor)} placeholder="Selecione o Sensor" />
     )
 }
+
+
+
+
 
 const Setor = () => {
     const [selectedSetor, setSelectedSetor] = React.useState("");
@@ -186,7 +236,7 @@ const Setor = () => {
         loadData();
     }, []);
     return (
-        <SelectList setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder="Selecione o Sensor" />
+        <SelectList setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder="Selecione o Setor" />
     )
 }
 
@@ -217,8 +267,19 @@ class App extends Component {
 
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                    <TextInput style={styles.textInputStyle} placeholder="Nome Equipamento" />
+                                    <TextInput style={styles.textInputStyle}
+                                        placeholder="Nome Equipamento"
+                                        onChangeText={(text) => descricaoEquipamento = text}
+                                        onChange={(text) => descricaoEquipamento = text}
+                                        defaultValue={descricaoEquipamento}
+                                    />
 
+                                    <TextInput style={styles.textInputStyle}
+                                        placeholder="TAG"
+                                        onChangeText={(text) => descricaoTag = text}
+                                        onChange={(text) => descricaoTag = text}
+                                        defaultValue={descricaoTag}
+                                    />
                                     <View style={styles.comboboxStyle}>
                                         <Criticidade></Criticidade>
                                     </View>
@@ -229,6 +290,12 @@ class App extends Component {
                                         <Setor></Setor >
 
                                     </View>
+
+                                    <View style={styles.comboboxStyle}>
+                                        <Status></Status >
+                                    </View>
+
+
                                 </View>
                             </SafeAreaView>
                             <View style={styles.viewButton}>
