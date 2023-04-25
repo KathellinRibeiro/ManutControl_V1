@@ -100,13 +100,15 @@ const Criticidade = () => {
 
         loadData();
     }, []);
-    console.log(selectedCriticidade.toString());
+    console.log('criticidade');
+    console.log(idCriticidade);
     return (
-        <SelectList setSelected={setSelectedCriticidade} data={dataCriticidade} onSelect={() => atribuirParamCrit(dataCriticidade, selectedCriticidade)} placeholder="Selecione a Criticidade" />
+        <SelectList option={idCriticidade} defaultOption ={idCriticidade} setSelected={setSelectedCriticidade} data={dataCriticidade} onSelect={() => atribuirParamCrit(dataCriticidade, selectedCriticidade)} placeholder="Selecione a Criticidade" />
     )
 }
 
 function atribuirParamCrit(data, selected) {
+    console.log(selected);
     data = data.filter(function (item) {
         return item.key == selected;
     }).map(({ value }) => descricaoCriticidade = { value });
@@ -199,6 +201,8 @@ const Sensor = () => {
 
         loadData();
     }, []);
+    
+    console.log('teste');
 console.log(idCriticidade);
     return (
         <SelectList setSelected={idCriticidade} data={dataSensor} onSelect={() => atribuirParamSensor(dataSensor, selectedSensor)} placeholder="Selecione o Sensor" />
@@ -243,8 +247,7 @@ const Setor = () => {
 function AtribuiValores(item){
     descricaoEquipamento=item.Descricao;
     descricaoTag=item.Tag;
-    item.Criticidade.map(({ _id }) => idCriticidade = { _id });
-   idCriticidade= idCriticidade._id;
+   idCriticidade= item.Criticidade.map(({ _id }) => idCriticidade = { _id })[0]._id;
    console.log(idCriticidade)
 }
 
