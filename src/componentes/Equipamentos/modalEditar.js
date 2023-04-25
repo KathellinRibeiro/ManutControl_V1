@@ -1,13 +1,252 @@
 import React, { Component } from 'react';
-import {Dimensions, Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, SafeAreaView } from 'react-native';
+import { Dimensions, Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, SafeAreaView } from 'react-native';
 import estilos from './estilos';
+import axios from 'axios';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import ComboboxCriticidadeModalEditar from './componentesModal/comboboxCriticidadeModal';
-import ComboboxSensorModalEditar from './componentesModal/comboboxSensorModal';
-import ComboboxSetorModalEditar from './componentesModal/comboboxSetorModal';
+import { SelectList } from 'react-native-dropdown-select-list';
 const width = Dimensions.get('screen').width;
+import Rotas from '../../RotasManut';
 
 
+let itemOrigem;
+let descricaoEditada;
+
+
+
+let descricaoEquipamento;
+
+
+let descricaoTag;
+
+let idCriticidade;
+let descricaoCriticidade;
+
+
+let idSensor;
+let descricaoSensor;
+let metricInicial;
+let metricFinal;
+
+let idSetor;
+let descricaoSetor;
+
+let idStatus;
+let descricaoStatus;
+
+function incluir() {
+    //VALIDAR DEPOIS
+    fetch(Rotas.routesEquipamento + 'post', {
+        method: 'POST',
+        body: JSON.stringify({
+            "Descricao": descricaoEquipamento,
+            "Tag": descricaoTag,
+            "Status": [
+                {
+                    "_id": idStatus,
+                    "Descricao": descricaoStatus,
+                }
+            ],
+            "Local": [
+                {
+                    "_id": idSetor,
+                    "Descricao": descricaoSetor,
+                }
+            ],
+            "Criticidade": [{
+                "_id": idCriticidade,
+                "Descricao": descricaoCriticidade,
+            }],
+
+            "Sensor": [{
+                "_id": idSensor,
+                "Descricao": descricaoSensor,
+                "metric_Inicial": metricInicial,
+                "metric_Final": metricFinal,
+            }],
+
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+        .then((response) => response.json())
+        .then((json) => console.log(JSON.stringify(json)));
+};
+
+
+
+const Criticidade = () => {
+    const [selectedCriticidade, setSelectedCriticidade] = React.useState("");
+    const [dataCriticidade, setDataCriticidade] = React.useState([]);
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            axios.get(Rotas.routesCriticidade + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione a Criticidade' }
+                    let newArray = response.data.map((item) => {
+                        return { key: item._id, value: item.Descricao }
+                    });
+                    newArray.push(arrayOrigem);
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataCriticidade(newArray)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+
+        loadData();
+    }, []);
+    console.log(selectedCriticidade.toString());
+    return (
+        <SelectList setSelected={setSelectedCriticidade} data={dataCriticidade} onSelect={() => atribuirParamCrit(dataCriticidade, selectedCriticidade)} placeholder="Selecione a Criticidade" />
+    )
+}
+
+function atribuirParamCrit(data, selected) {
+    data = data.filter(function (item) {
+        return item.key == selected;
+    }).map(({ value }) => descricaoCriticidade = { value });
+    descricaoCriticidade = descricaoCriticidade.value;
+    idCriticidade = selected;
+}
+
+function atribuirParamSensor(data, selected) {
+    idSensor = selected.split('_')[0];
+    metricInicial = selected.split('_')[1];
+    metricFinal = selected.split('_')[2];
+    data = data.filter(function (item) {
+        return item.key == selected;
+    }).map(({ value }) => descricaoSensor = { value });
+    descricaoSensor = descricaoSensor.value;
+}
+
+function atribuirParamSetor(data, selected) {
+    data = data.filter(function (item) {
+        return item.key == selected;
+    }).map(({ value }) => descricaoSetor = { value });
+    descricaoSetor = descricaoSetor.value;
+    idSensor = selected;
+    console.log(descricaoSetor);
+    console.log(idSensor);
+}
+function atribuirParamStatus(data, selected) {
+    data = data.filter(function (item) {
+        return item.key == selected;
+    }).map(({ value }) => descricaoStatus = { value });
+    descricaoStatus = descricaoStatus.value;
+    idStatus = selected;
+    console.log(descricaoStatus);
+    console.log(idStatus);
+}
+
+const Status = () => {
+    const [selectedStatus, setSelectedStatus] = React.useState("");
+    const [dataStatus, setDataStatus] = React.useState([]);
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            axios.get(Rotas.routesStatus + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione o Status' }
+
+                    let newArray = response.data.map((item) => {
+                        return { key: item._id, value: item.Descricao }
+                    });
+                    newArray.push(arrayOrigem);
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataStatus(newArray)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+
+        loadData();
+    }, []);
+    return (
+        <SelectList setSelected={setSelectedStatus} data={dataStatus} onSelect={() => atribuirParamStatus(dataStatus, selectedStatus)} placeholder="Selecione o Status" />
+    )
+}
+
+const Sensor = () => {
+    const [selectedSensor, setSelectedSensor] = React.useState("");
+    const [dataSensor, setDataSensor] = React.useState([]);
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            axios.get(Rotas.routesSensor + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione o Sensor' }
+                    let newArray = response.data.map((item) => {
+                        return { key: item._id + '_' + item.metric_Inicial + '_' + item.metric_Final, value: item.name }
+                    });
+                    newArray.push(arrayOrigem);
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataSensor(newArray)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+
+        loadData();
+    }, []);
+console.log(idCriticidade);
+    return (
+        <SelectList setSelected={idCriticidade} data={dataSensor} onSelect={() => atribuirParamSensor(dataSensor, selectedSensor)} placeholder="Selecione o Sensor" />
+    )
+}
+
+
+
+
+
+const Setor = () => {
+    const [selectedSetor, setSelectedSetor] = React.useState("");
+    const [datasetor, setDataSetor] = React.useState([]);
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            axios.get(Rotas.routesSetor + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione o Setor' }
+
+                    let newArray = response.data.map((item) => {
+                        return { key: item._id, value: item.Nome }
+                    });
+                    newArray.push(arrayOrigem);
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataSetor(newArray)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+
+        loadData();
+    }, []);
+    return (
+        <SelectList setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder="Selecione o Setor" />
+    )
+}
+
+function AtribuiValores(item){
+    descricaoEquipamento=item.Descricao;
+    descricaoTag=item.Tag;
+    item.Criticidade.map(({ _id }) => idCriticidade = { _id });
+   idCriticidade= idCriticidade._id;
+   console.log(idCriticidade)
+}
 
 class App extends Component {
     state = {
@@ -15,7 +254,11 @@ class App extends Component {
     };
 
     render() {
+     
+        itemOrigem = this.props.item;
+ 
         const { modalVisible } = this.state;
+        AtribuiValores(itemOrigem);
         return (
             <View style={styles.centeredView}>
                 <Modal
@@ -27,35 +270,49 @@ class App extends Component {
                         this.setState({ modalVisible: !modalVisible });
                     }}>
 
-
                     <View >
-
                         <View style={styles.modalView}>
-                            <Text style={styles.textCardStyle}>Editar Equipamento</Text>
+                            <Text style={styles.textCardStyle}>Incluir Equipamento</Text>
                             <View style={styles.cardStyle} >
                             </View>
 
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                    <Text style={styles.text}>Código Equipamento</Text>
-                                    <TextInput style={styles.textInputStyle} placeholder="Nome Equipamento" />
+                                    <TextInput style={styles.textInputStyle}
+                                        placeholder="Nome Equipamento"
+                                        onChangeText={(text) => descricaoEquipamento = text}
+                                        onChange={(text) => descricaoEquipamento = text}
+                                        defaultValue={descricaoEquipamento}
+                                    />
+
+                                    <TextInput style={styles.textInputStyle}
+                                        placeholder="TAG"
+                                        onChangeText={(text) => descricaoTag = text}
+                                        onChange={(text) => descricaoTag = text}
+                                        defaultValue={descricaoTag}
+                                    />
                                     <View style={styles.comboboxStyle}>
-                                        <ComboboxCriticidadeModalEditar ></ComboboxCriticidadeModalEditar>
+                                        <Criticidade></Criticidade>
                                     </View>
                                     <View style={styles.comboboxStyle}>
-                                        <ComboboxSensorModalEditar ></ComboboxSensorModalEditar>
+                                        <Sensor></Sensor >
                                     </View>
                                     <View style={styles.comboboxStyle}>
-                                        <ComboboxSetorModalEditar ></ComboboxSetorModalEditar>
+                                        <Setor></Setor >
 
                                     </View>
+
+                                    <View style={styles.comboboxStyle}>
+                                        <Status></Status >
+                                    </View>
+
+
                                 </View>
-
                             </SafeAreaView>
                             <View style={styles.viewButton}>
                                 <Pressable
                                     style={[styles.button, styles.buttonSave]}
-                                    onPress={() => this.setState({ modalVisible: !modalVisible })}>
+                                    onPress={() => incluir()}>
                                     <Text style={styles.textStyle}>Salvar</Text>
                                 </Pressable>
                                 <Pressable
@@ -72,9 +329,11 @@ class App extends Component {
                 // onPress={}
                 ></FontAwesome.Button>
 
-                <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => this.setState()} name="remove"
+                <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(itemOrigem)} name="remove"
                 // onPress={}
                 ></FontAwesome.Button>
+
+
                 {/*        <Pressable
                     style={[styles.button, styles.buttonOpen]}
                     onPress={() => this.setState({ modalVisible: true })}>
@@ -88,9 +347,7 @@ class App extends Component {
 
 const styles = StyleSheet.create({
     centeredView: {
-        flex: 1,
-        marginTop: 22,
-        flexDirection: 'row-reverse',
+        paddingHorizontal: 5,
     },
 
     viewButton: {
@@ -176,7 +433,7 @@ const styles = StyleSheet.create({
         fontSize: 25,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal:'12%',
+        paddingHorizontal: '12%',
 
     },
 });

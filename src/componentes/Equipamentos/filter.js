@@ -214,6 +214,13 @@ const App = () => {
         return (
             <>
                 <View style={estilos.item}>
+
+                    <Text
+                        onPress={() => getItem(item)}>
+                        Id:
+                        {item._id}
+
+                    </Text>
                     <Text
                         onPress={() => editar()}>
                         Nome:
@@ -229,6 +236,7 @@ const App = () => {
                         {item.Tag}
 
                     </Text>
+
                     <Text
                         onPress={() => getItem(item)}>
                         Status:
@@ -252,7 +260,7 @@ const App = () => {
                         // onPress={}
                         ></FontAwesome.Button> */}
 
-                        <ModalEditar></ModalEditar>
+                        <ModalEditar item={item}></ModalEditar>
                         {/* <FontAwesome.Button style={estilos.botaoItemExcluir} name="remove"
                         // onPress={}
                         ></FontAwesome.Button> */}

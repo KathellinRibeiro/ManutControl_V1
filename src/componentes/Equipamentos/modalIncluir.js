@@ -4,16 +4,12 @@ import estilos from './estilos';
 import axios from 'axios';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { SelectList } from 'react-native-dropdown-select-list';
-import ComboboxCriticidadeModalIncluir from './componentesModalIncluir/comboboxCriticidadeModal';
-import ComboboxSensorModalIncluir from './componentesModalIncluir/comboboxSensorModal';
-import ComboboxSetorModalIncluir from './componentesModalIncluir/comboboxSetorModal';
 const width = Dimensions.get('screen').width;
 import Rotas from '../../RotasManut';
 
 
 let descricaoEquipamento;
 
-let dataEntrada=new Date().toLocaleString();
 
 let descricaoTag;
 
@@ -38,7 +34,6 @@ function incluir() {
         method: 'POST',
         body: JSON.stringify({
             "Descricao": descricaoEquipamento,
-            "dataEntrada":dataEntrada,
             "Tag": descricaoTag,
             "Status": [
                 {
@@ -301,7 +296,7 @@ class App extends Component {
                             <View style={styles.viewButton}>
                                 <Pressable
                                     style={[styles.button, styles.buttonSave]}
-                                    onPress={() => this.setState({ modalVisible: !modalVisible })}>
+                                    onPress={() => incluir()}>
                                     <Text style={styles.textStyle}>Salvar</Text>
                                 </Pressable>
                                 <Pressable
