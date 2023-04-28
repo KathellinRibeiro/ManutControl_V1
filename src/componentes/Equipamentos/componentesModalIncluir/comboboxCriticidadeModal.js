@@ -16,7 +16,7 @@ const App = () => {
       axios.get(Rotas.routesCriticidade + 'getAll')
         .then((response) => {
           // Store Values in Temporary Array
-          let newArray = response.data.map((item) => {
+          let newArray = response.data.map((item) => {o
             return { key: item._id, value: item.Descricao }
           })
           //Set Data Variable
@@ -31,7 +31,7 @@ const App = () => {
   }, [])
 
   return (
-    <SelectList setSelected={setSelected} data={data} item={setSelected} onSelect={() => alert(selected)} placeholder="Selecione a Criticidade" />
+    <SelectList setSelected={setSelected} data={data} c={setSelected} onSelect={() => alert(selected)} placeholder="Selecione a Criticidade" />
   )
 
 };
