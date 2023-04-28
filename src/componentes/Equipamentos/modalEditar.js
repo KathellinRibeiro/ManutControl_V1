@@ -116,7 +116,7 @@ const Criticidade = () => {
 }
 
 function atribuirParamCrit(data, selected) {
-      if (data) {
+    if (data) {
         data = data.filter(function (item) {
             return item.key == selected;
         }).map(({ value }) => descricaoCriticidade = { value });
@@ -124,7 +124,6 @@ function atribuirParamCrit(data, selected) {
     };
     idCriticidade = selected;
 }
-
 function atribuirParamSensor(data, selected) {
     idSensor = selected.split('_')[0];
     metricInicial = selected.split('_')[1];
@@ -137,15 +136,14 @@ function atribuirParamSensor(data, selected) {
 
 function atribuirParamSetor(data, selected) {
 
-    if (data!==[]) {
-        console.log('dfhfuewfu');
-        console.log(selected)
-        console.log(data);
-/*         data = data.filter(function (item) {
+    console.log(selected)
+    console.log(data)
+    if (data) {
+            console.log("NOME")
+        data = data.filter(function (item) {
             return item.key == selected;
-        }).map(({ value }) => descricaoSetor = { value }); */
-        console.log(descricaoSetor); 
-        // descricaoSetor = descricaoSetor.value; 
+        }).map(({ value }) => descricaoSetor = { value });
+        descricaoSetor = descricaoSetor.value;
     };
     idSetor = selected;
 }
@@ -155,7 +153,7 @@ function atribuirParamStatus(data, selected) {
     }).map(({ value }) => descricaoStatus = { value });
     descricaoStatus = descricaoStatus.value;
     idStatus = selected;
-   
+
 }
 
 const Status = () => {
@@ -222,11 +220,10 @@ const Sensor = () => {
 
 
 
-
-
 const Setor = () => {
-    const [selectedSetor, setSelectedSetor] = React.useState("");
-    const [datasetor, setDataSetor] = React.useState([]);
+
+    const [selectedSetor, setSelectedSetor] = React.useState({});
+    const [datasetor, setDataSetor] = React.useState("");
     React.useEffect(() => {
         //Get Values from database
         const loadData = async () => {
@@ -234,14 +231,17 @@ const Setor = () => {
                 .then((response) => {
                     // Store Values in Temporary Array
                     let arrayOrigem = { key: 0, value: 'Selecione o Setor' }
-
                     let newArray = response.data.map((item) => {
                         return { key: item._id, value: item.Nome }
                     });
                     newArray.push(arrayOrigem);
-                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
                     //Set Data Variable
-                    setDataSetor(newArray)
+                    setSelectedSetor(newArray)
+                    console.log(newArray)
+                  atribuirParamSetor(newArray, idSetorOrigem);
+                    console.log('dfhfuewfu');
+                    console.log(descricaoSetor)
                 })
                 .catch((e) => {
                     console.log(e)
@@ -250,18 +250,53 @@ const Setor = () => {
 
         loadData();
     }, []);
-   atribuirParamSetor(datasetor, idSetorOrigem)
+
     return (
-        <SelectList value={idSetorOrigem} defaultOption={idSetorOrigem}  setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder={descricaoSetor} />
+        <SelectList key={idSensor} defaultOption={idSensorOrigem} setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamCrit(datasetor, selectedSetor)} placeholder={descricaoSetor} />
     )
 }
+
+
+/* 
+const Setor = () => {
+    const [selectedSetor, setSelectedSetor] = React.useState({});
+    const [datasetor, setDataSetor] = React.useState("");
+    React.useEffect(() => {
+        //Get Values from database
+        const loadData = async () => {
+            await axios.get(Rotas.routesSetor + 'getAll')
+                .then((response) => {
+                    // Store Values in Temporary Array
+                    let arrayOrigem = { key: 0, value: 'Selecione o Setor' }
+
+                    let newArray = response.data.map((item) => {
+                        return { key: item._id, value: item.Nome }
+                    });
+                    newArray.push(arrayOrigem);
+                    // newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //Set Data Variable
+                    setDataSetor(newArray)
+                    atribuirParamSetor(newArray, idSetorOrigem)
+                    console.log('dfhfuewfu');
+                    console.log(descricaoSetor)
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+        };
+        loadData();
+    }, []);
+    return (
+        <SelectList key={idSetor} defaultOption={idSetorOrigem} setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder={descricaoSetor} />
+    )
+} */
 
 function AtribuiValores(item) {
     descricaoEquipamento = item.Descricao;
     descricaoTag = item.Tag;
     idCriticidadeOrigem = item.Criticidade.map(({ _id }) => idCriticidadeOrigem = { _id })[0]._id;
+    descricaoSetor = item.Local.map(({ Descricao }) => descricaoSetor = { Descricao })[1].Descricao;
     idSetorOrigem = item.Local.map(({ _id }) => idSetorOrigem = { _id })[0]._id;
-    console.log(idSetorOrigem)
 }
 
 class App extends Component {
@@ -274,7 +309,7 @@ class App extends Component {
         itemOrigem = this.props.item;
         AtribuiValores(itemOrigem);
         const { modalVisible } = this.state;
-       
+
         return (
             <View style={styles.centeredView}>
                 <Modal
@@ -311,7 +346,7 @@ class App extends Component {
                                         <Criticidade option={{ idCriticidadeOrigem }} setSelected={idCriticidadeOrigem}></Criticidade>
                                     </View>
                                     <View style={styles.comboboxStyle}>
-                                        <Sensor></Sensor >
+                                        <Sensor option={{ idSetorOrigem }} setSelected={idSetorOrigem}></Sensor >
                                     </View>
                                     <View style={styles.comboboxStyle}>
                                         <Setor></Setor >
