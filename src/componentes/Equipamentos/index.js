@@ -9,11 +9,3 @@ export default function Equipamentos() {
         </>
     );
 }
-
-
-/* function App() {
-    return 
-    (<Table3 />);
-  }
-  
-  export default App; */

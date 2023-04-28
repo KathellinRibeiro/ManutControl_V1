@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -64,12 +64,11 @@ function Notifications() {
   return (
     <>
       <View style={estilos.TabScreen}>
-
-        <Alerta />
-
+        <ScrollView>
+          <Alerta />
+        </ScrollView>
       </View>
     </>
-
   );
 }
 function TopBar() {
@@ -115,7 +114,7 @@ function MyTabsBottom() {
           ),
         }}
       />
-{/*       <Tab.Screen
+      {/*       <Tab.Screen
         name="Equipamento"
         component={Equipamento}
         options={{

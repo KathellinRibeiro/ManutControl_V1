@@ -11,6 +11,7 @@ let itemOrigem;
 let descricaoEditada;
 
 
+let idEquipamento;
 let descricaoEquipamento;
 
 
@@ -38,36 +39,36 @@ let idStatusOrigem;;
 let idStatus;
 let descricaoStatus;
 
-function incluir() {
+function editar() {
     //VALIDAR DEPOIS
-    fetch(Rotas.routesEquipamento + 'post', {
-        method: 'POST',
+    fetch(Rotas.routesEquipamento + 'update/' + idEquipamento, {
+        method: 'PUT',
         body: JSON.stringify({
             "Descricao": descricaoEquipamento,
             "Tag": descricaoTag,
-            "Status": [
-                {
-                    "_id": idStatus,
-                    "Descricao": descricaoStatus,
-                }
-            ],
-            "Local": [
-                {
-                    "_id": idSetor,
-                    "Descricao": descricaoSetor,
-                }
-            ],
-            "Criticidade": [{
+            "Status":
+            {
+                "_id": idStatus,
+                "Descricao": descricaoStatus,
+            }
+            ,
+            "Local":
+            {
+                "_id": idSetor,
+                "Descricao": descricaoSetor,
+            }
+            ,
+            "Criticidade": {
                 "_id": idCriticidadeOrigem,
                 "Descricao": descricaoCriticidade,
-            }],
+            },
 
-            "Sensor": [{
+            "Sensor": {
                 "_id": idSensor,
                 "Descricao": descricaoSensor,
                 "metric_Inicial": metricInicial,
                 "metric_Final": metricFinal,
-            }],
+            },
 
         }),
         headers: {
@@ -108,8 +109,6 @@ const Criticidade = () => {
 
         loadData();
     }, []);
-
-    atribuirParamCrit(dataCriticidade, idCriticidadeOrigem);
     return (
         <SelectList key={idCriticidade} defaultOption={idCriticidadeOrigem} setSelected={setSelectedCriticidade} data={dataCriticidade} onSelect={() => atribuirParamCrit(dataCriticidade, selectedCriticidade)} placeholder={descricaoCriticidade} />
     )
@@ -248,60 +247,26 @@ const Setor = () => {
     )
 }
 
-
-/* 
-const Setor = () => {
-    const [selectedSetor, setSelectedSetor] = React.useState({});
-    const [datasetor, setDataSetor] = React.useState("");
-    React.useEffect(() => {
-        //Get Values from database
-        const loadData = async () => {
-            await axios.get(Rotas.routesSetor + 'getAll')
-                .then((response) => {
-                    // Store Values in Temporary Array
-                    let arrayOrigem = { key: 0, value: 'Selecione o Setor' }
-
-                    let newArray = response.data.map((item) => {
-                        return { key: item._id, value: item.Nome }
-                    });
-                    newArray.push(arrayOrigem);
-                    // newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
-                    //Set Data Variable
-                    setDataSetor(newArray)
-                    atribuirParamSetor(newArray, idSetorOrigem)
-                    console.log('dfhfuewfu');
-                    console.log(descricaoSetor)
-                })
-                .catch((e) => {
-                    console.log(e)
-                })
-        };
-        loadData();
-    }, []);
-    return (
-        <SelectList key={idSetor} defaultOption={idSetorOrigem} setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder={descricaoSetor} />
-    )
-} */
-
 function AtribuiValores(item) {
+    idEquipamento = item._id;
     descricaoEquipamento = item.Descricao;
     descricaoTag = item.Tag;
-    idCriticidadeOrigem = item.Criticidade.map(({ _id }) => idCriticidadeOrigem = { _id })[0]._id;
+    idCriticidadeOrigem = item.Criticidade._id;
     idCriticidade = idCriticidadeOrigem;
-    descricaoCriticidade = item.Criticidade.map(({ Descricao }) => descricaoCriticidade = { Descricao })[1].Descricao;
-    descricaoSetor = item.Local.map(({ Descricao }) => descricaoSetor = { Descricao })[1].Descricao;
-    idSetorOrigem = item.Local.map(({ _id }) => idSetorOrigem = { _id })[0]._id;
+    descricaoCriticidade = item.Criticidade.Descricao;
+    descricaoSetor = item.Local.Descricao;
+    idSetorOrigem = item.Local._id;
     idSetor = idSetorOrigem;
-    idStatusOrigem = item.Status.map(({ _id }) => idStatusOrigem = { _id })[0]._id;
+    idStatusOrigem = item.Status._id;
     idStatus = idStatusOrigem;
-    descricaoStatus = item.Status.map(({ Descricao }) => descricaoStatus = { Descricao })[1].Descricao;
-    descricaoSensor = item.Sensor.map(({ Descricao }) => descricaoSensor = { Descricao })[1].Descricao;
-    idSensorOrigem = item.Sensor.map(({ _id }) => idSensorOrigem = { _id })[0]._id;
+    descricaoStatus = item.Status.Descricao;
+    descricaoSensor = item.Sensor.Descricao;
+    idSensorOrigem = item.Sensor._id;
     idSensor = idSensorOrigem;
-    metricInicialOrigem = item.Sensor.map(({ metric_Inicial }) => metricInicialOrigem = { metric_Inicial })[2].metric_Inicial;
-    metricFinalOrigem = item.Sensor.map(({ metric_Final }) => metricFinalOrigem = { metric_Final })[3].metric_Final;
+    metricInicialOrigem = item.Sensor.metric_Inicial;
+    metricFinalOrigem = item.Sensor.metric_Final;
     metricInicial = metricInicialOrigem;
-    metricFinalOrigem = metricFinalOrigem;
+    metricFinal = metricFinalOrigem;
 }
 
 class App extends Component {
@@ -366,7 +331,7 @@ class App extends Component {
                             <View style={styles.viewButton}>
                                 <Pressable
                                     style={[styles.button, styles.buttonSave]}
-                                    onPress={() => incluir()}>
+                                    onPress={() => editar()}>
                                     <Text style={styles.textStyle}>Salvar</Text>
                                 </Pressable>
                                 <Pressable
@@ -401,7 +366,9 @@ class App extends Component {
 
 const styles = StyleSheet.create({
     centeredView: {
-        paddingHorizontal: 5,
+        flex: 1,
+        marginTop: 22,
+        flexDirection: 'row-reverse',
     },
 
     viewButton: {

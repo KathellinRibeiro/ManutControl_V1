@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import estilos from '../estilos';
 import estilosConfig from '../estilosConfig'
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import axios from 'axios';
-
-//import ComboboxCriticidade from '../Criticidade/Modals/comboboxCriticidade';
+import ModalIncluir from '../Criticidade/Modals/incluir'
 import Rotas from '../../../RotasManut';
-
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
-
-
 import Update from './Modals/update'
 import {
     SafeAreaView,
@@ -93,6 +88,7 @@ const App = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={estilos.container}>
+                <ModalIncluir></ModalIncluir>
                 <TextInput
                     style={estilosConfig.textInputStyle}
                     onChangeText={(text) => searchFilter(text)}

@@ -113,10 +113,6 @@ const App = () => {
                     underlineColorAndroid="transparent"
                     placeholder="Procure Aqui"
                 />
-                {/*            <ComboboxCriticidade
-                    onPress={() =>  console.log(this.props.item)}
-
-                    style={estilosConfig.combobox}></ComboboxCriticidade> */}
                 <FlatList
                     data={filteredData}
                     keyExtractor={item => item._id}

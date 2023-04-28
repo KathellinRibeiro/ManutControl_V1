@@ -12,7 +12,6 @@ axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
 let descricaoEditada;
 function incluir() {
-    console.log(descricaoEditada);
     fetch(Rotas.routesCriticidade + 'post', {
         method: 'POST',
         body: JSON.stringify({
@@ -25,26 +24,6 @@ function incluir() {
         .then((response) => response.json())
         .then((json) => console.log(JSON.stringify(json)));
 };
-
-
-
-function editar() {
-    console.log(descricaoEditada);
-
-
-    fetch(Rotas.routesSetor + 'update/', {
-        method: 'PUT',
-        body: JSON.stringify({
-            "Nome": descricaoEditada,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
-};
-
 
 class App extends Component {
     state = {
@@ -70,7 +49,7 @@ class App extends Component {
                             </View>
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                <Text>Descição Setor</Text>
+                                <Text>Descição Criticidade</Text>
                                     <TextInput style={styles.textInputStyle}
                                         onChangeText={(text) => descricaoEditada = text}
                                         onChange={(text) => descricaoEditada = text}
@@ -95,7 +74,7 @@ class App extends Component {
                         </View>
                     </View>
                 </Modal>
-                <FontAwesome.Button style={estilos.botaoItemIncluir} onPress={() => this.setState({ modalVisible: true })} name="edit"
+                <FontAwesome.Button style={estilos.botaoItemIncluir} onPress={() => this.setState({ modalVisible: true })} name="plus"
                 // onPress={}
                 ></FontAwesome.Button>
             </View>

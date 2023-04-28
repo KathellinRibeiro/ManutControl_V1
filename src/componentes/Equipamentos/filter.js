@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import estilos from './estilos';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import ModalEditar from './modalEditar';
 import axios from 'axios';
 import ModalIncluir from './modalIncluir'
 import { SelectList } from 'react-native-dropdown-select-list';
-
-import ComboboxCriticidadeFilter from './comboboxCriticidade';
-import ComboboxSensorFilter from './comboboxSensor';
-import ComboboxSetorFilter from './comboboxSetor';
-
-
 import Rotas from '../../RotasManut';
-
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
@@ -156,8 +148,7 @@ const App = () => {
                 function (item) {
                     if (item.Criticidade) {
                         itemCriticidade = '';
-                        const teste = item.Criticidade.map(({ Descricao }) => itemCriticidade = { Descricao })
-                        const itemData = teste[1].Descricao.toUpperCase();
+                        const itemData = item.Criticidade.Descricao.toUpperCase();
                         const textData = selectedCriticidade.toUpperCase();
                         return itemData.indexOf(textData) > -1;
 
@@ -175,8 +166,8 @@ const App = () => {
                 function (item) {
                     if (item.Sensor) {
                         itemSensor = '';
-                        const teste = item.Sensor.map(({ Descricao }) => itemSensor = { Descricao })
-                        const itemData = teste[1].Descricao.toUpperCase();
+                        const teste = item.Sensor.Descricao
+                        const itemData = teste.toUpperCase();
                         const textData = selectedSensor.toUpperCase();
                         return itemData.indexOf(textData) > -1;
 
@@ -196,8 +187,8 @@ const App = () => {
                 function (item) {
                     if (item.Setor) {
                         itemSetor = '';
-                        const teste = item.Setor.map(({ Descricao }) => itemSetor = { Descricao })
-                        const itemData = teste[1].Descricao.toUpperCase();
+                        const teste = item.Setor.Descricao
+                        const itemData = teste.toUpperCase();
                         const textData = selectedSensor.toUpperCase();
                         return itemData.indexOf(textData) > -1;
 
@@ -225,8 +216,6 @@ const App = () => {
                         onPress={() => editar()}>
                         Nome:
                         {item.Descricao.toUpperCase()}
-                        {' - '}
-                        {item.Tag}
 
                     </Text>
 
@@ -240,18 +229,17 @@ const App = () => {
                     <Text
                         onPress={() => getItem(item)}>
                         Status:
-                        {item.Status.map(({ Descricao }) => <Text>{Descricao}</Text>)}
+                        <Text>{item.Status.Descricao}</Text>
                     </Text>
                     <Text
                         onPress={() => getItem(item)}>
                         Sensor:
-                        {item.Sensor.map(({ Descricao }) => <Text>{Descricao}</Text>)}
+                        <Text>{item.Sensor.Descricao}</Text>
                     </Text>
-
                     <Text
                         onPress={() => getItem(item)}>
                         Criticidade:
-                        {item.Criticidade.map(({ Descricao }) => <Text>{Descricao}</Text>)}
+                        <Text>{item.Criticidade.Descricao}</Text>
                     </Text>
 
                     <View style={estilos.containerItem}>
@@ -284,7 +272,7 @@ const App = () => {
                 {/*   <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
                 // onPress={}
                 ></FontAwesome.Button> */}
-                <ModalIncluir></ModalIncluir>
+              <ModalIncluir></ModalIncluir>
                 <TextInput
                     style={styles.textInputStyle}
                     onChangeText={(text) => searchFilter(text)}

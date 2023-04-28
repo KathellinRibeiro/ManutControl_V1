@@ -1,13 +1,5 @@
 import { StyleSheet, StatusBar } from 'react-native';
 import { cores } from '../../estilos';
-import {
-    LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
-} from "react-native-chart-kit";
 
 export default StyleSheet.create({
     TextGrafico: {

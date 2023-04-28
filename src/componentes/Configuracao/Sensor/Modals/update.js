@@ -17,8 +17,6 @@ let metricFinallEditada;
 
 
 function excluirItem(item) {
-    console.log(item);
-    console.log(item._id);
     fetch(Rotas.routesSensor + 'delete/' + item._id, {
         method: 'DELETE',
     });
@@ -26,8 +24,6 @@ function excluirItem(item) {
 };
 
 function editarItem(item) {
-    console.log(item);
-    console.log(item._id);
 
 
     fetch(Rotas.routesSensor + 'update/' + item._id, {
@@ -45,8 +41,6 @@ function editarItem(item) {
 
 
 function editar() {
-    console.log(descricaoEditada);
-
     fetch(Rotas.routesSensor + 'update/' + itemOrigem._id, {
         method: 'PUT',
         body: JSON.stringify({

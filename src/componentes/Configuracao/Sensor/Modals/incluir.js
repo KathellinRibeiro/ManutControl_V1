@@ -15,7 +15,6 @@ let metricInicial;
 let metricFinal;
 
 function incluir() {
-    console.log(descricaoEditada);
     fetch(Rotas.routesSensor + 'post', {
         method: 'POST',
         body: JSON.stringify({
@@ -96,7 +95,7 @@ class App extends Component {
                         </View>
                     </View>
                 </Modal>
-                <FontAwesome.Button style={estilos.botaoItemIncluir} onPress={() => this.setState({ modalVisible: true })} name="edit"
+                <FontAwesome.Button style={estilos.botaoItemIncluir} onPress={() => this.setState({ modalVisible: true })} name="plus"
                 // onPress={}
                 ></FontAwesome.Button>
             </View>

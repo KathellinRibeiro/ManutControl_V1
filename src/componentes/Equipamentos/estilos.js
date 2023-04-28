@@ -22,7 +22,7 @@ export default StyleSheet.create({
     },
     item: {
         backgroundColor: cores.azulClaro,
-        height: 150,
+        height: 190,
         justifyContent: 'center',
         marginVertical: 8,
         marginHorizontal: 16,
@@ -42,6 +42,7 @@ export default StyleSheet.create({
     },
     containerItem: {
         flexDirection: 'row-reverse',
+        margin:0,
     },
 
     botaoItemExcluir: {

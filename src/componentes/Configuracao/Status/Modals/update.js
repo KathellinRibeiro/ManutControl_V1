@@ -15,8 +15,6 @@ let descricaoEditada;
 
 
 function excluirItem(item) {
-    console.log(item);
-    console.log(item._id);
     fetch(Rotas.routesStatus + 'delete/' + item._id, {
         method: 'DELETE',
     });
@@ -24,10 +22,6 @@ function excluirItem(item) {
 };
 
 function editarItem(item) {
-    console.log(item);
-    console.log(item._id);
-
-
     fetch(Rotas.routesStatus + 'update/' + item._id, {
         method: 'PUT',
         body: JSON.stringify({
@@ -43,9 +37,6 @@ function editarItem(item) {
 
 
 function editar() {
-    console.log(descricaoEditada);
-
-
     fetch(Rotas.routesStatus + 'update/' + itemOrigem._id, {
         method: 'PUT',
         body: JSON.stringify({
@@ -67,8 +58,6 @@ class App extends Component {
     render() {
         itemOrigem = this.props.item;
         const { modalVisible } = this.state;
-
-        console.log(itemOrigem._id);
         descricaoEditada = itemOrigem.Descricao;
 
         return (

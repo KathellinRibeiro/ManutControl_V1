@@ -15,8 +15,6 @@ let descricaoEditada;
 
 
 function excluirItem(item) {
-    console.log(item);
-    console.log(item._id);
     fetch(Rotas.routesSetor + 'delete/' + item._id, {
         method: 'DELETE',
     });
@@ -24,10 +22,6 @@ function excluirItem(item) {
 };
 
 function editarItem(item) {
-    console.log(item);
-    console.log(item._id);
-
-
     fetch(Rotas.routesSetor + 'update/' + item._id, {
         method: 'PUT',
         body: JSON.stringify({
@@ -43,9 +37,6 @@ function editarItem(item) {
 
 
 function editar() {
-    console.log(descricaoEditada);
-
-
     fetch(Rotas.routesSetor + 'update/' + itemOrigem._id, {
         method: 'PUT',
         body: JSON.stringify({
@@ -67,8 +58,6 @@ class App extends Component {
     render() {
         itemOrigem = this.props.item;
         const { modalVisible } = this.state;
-
-        console.log(itemOrigem._id);
         descricaoEditada = itemOrigem.Nome;
 
         return (
@@ -119,10 +108,6 @@ class App extends Component {
                        <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
                 // onPress={}
                 ></FontAwesome.Button>
- {/* 
-                <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => editarItem(itemOrigem)} name="edit"
-                // onPress={}
-                ></FontAwesome.Button> */}
                 <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(itemOrigem)} name="remove"
                 // onPress={}
                 ></FontAwesome.Button>

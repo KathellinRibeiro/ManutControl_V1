@@ -35,29 +35,29 @@ function incluir() {
         body: JSON.stringify({
             "Descricao": descricaoEquipamento,
             "Tag": descricaoTag,
-            "Status": [
+            "Status": 
                 {
                     "_id": idStatus,
                     "Descricao": descricaoStatus,
                 }
-            ],
-            "Local": [
+            ,
+            "Local": 
                 {
                     "_id": idSetor,
                     "Descricao": descricaoSetor,
                 }
-            ],
-            "Criticidade": [{
+            ,
+            "Criticidade": {
                 "_id": idCriticidade,
                 "Descricao": descricaoCriticidade,
-            }],
+            },
 
-            "Sensor": [{
+            "Sensor": {
                 "_id": idSensor,    
                 "Descricao": descricaoSensor,
                 "metric_Inicial": metricInicial,
                 "metric_Final":metricFinal,
-            }],
+            },
 
         }),
         headers: {
@@ -124,7 +124,7 @@ function atribuirParamSetor(data, selected) {
         return item.key == selected;
     }).map(({ value }) => descricaoSetor = { value });
     descricaoSetor = descricaoSetor.value;
-    idSensor = selected;
+    idSetor = selected;
     console.log(descricaoSetor);
     console.log(idSensor);
 }
