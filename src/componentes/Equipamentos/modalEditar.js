@@ -26,6 +26,8 @@ let idSensor;
 let idSensorOrigem;
 let descricaoSensor;
 let metricInicial;
+let metricInicialOrigem;
+let metricFinalOrigem;
 let metricFinal;
 
 let idSetorOrigem;;
@@ -283,13 +285,17 @@ function AtribuiValores(item) {
     descricaoEquipamento = item.Descricao;
     descricaoTag = item.Tag;
     idCriticidadeOrigem = item.Criticidade.map(({ _id }) => idCriticidadeOrigem = { _id })[0]._id;
+    idCriticidade=idCriticidadeOrigem;
     descricaoCriticidade= item.Criticidade.map(({ Descricao }) => descricaoCriticidade = { Descricao })[1].Descricao;
     descricaoSetor = item.Local.map(({ Descricao }) => descricaoSetor = { Descricao })[1].Descricao;
     idSetorOrigem = item.Local.map(({ _id }) => idSetorOrigem = { _id })[0]._id;
+    idSetor=idSetorOrigem;
     idStatusOrigem = item.Status.map(({ _id }) => idStatusOrigem = { _id })[0]._id;
+    idStatus=idStatusOrigem;
     descricaoStatus = item.Status.map(({ Descricao }) => descricaoStatus = { Descricao })[1].Descricao;
     descricaoSensor = item.Sensor.map(({ Descricao }) => descricaoSensor = { Descricao })[1].Descricao;
     idSensorOrigem = item.Sensor.map(({ _id }) => idSensorOrigem = { _id })[0]._id;
+    idSensor=idSensorOrigem;
 }
 
 class App extends Component {
@@ -349,8 +355,6 @@ class App extends Component {
                                     <View style={styles.comboboxStyle}>
                                         <Status></Status >
                                     </View>
-
-
                                 </View>
                             </SafeAreaView>
                             <View style={styles.viewButton}>
