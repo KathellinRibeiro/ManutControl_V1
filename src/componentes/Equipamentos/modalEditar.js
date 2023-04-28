@@ -125,7 +125,9 @@ function atribuirParamCrit(data, selected) {
     idCriticidade = selected;
 }
 function atribuirParamSensor(data, selected) {
-    idSensor = selected;   
+    idSensor = selected.split('_')[0];
+    metricInicial = selected.split('_')[1];
+    metricFinal = selected.split('_')[2];
     data = data.filter(function (item) {
         return item.key == selected;
     }).map(({ value }) => descricaoSensor = { value });
@@ -192,7 +194,7 @@ const Sensor = () => {
                     // Store Values in Temporary Array
                     let arrayOrigem = { key: 0, value: 'Selecione o Sensor' }
                     let newArray = response.data.map((item) => {
-                        return { key: item._id, value: item.name }
+                        return { key: item._id + '_' + item.metric_Inicial + '_' + item.metric_Final, value: item.name }
                     });
                     newArray.push(arrayOrigem);
                     newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
@@ -285,17 +287,21 @@ function AtribuiValores(item) {
     descricaoEquipamento = item.Descricao;
     descricaoTag = item.Tag;
     idCriticidadeOrigem = item.Criticidade.map(({ _id }) => idCriticidadeOrigem = { _id })[0]._id;
-    idCriticidade=idCriticidadeOrigem;
-    descricaoCriticidade= item.Criticidade.map(({ Descricao }) => descricaoCriticidade = { Descricao })[1].Descricao;
+    idCriticidade = idCriticidadeOrigem;
+    descricaoCriticidade = item.Criticidade.map(({ Descricao }) => descricaoCriticidade = { Descricao })[1].Descricao;
     descricaoSetor = item.Local.map(({ Descricao }) => descricaoSetor = { Descricao })[1].Descricao;
     idSetorOrigem = item.Local.map(({ _id }) => idSetorOrigem = { _id })[0]._id;
-    idSetor=idSetorOrigem;
+    idSetor = idSetorOrigem;
     idStatusOrigem = item.Status.map(({ _id }) => idStatusOrigem = { _id })[0]._id;
-    idStatus=idStatusOrigem;
+    idStatus = idStatusOrigem;
     descricaoStatus = item.Status.map(({ Descricao }) => descricaoStatus = { Descricao })[1].Descricao;
     descricaoSensor = item.Sensor.map(({ Descricao }) => descricaoSensor = { Descricao })[1].Descricao;
     idSensorOrigem = item.Sensor.map(({ _id }) => idSensorOrigem = { _id })[0]._id;
-    idSensor=idSensorOrigem;
+    idSensor = idSensorOrigem;
+    metricInicialOrigem = item.Sensor.map(({ metric_Inicial }) => metricInicialOrigem = { metric_Inicial })[2].metric_Inicial;
+    metricFinalOrigem = item.Sensor.map(({ metric_Final }) => metricFinalOrigem = { metric_Final })[3].metric_Final;
+    metricInicial = metricInicialOrigem;
+    metricFinalOrigem = metricFinalOrigem;
 }
 
 class App extends Component {
