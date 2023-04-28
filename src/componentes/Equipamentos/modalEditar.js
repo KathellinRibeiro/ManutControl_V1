@@ -7,10 +7,8 @@ import { SelectList } from 'react-native-dropdown-select-list';
 const width = Dimensions.get('screen').width;
 import Rotas from '../../RotasManut';
 
-
 let itemOrigem;
 let descricaoEditada;
-
 
 
 let descricaoEquipamento;
@@ -125,9 +123,7 @@ function atribuirParamCrit(data, selected) {
     idCriticidade = selected;
 }
 function atribuirParamSensor(data, selected) {
-    idSensor = selected.split('_')[0];
-    metricInicial = selected.split('_')[1];
-    metricFinal = selected.split('_')[2];
+    idSensor = selected;   
     data = data.filter(function (item) {
         return item.key == selected;
     }).map(({ value }) => descricaoSensor = { value });
@@ -135,11 +131,7 @@ function atribuirParamSensor(data, selected) {
 }
 
 function atribuirParamSetor(data, selected) {
-
-    console.log(selected)
-    console.log(data)
     if (data) {
-            console.log("NOME")
         data = data.filter(function (item) {
             return item.key == selected;
         }).map(({ value }) => descricaoSetor = { value });
@@ -183,7 +175,7 @@ const Status = () => {
         loadData();
     }, []);
     return (
-        <SelectList setSelected={setSelectedStatus} data={dataStatus} onSelect={() => atribuirParamStatus(dataStatus, selectedStatus)} placeholder="Selecione o Status" />
+        <SelectList setSelected={setSelectedStatus} data={dataStatus} onSelect={() => atribuirParamStatus(dataStatus, selectedStatus)} placeholder={descricaoStatus} />
     )
 }
 
@@ -198,7 +190,7 @@ const Sensor = () => {
                     // Store Values in Temporary Array
                     let arrayOrigem = { key: 0, value: 'Selecione o Sensor' }
                     let newArray = response.data.map((item) => {
-                        return { key: item._id + '_' + item.metric_Inicial + '_' + item.metric_Final, value: item.name }
+                        return { key: item._id, value: item.name }
                     });
                     newArray.push(arrayOrigem);
                     newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
@@ -214,7 +206,7 @@ const Sensor = () => {
     }, []);
 
     return (
-        <SelectList setSelected={setSelectedSensor} data={dataSensor} onSelect={() => atribuirParamSensor(dataSensor, selectedSensor)} placeholder="Selecione o Sensor" />
+        <SelectList setSelected={setSelectedSensor} data={dataSensor} onSelect={() => atribuirParamSensor(dataSensor, selectedSensor)} placeholder={descricaoSensor} />
     )
 }
 
@@ -235,13 +227,9 @@ const Setor = () => {
                         return { key: item._id, value: item.Nome }
                     });
                     newArray.push(arrayOrigem);
-                    //newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
                     //Set Data Variable
-                    setSelectedSetor(newArray)
-                    console.log(newArray)
-                  atribuirParamSetor(newArray, idSetorOrigem);
-                    console.log('dfhfuewfu');
-                    console.log(descricaoSetor)
+                    setDataSetor(newArray);
                 })
                 .catch((e) => {
                     console.log(e)
@@ -252,7 +240,7 @@ const Setor = () => {
     }, []);
 
     return (
-        <SelectList key={idSensor} defaultOption={idSensorOrigem} setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamCrit(datasetor, selectedSetor)} placeholder={descricaoSetor} />
+        <SelectList key={idSensor} defaultOption={idSensorOrigem} setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder={descricaoSetor} />
     )
 }
 
@@ -298,6 +286,10 @@ function AtribuiValores(item) {
     descricaoCriticidade= item.Criticidade.map(({ Descricao }) => descricaoCriticidade = { Descricao })[1].Descricao;
     descricaoSetor = item.Local.map(({ Descricao }) => descricaoSetor = { Descricao })[1].Descricao;
     idSetorOrigem = item.Local.map(({ _id }) => idSetorOrigem = { _id })[0]._id;
+    idStatusOrigem = item.Status.map(({ _id }) => idStatusOrigem = { _id })[0]._id;
+    descricaoStatus = item.Status.map(({ Descricao }) => descricaoStatus = { Descricao })[1].Descricao;
+    descricaoSensor = item.Sensor.map(({ Descricao }) => descricaoSensor = { Descricao })[1].Descricao;
+    idSensorOrigem = item.Sensor.map(({ _id }) => idSensorOrigem = { _id })[0]._id;
 }
 
 class App extends Component {
@@ -324,7 +316,7 @@ class App extends Component {
 
                     <View >
                         <View style={styles.modalView}>
-                            <Text style={styles.textCardStyle}>Incluir Equipamento</Text>
+                            <Text style={styles.textCardStyle}>Editar Equipamento</Text>
                             <View style={styles.cardStyle} >
                             </View>
 
