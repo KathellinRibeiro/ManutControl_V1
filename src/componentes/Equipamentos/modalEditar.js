@@ -295,6 +295,7 @@ function AtribuiValores(item) {
     descricaoEquipamento = item.Descricao;
     descricaoTag = item.Tag;
     idCriticidadeOrigem = item.Criticidade.map(({ _id }) => idCriticidadeOrigem = { _id })[0]._id;
+    descricaoCriticidade= item.Criticidade.map(({ Descricao }) => descricaoCriticidade = { Descricao })[1].Descricao;
     descricaoSetor = item.Local.map(({ Descricao }) => descricaoSetor = { Descricao })[1].Descricao;
     idSetorOrigem = item.Local.map(({ _id }) => idSetorOrigem = { _id })[0]._id;
 }
