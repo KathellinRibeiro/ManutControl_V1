@@ -12,7 +12,6 @@ axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
 let descricaoEditada;
 function incluir() {
-    console.log(descricaoEditada);
     fetch(Rotas.routesStatus + 'post', {
         method: 'POST',
         body: JSON.stringify({
@@ -80,7 +79,7 @@ class App extends Component {
                         </View>
                     </View>
                 </Modal>
-                <FontAwesome.Button style={estilos.botaoItemIncluir} onPress={() => this.setState({ modalVisible: true })} name="edit"
+                <FontAwesome.Button style={estilos.botaoItemIncluir} onPress={() => this.setState({ modalVisible: true })} name="plus"
                 // onPress={}
                 ></FontAwesome.Button>
             </View>
