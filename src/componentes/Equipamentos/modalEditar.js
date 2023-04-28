@@ -18,18 +18,23 @@ let descricaoEquipamento;
 
 let descricaoTag;
 
+let idCriticidadeOrigem;
 let idCriticidade;
+let descricaoCriticidadeOrigem;
 let descricaoCriticidade;
 
 
 let idSensor;
+let idSensorOrigem;
 let descricaoSensor;
 let metricInicial;
 let metricFinal;
 
+let idSetorOrigem;;
 let idSetor;
 let descricaoSetor;
 
+let idStatusOrigem;;
 let idStatus;
 let descricaoStatus;
 
@@ -53,7 +58,7 @@ function incluir() {
                 }
             ],
             "Criticidade": [{
-                "_id": idCriticidade,
+                "_id": idCriticidadeOrigem,
                 "Descricao": descricaoCriticidade,
             }],
 
@@ -73,11 +78,14 @@ function incluir() {
         .then((json) => console.log(JSON.stringify(json)));
 };
 
-
+function handleChange(event) {
+    setSelected({ ...selected, [event.targe.id]: event.target.value });
+}
 
 const Criticidade = () => {
-    const [selectedCriticidade, setSelectedCriticidade] = React.useState("");
-    const [dataCriticidade, setDataCriticidade] = React.useState([]);
+    const [selectedCriticidade, setSelectedCriticidade] = React.useState({});
+
+    const [dataCriticidade, setDataCriticidade] = React.useState("");
     React.useEffect(() => {
         //Get Values from database
         const loadData = async () => {
@@ -89,7 +97,7 @@ const Criticidade = () => {
                         return { key: item._id, value: item.Descricao }
                     });
                     newArray.push(arrayOrigem);
-                    newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
+                    //newArray.sort((a, b) => (a.key > b.key) ? 1 : -1)
                     //Set Data Variable
                     setDataCriticidade(newArray)
                 })
@@ -100,19 +108,20 @@ const Criticidade = () => {
 
         loadData();
     }, []);
-    console.log('criticidade');
-    console.log(idCriticidade);
+
+    atribuirParamCrit(dataCriticidade, idCriticidadeOrigem);
     return (
-        <SelectList option={idCriticidade} defaultOption ={idCriticidade} setSelected={setSelectedCriticidade} data={dataCriticidade} onSelect={() => atribuirParamCrit(dataCriticidade, selectedCriticidade)} placeholder="Selecione a Criticidade" />
+        <SelectList key={idCriticidade} defaultOption={idCriticidadeOrigem} setSelected={setSelectedCriticidade} data={dataCriticidade} onSelect={() => atribuirParamCrit(dataCriticidade, selectedCriticidade)} placeholder={descricaoCriticidade} />
     )
 }
 
 function atribuirParamCrit(data, selected) {
-    console.log(selected);
-    data = data.filter(function (item) {
-        return item.key == selected;
-    }).map(({ value }) => descricaoCriticidade = { value });
-    descricaoCriticidade = descricaoCriticidade.value;
+      if (data) {
+        data = data.filter(function (item) {
+            return item.key == selected;
+        }).map(({ value }) => descricaoCriticidade = { value });
+        descricaoCriticidade = descricaoCriticidade.value
+    };
     idCriticidade = selected;
 }
 
@@ -127,13 +136,18 @@ function atribuirParamSensor(data, selected) {
 }
 
 function atribuirParamSetor(data, selected) {
-    data = data.filter(function (item) {
-        return item.key == selected;
-    }).map(({ value }) => descricaoSetor = { value });
-    descricaoSetor = descricaoSetor.value;
-    idSensor = selected;
-    console.log(descricaoSetor);
-    console.log(idSensor);
+
+    if (data!==[]) {
+        console.log('dfhfuewfu');
+        console.log(selected)
+        console.log(data);
+/*         data = data.filter(function (item) {
+            return item.key == selected;
+        }).map(({ value }) => descricaoSetor = { value }); */
+        console.log(descricaoSetor); 
+        // descricaoSetor = descricaoSetor.value; 
+    };
+    idSetor = selected;
 }
 function atribuirParamStatus(data, selected) {
     data = data.filter(function (item) {
@@ -141,8 +155,7 @@ function atribuirParamStatus(data, selected) {
     }).map(({ value }) => descricaoStatus = { value });
     descricaoStatus = descricaoStatus.value;
     idStatus = selected;
-    console.log(descricaoStatus);
-    console.log(idStatus);
+   
 }
 
 const Status = () => {
@@ -201,11 +214,9 @@ const Sensor = () => {
 
         loadData();
     }, []);
-    
-    console.log('teste');
-console.log(idCriticidade);
+
     return (
-        <SelectList setSelected={idCriticidade} data={dataSensor} onSelect={() => atribuirParamSensor(dataSensor, selectedSensor)} placeholder="Selecione o Sensor" />
+        <SelectList setSelected={setSelectedSensor} data={dataSensor} onSelect={() => atribuirParamSensor(dataSensor, selectedSensor)} placeholder="Selecione o Sensor" />
     )
 }
 
@@ -239,16 +250,18 @@ const Setor = () => {
 
         loadData();
     }, []);
+   atribuirParamSetor(datasetor, idSetorOrigem)
     return (
-        <SelectList setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder="Selecione o Setor" />
+        <SelectList value={idSetorOrigem} defaultOption={idSetorOrigem}  setSelected={setSelectedSetor} data={datasetor} onSelect={() => atribuirParamSetor(datasetor, selectedSetor)} placeholder={descricaoSetor} />
     )
 }
 
-function AtribuiValores(item){
-    descricaoEquipamento=item.Descricao;
-    descricaoTag=item.Tag;
-   idCriticidade= item.Criticidade.map(({ _id }) => idCriticidade = { _id })[0]._id;
-   console.log(idCriticidade)
+function AtribuiValores(item) {
+    descricaoEquipamento = item.Descricao;
+    descricaoTag = item.Tag;
+    idCriticidadeOrigem = item.Criticidade.map(({ _id }) => idCriticidadeOrigem = { _id })[0]._id;
+    idSetorOrigem = item.Local.map(({ _id }) => idSetorOrigem = { _id })[0]._id;
+    console.log(idSetorOrigem)
 }
 
 class App extends Component {
@@ -257,11 +270,11 @@ class App extends Component {
     };
 
     render() {
-     
+
         itemOrigem = this.props.item;
- 
-        const { modalVisible } = this.state;
         AtribuiValores(itemOrigem);
+        const { modalVisible } = this.state;
+       
         return (
             <View style={styles.centeredView}>
                 <Modal
@@ -295,7 +308,7 @@ class App extends Component {
                                         defaultValue={descricaoTag}
                                     />
                                     <View style={styles.comboboxStyle}>
-                                        <Criticidade></Criticidade>
+                                        <Criticidade option={{ idCriticidadeOrigem }} setSelected={idCriticidadeOrigem}></Criticidade>
                                     </View>
                                     <View style={styles.comboboxStyle}>
                                         <Sensor></Sensor >
