@@ -3,15 +3,14 @@ import estilos from '../estilos';
 import estilosConfig from '../estilosConfig'
 import axios from 'axios';
 
-//import ComboboxCriticidade from '../Criticidade/Modals/comboboxCriticidade';
 import Rotas from '../../../RotasManut';
-
+import Incluir from './Modals/incluir';
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
 
 import Update from './Modals/update';
-import Incluir from './Modals/incluir';
+
 import {
     SafeAreaView,
     Text,

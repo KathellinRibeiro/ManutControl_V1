@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import estilos from '../estilos';
 import estilosConfig from '../estilosConfig'
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import axios from 'axios';
-
-//import ComboboxCriticidade from '../Criticidade/Modals/comboboxCriticidade';
 import Rotas from '../../../RotasManut';
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
