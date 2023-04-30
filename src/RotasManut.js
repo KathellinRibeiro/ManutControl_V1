@@ -8,13 +8,16 @@ const routesEquipamento = connectionString + 'equipamento/';
 const routesCriticidade = connectionString + 'criticidade/';
 const routesSetor = connectionString + 'setor/';
 const routesStatus = connectionString + 'status/';
+const routesAlerta = connectionString + 'alerta/';
 
 const rotas = {
     routesSensor: routesSensor,
     routesEquipamento: routesEquipamento,
     routesCriticidade: routesCriticidade,
     routesSetor: routesSetor,
-    routesStatus: routesStatus
+    routesStatus: routesStatus,
+    routesAlerta: routesAlerta
+
 }
 
 export default rotas;

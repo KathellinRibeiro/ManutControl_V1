@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Rotas from '../../RotasManut'
+
 
 import Graficos from './graficos';
 import Filter from './filter'
@@ -25,7 +28,6 @@ import {
 import { cores } from '../../estilos';
 import estilos from './estilos';
 
-import Rotas from '../../RotasManut'
 
 const DATA = [
   {
@@ -62,57 +64,64 @@ const DATA = [
   },
 ];
 
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
-  <View>
-    <TouchableOpacity onPress={onPress} style={[estilos.item, { backgroundColor }]}>
-      {/* <Text style={[estilos.title, {color: textColor}]}>{item.title}</Text> */}
-      <Graficos item={item}></Graficos>
-    </TouchableOpacity>
-  </View>
 
-);
 
-const App = () => {
-  const [selectedId, setSelectedId] = useState();
+
+
+
+
+
+const Grafico = () => {
+  const [search, setSearch] = useState('');
   const [filteredData, setFilteredData] = useState([]);
   const [masterData, setMasterData] = useState([]);
+  const [selectedId, setSelectedId] = useState();
+  const backgroundColor = cores.azulPrincipal;
+  const color = 'black';
+
   useEffect(() => {
     fetch(Rotas.routesAlerta + 'getRegistros')
       .then((response) => response.json())
       .then((responseJson) => {
         setFilteredData(responseJson);
         setMasterData(responseJson);
-
       })
       .catch((error) => {
         console.error(error);
       });
   }, [])
-  const renderItem = ({ item }) => {
-    const backgroundColor = item._id === selectedId ? cores.azulPrincipal : cores.azulClaro;
-    const color = item._id === selectedId ? 'white' : 'black';
-    return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item._id)}
-        backgroundColor={backgroundColor}
-        textColor={color}
-      />
-    );
-  };
-
-  return (
-    <>
-      <SafeAreaView style={estilos.container}>
-        <FlatList
-          data={filteredData}
-          renderItem={renderItem}
-          keyExtractor={item => item._id}
-          extraData={selectedId}
+  
+  console.log(filteredData)
+  filteredData.map
+    ((item) => {
+      console.log(item)
+      return (
+        <Item
+          item={item}
+          onPress={() => setSelectedId(item._id)}
+          backgroundColor={backgroundColor}
+          textColor={color}
         />
-      </SafeAreaView>
-    </>
-  );
+      )
+    });
+}
+
+
+
+
+
+const Item = ({ item, onPress, backgroundColor, textColor }) => {
+  return (
+
+    <View>
+      <TouchableOpacity onPress={onPress} style={[estilos.item, { backgroundColor }]}>
+        <Graficos ></Graficos>
+      </TouchableOpacity>
+    </View>
+
+  )
+
 };
 
-export default App;
+
+export default Grafico;

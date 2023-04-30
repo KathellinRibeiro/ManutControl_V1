@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import estilos from './estilos'
+import axios from 'axios';
 import Rotas from '../../RotasManut'
 
 import {
@@ -24,22 +25,28 @@ import {
 
 import { cores } from '../../estilos';
 
-export default function Graficos() {
+export default function Graficos({item}) {
+  console.log('teste')
+console.log(item)
   return (
     <View>
-      <Text style={estilos.TextGrafico}>Nome Equipamento</Text>
+      <Text style={estilos.TextGrafico}>{item[0].nameSensor}</Text>
       <LineChart
         data={{
-          labels: ["January", "February", "March", "April", "May", "June"],
+          labels: ["1", "2","3", "4", "5", "6","7", "8","9", "10"],
           datasets: [
             {
               data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100
+               item[0].metric,
+               item[1].metric,
+               item[2].metric,
+               item[3].metric,
+               item[4].metric,
+               item[5].metric,
+               item[6].metric,
+               item[7].metric,
+               item[8].metric,
+               item[9].metric
               ]
             }
           ]
