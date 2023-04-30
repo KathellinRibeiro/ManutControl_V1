@@ -17,7 +17,7 @@ export default StyleSheet.create({
         fontSize: 20
     },
     container: {
-        flex: 1,
+        flex: 0,
         marginTop: StatusBar.currentHeight,
     },
     item: {

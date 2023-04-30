@@ -24,6 +24,7 @@ import {
 } from 'react-native';
 
 import { cores } from '../../estilos';
+import { Label } from 'reactstrap';
 
 export default function Graficos({item}) {
   console.log('teste')
@@ -51,10 +52,11 @@ console.log(item)
             }
           ]
         }}
-        width={(Dimensions.get("screen").width) - 75} // from react-native
+        width={(Dimensions.get("screen").width) - 70} // from react-native
         height={80}
+        
         yAxisLabel=""
-        yAxisSuffix="V"
+        yAxisSuffix=""
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={{
           backgroundColor: "#e26a00",
@@ -62,13 +64,13 @@ console.log(item)
           backgroundGradientTo: "#ffa726",
           justifyContent: 'center',
           marginVertical: 8,
-          marginHorizontal: 16,
-          padding: 20,
+          marginHorizontal: 2,
+          padding: 2,
           decimalPlaces: 2, // optional, defaults to 2dp
           color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
           style: {
-            borderRadius: 16
+            borderRadius: 4
           },
           propsForDots: {
             r: "6",
@@ -78,8 +80,8 @@ console.log(item)
         }}
         bezier
         style={{
-          marginVertical: 8,
-          borderRadius: 16
+          marginVertical: 6,
+          borderRadius: 8
         }}
       />
     </View>
