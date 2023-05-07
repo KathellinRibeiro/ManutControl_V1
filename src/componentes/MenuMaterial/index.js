@@ -9,7 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import estilos from './estilos';
 import HomeScreen from '../HomeScreen';
 import Filter from '../HomeScreen/filter'
-import Equipamentos from '../Equipamentos'
+import Equipamentos from '../Indicadores'
 import Alerta from '../Alertas'
 import Usuario from '../Configuracao/Usuario';
 import TestNav from '../Configuracao/Navegation';
@@ -24,6 +24,7 @@ function Feed() {
 }
 
 function Home() {
+ /// window.location.reload(true);
   return (
     <>
       <View style={estilos.TabScreen}>
