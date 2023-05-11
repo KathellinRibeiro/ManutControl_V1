@@ -107,7 +107,7 @@ const App = () => {
         <FlatList
           data={filteredData}
           renderItem={renderItem}
-          keyExtractor={item => item._id}
+          key={item => item._id}
           extraData={selectedId}
         />
       </SafeAreaView>

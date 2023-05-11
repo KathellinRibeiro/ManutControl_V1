@@ -22,8 +22,9 @@ const App = () => {
 
     return (
         filteredData.map((u, i) => {
+          { key: u._id }
             return (
-                <Card>
+                <Card key={i}>
                     {
                         <>
                             <Text >Nome Sensor:{u.nameSensor}</Text>

@@ -169,19 +169,8 @@ class MyComponent extends React.Component {
               <List.Item title="Gerenciador de Equipamentos"   onPress={() =>
                   navigate('Equipamentos')
                 } />
-              <List.Item title="Second item" />
             </List.Accordion>
 
-            <List.Accordion
-              title="Indicadores"
-              left={props => <List.Icon {...props} icon="folder" />}
-              expanded={this.state.expanded2}
-              onPress={this._handlePres2}
-            >
-              <List.Item title="MTTR" />
-              <List.Item title="MTBF" />
-              <List.Item title="Disponibilidade" />
-            </List.Accordion>
 
             <List.Accordion
               title="Sensor"

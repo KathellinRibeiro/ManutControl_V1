@@ -19,7 +19,6 @@ let descricaoTag;
 
 let idCriticidadeOrigem;
 let idCriticidade;
-let descricaoCriticidadeOrigem;
 let descricaoCriticidade;
 
 

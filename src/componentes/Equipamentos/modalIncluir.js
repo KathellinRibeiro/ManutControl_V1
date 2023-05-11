@@ -109,14 +109,16 @@ function atribuirParamCrit(data, selected) {
     idCriticidade = selected;
 }
 
-function atribuirParamSensor(data, selected) {
-    idSensor = selected.split('_')[0];
-    metricInicial = selected.split('_')[1];
-    metricFinal = selected.split('_')[2];
-    data = data.filter(function (item) {
-        return item.key == selected;
-    }).map(({ value }) => descricaoSensor = { value });
-    descricaoSensor = descricaoSensor.value;
+function atribuirParamSensor(data, selected) {  
+    if (selected !==0){
+        idSensor = selected.split('_')[0];
+        metricInicial = selected.split('_')[1];
+        metricFinal = selected.split('_')[2];
+        data = data.filter(function (item) {
+            return item.key == selected;
+        }).map(({ value }) => descricaoSensor = { value });
+        descricaoSensor = descricaoSensor.value;
+    }
 }
 
 function atribuirParamSetor(data, selected) {
