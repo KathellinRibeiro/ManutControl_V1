@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, Modal, StyleSheet, Text, Pressable, View, TextInput, SafeAreaView } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { Dimensions, Alert, Modal, StyleSheet, Text, Pressable, View, SafeAreaView } from 'react-native';
 import estilos from '../../estilos';
 import axios from 'axios';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -52,24 +53,25 @@ function editar() {
 
 
 class App extends Component {
+    
     state = {
         modalVisible: false,
     };
     render() {
         itemOrigem = this.props.item;
+        console.log(itemOrigem)
         const { modalVisible } = this.state;
         descricaoEditada = itemOrigem.Descricao;
 
         return (
-            <View style={styles.centeredView}>
+            <View  style={styles.centeredView}>
                 <Modal
-                    animationType="slide"
+                    animationType="none"
                     transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                        this.setState({ modalVisible: !modalVisible });
-                    }}>
+                    accessibilityElementsHidden={modalVisible}
+                    accessibilityViewIsModal={modalVisible}
+                // visible={modalVisible}
+                >
 
 
                     <View >
@@ -81,11 +83,25 @@ class App extends Component {
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
                                     <Text style={styles.text}>{itemOrigem._id}</Text>
-                                    <TextInput style={styles.textInputStyle} id={itemOrigem._id}
+                                    {/*     <TextInput style={styles.textInputStyle} id={itemOrigem._id}
                                         onChangeText={(text) => descricaoEditada = text}
                                         onChange={(text) => descricaoEditada = text}
                                         defaultValue={descricaoEditada}
+                                        onFocus={() => this.setState({ modalVisible: true })}
+                                        nativeID={itemOrigem._id}
+                                    /> */}
+                                    <TextInput
+                                  
+                                        onEndEditing={() => this.setState({ modalVisible: false })}
+                                        accessibilityElementsHidden={false}
+                                        focusable={false}
+                                        label="Email"
+                                        defaultValue={descricaoEditada}
+                                        nativeID={itemOrigem._id}
+                                        testID={itemOrigem._id}
+                                        onChangeText={(text) => descricaoEditada = text}
                                     />
+
                                 </View>
                             </SafeAreaView>
                             <View style={styles.viewButton}>
