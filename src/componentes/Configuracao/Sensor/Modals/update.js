@@ -66,7 +66,6 @@ class App extends Component {
         itemOrigem = this.props.item;
         const { modalVisible } = this.state;
 
-        console.log(itemOrigem._id);
         descricaoEditada = itemOrigem.name;
         metricFinallEditada = itemOrigem.metric_Final;
         metricInicialEditada = itemOrigem.metric_Inicial;

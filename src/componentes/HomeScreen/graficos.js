@@ -27,8 +27,6 @@ import { cores } from '../../estilos';
 import { Label } from 'reactstrap';
 
 export default function Graficos({item}) {
-  console.log('teste')
-console.log(item)
   return (
     <View>
       <Text style={estilos.TextGrafico}>{item[0].nameSensor}</Text>

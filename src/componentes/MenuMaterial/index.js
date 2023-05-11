@@ -24,7 +24,7 @@ function Feed() {
 }
 
 function Home() {
- /// window.location.reload(true);
+ ///window.location.reload();
   return (
     <>
       <View style={estilos.TabScreen}>
@@ -38,7 +38,6 @@ function Equipamento() {
   return (
     <>
       <View style={estilos.TabScreen}>
-
         <Equipamentos></Equipamentos>
       </View>
     </>

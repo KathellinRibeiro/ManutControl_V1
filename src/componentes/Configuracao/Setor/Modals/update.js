@@ -97,7 +97,7 @@ class App extends Component {
 
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
-                                    onPress={() => this.setState({ modalVisible: !modalVisible })}>
+                                    onPress={() => this.setState({ modalVisible: false })}>
                                     <Text style={styles.textStyle}>Cancelar</Text>
                                 </Pressable>
                             </View>
