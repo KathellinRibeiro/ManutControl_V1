@@ -58,23 +58,23 @@ class App extends Component {
                             </View>
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                    <Text>Descição sensor</Text>
                                     <TextInput style={styles.textInputStyle}
                                         onChangeText={(text) => descricaoEditada = text}
                                         onChange={(text) => descricaoEditada = text}
                                         defaultValue={descricaoEditada}
+                                        placeholder='Descição sensor'
                                     />
-                                    <Text>Métrica Inicial</Text>
                                     <TextInput style={styles.textInputStyle}
                                         onChangeText={(text) => metricInicial = text}
                                         onChange={(text) => metricInicial = text}
                                         defaultValue={metricInicial}
+                                        placeholder='Métrica Inicial'
                                     />
-                                    <Text>Métrica Final</Text>
                                     <TextInput style={styles.textInputStyle}
                                         onChangeText={(text) => metricFinal = text}
                                         onChange={(text) => metricFinal = text}
                                         defaultValue={metricFinal}
+                                        placeholder='Métrica Final'
                                     />
                                 </View>
                             </SafeAreaView>

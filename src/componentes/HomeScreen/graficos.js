@@ -27,12 +27,13 @@ import { cores } from '../../estilos';
 import { Label } from 'reactstrap';
 
 export default function Graficos({item}) {
+  console.log(item[1])
   return (
     <View>
-      <Text style={estilos.TextGrafico}>{item[0].nameSensor}</Text>
+      <Text style={estilos.TextGrafico}>{item[0].name}</Text>
       <LineChart
         data={{
-          labels: ["1", "2","3", "4", "5", "6","7", "8","9", "10"],
+          labels: ["0","1", "2","3", "4", "5", "6","7", "8","9"],
           datasets: [
             {
               data: [

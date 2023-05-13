@@ -104,6 +104,12 @@ function handleChange(event) {
     setSelected({ ...selected, [event.targe.id]: event.target.value });
 }
 
+function excluirItem(item) {
+    fetch(Rotas.routesEquipamento + 'delete/' + item._id, {
+        method: 'DELETE',
+    });
+    // window.location.reload(true);
+};
 const Criticidade = () => {
     const [selectedCriticidade, setSelectedCriticidade] = React.useState({});
 

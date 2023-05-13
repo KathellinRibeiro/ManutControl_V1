@@ -40,8 +40,8 @@ function excluirItem(item) {
 };
 
 function editar() {
-    fetch(Rotas.routesStatus + 'update/' + itemOrigem._id, {
-        method: 'PUT',
+    fetch(Rotas.routesStatus + 'update/' + idOrigem, {
+        method: 'patch',
         body: JSON.stringify({
             "Descricao": descricaoEditada,
         }),
@@ -100,9 +100,6 @@ const App = () => {
     }
 
     const ItemView = ({ item }) => {
-        itemOrigem = item;
-        idOrigem = item._id;
-        descricaoEditada = itemOrigem.Nome;
         return (
             <>
                 <View style={estilos.item}>
@@ -121,7 +118,7 @@ const App = () => {
                     <View style={estilos.containerItem}>
                         <FontAwesome.Button item={item} style={estilos.botaoItemEditar} onPress={() => [modalEditar({ item }), setDisplay('flex'), setModalVisible(true)]} name="edit"
                         ></FontAwesome.Button>
-                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(itemOrigem)} name="remove"
+                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(item)} name="remove"
                         ></FontAwesome.Button>
                     </View>
 

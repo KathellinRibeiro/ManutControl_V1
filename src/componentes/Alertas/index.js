@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Rotas from '../../RotasManut';
-import { View, SafeAreaView, Text, Image, ScrollView } from 'react-native'
+import { Text, Image, ScrollView } from 'react-native'
 import { Card, ListItem, Button, Icon } from 'react-native-elements'
 
 const App = () => {
@@ -9,11 +9,12 @@ const App = () => {
     const [masterData, setMasterData] = useState([]);
 
     useEffect(() => {
-        fetch(Rotas.routesAlerta + 'getAll')
+        fetch(Rotas.routesAlerta + 'getAllMes')
             .then((response) => response.json())
             .then((responseJson) => {
                 setFilteredData(responseJson);
                 setMasterData(responseJson);
+                console.log(masterData)
             })
             .catch((error) => {
                 console.error(error);
@@ -27,7 +28,7 @@ const App = () => {
                 <Card key={i}>
                     {
                         <>
-                            <Text >Nome Sensor:{u.nameSensor}</Text>
+                            <Text >Nome Sensor:{u.name}</Text>
                             <Text >Metrica: {u.metric}</Text>
                             <Text >Data:{u.time}</Text>
                             </>

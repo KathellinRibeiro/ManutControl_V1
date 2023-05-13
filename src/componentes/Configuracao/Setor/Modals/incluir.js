@@ -69,11 +69,11 @@ class App extends Component {
 
                             <SafeAreaView style={styles.viewComponentes}>
                                 <View style={styles.viewModalGeral}>
-                                <Text>Descição Setor</Text>
                                     <TextInput style={styles.textInputStyle}
                                         onChangeText={(text) => descricaoEditada = text}
                                         onChange={(text) => descricaoEditada = text}
                                         defaultValue={descricaoEditada}
+                                        placeholder='Descição Setor'
                                     />
                                 </View>
                             </SafeAreaView>
