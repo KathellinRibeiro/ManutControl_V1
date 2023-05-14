@@ -11,8 +11,6 @@ import Rotas from '../../../RotasManut';
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
-
-import Update from './Modals/update2'
 import Incluir from './Modals/incluir';
 import {
     SafeAreaView,
@@ -30,28 +28,35 @@ import {
 let itemOrigem;
 let descricaoEditada;
 let idOrigem;
-
-
-function excluirItem(item) {
-    fetch(Rotas.routesStatus + 'delete/' + item._id, {
-        method: 'DELETE',
-    });
-    // window.location.reload(true);
-};
+let flErrorEditar = false;
+let flErrorSalvar = false;
 
 function editar() {
-    fetch(Rotas.routesStatus + 'update/' + idOrigem, {
-        method: 'patch',
-        body: JSON.stringify({
-            "Descricao": descricaoEditada,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
+    try {
+        flErrorEditar = false
+        fetch(Rotas.routesStatus + 'update/' + itemOrigem._id, {
+            method: 'PUT',
+            body: JSON.stringify({
+                "Descricao": descricaoEditada,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                if (JSON.stringify(json).searchFilter("messege")) {
+                    flErrorEditar = true
+                }
+            });
+    } catch {
+        alert("Houve falha ao salvar os dados, por favor salve novamente")
+        flErrorEditar = true;
+    }
+
+
 };
+
 
 const App = () => {
 
@@ -60,6 +65,7 @@ const App = () => {
     const [masterData, setMasterData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [display, setDisplay] = useState('none');
+    //const [idOrigem, setIdOrigem] = useState('');
 
     useEffect(() => {
         fetch(Rotas.routesStatus + 'getAll')
@@ -92,11 +98,27 @@ const App = () => {
         setSearch(text);
     };
 
-    const modalEditar = ({ item }) => {
+    const modalEditar = (item) => {
+        console.log(item)
         itemOrigem = item;
         idOrigem = item._id;
-        descricaoEditada = itemOrigem.Descricao;
+        descricaoEditada = item.Descricao;
+
         setDisplay('flex');
+        console.log(idOrigem)
+    }
+
+    function excluirItem(item) {
+        fetch(Rotas.routesSetor + 'delete/' + item._id, {
+            method: 'DELETE',
+        });
+        // window.location.reload(true);
+    };
+
+    function VaidarErrorEditar(){
+        if(flErrorEditar){
+        alert("Falha ao salvar os dados, tente novamente!")
+        }
     }
 
     const ItemView = ({ item }) => {
@@ -107,7 +129,6 @@ const App = () => {
                         onPress={() => getItem(item)}>
                         Id:
                         {item._id.toUpperCase()}
-
                     </Text>
                     <Text style={estilos.TextGrafico}
                         onPress={() => modalEditar(item)}>
@@ -116,7 +137,7 @@ const App = () => {
                     </Text>
 
                     <View style={estilos.containerItem}>
-                        <FontAwesome.Button item={item} style={estilos.botaoItemEditar} onPress={() => [modalEditar({ item }), setDisplay('flex'), setModalVisible(true)]} name="edit"
+                        <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true),VaidarErrorEditar()]} name="edit"
                         ></FontAwesome.Button>
                         <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(item)} name="remove"
                         ></FontAwesome.Button>
@@ -131,6 +152,8 @@ const App = () => {
     const getItem = (item) => {
         alert('Id : ' + item._id + '\n\nTarefa : ' + item.Descricao + '\n\nCompletada: ');
     };
+
+
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -147,6 +170,8 @@ const App = () => {
                 <FlatList
                     data={filteredData}
                     renderItem={ItemView}
+                    item={item => item}
+                    keyExtractor={item => item._id}
                 />
                 <View style={[styles.centeredView, { display }]}>
                     <Modal
@@ -170,7 +195,6 @@ const App = () => {
                                             onChangeText={(text) => descricaoEditada = text}
                                             onChange={(text) => descricaoEditada = text}
                                             defaultValue={descricaoEditada}
-                                            autoFocus={false}
                                             onRequestClose={() => {
                                                 setDisplay('none')
                                                 this.setState({ modalVisible: false });
