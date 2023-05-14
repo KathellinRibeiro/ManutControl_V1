@@ -9,7 +9,8 @@ const routesCriticidade = connectionString + 'criticidade/';
 const routesSetor = connectionString + 'setor/';
 const routesStatus = connectionString + 'status/';
 const routesAlerta = connectionString + 'alerta/';
-const routesIndicadore= connectionString + 'indicadores/';
+const routesIndicadores = connectionString + 'indicadores/';
+const routesUsuario = connectionString + 'usuario/';
 
 const rotas = {
     routesSensor: routesSensor,
@@ -18,7 +19,8 @@ const rotas = {
     routesSetor: routesSetor,
     routesStatus: routesStatus,
     routesAlerta: routesAlerta,
-    routesIndicadores: routesIndicadore
+    routesIndicadores: routesIndicadores,
+    routesUsuario: routesUsuario
 
 }
 

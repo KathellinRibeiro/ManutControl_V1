@@ -5,17 +5,22 @@ export default StyleSheet.create({
     TopBar: {
         flex: 0, flexDirection: 'row',
         backgroundColor: cores.azulPrincipal,
-        justifyContent: 'flex-start',
         alignItems: 'center',
         marginTop: 1,
         paddingVertical: 8,
         paddingHorizontal: 16,
         paddingTop: 15,
     },
+    TopBarText: {
+        flex: 0, flexDirection: 'row',
+        backgroundColor: cores.azulPrincipal,
+        justifyContent: 'flex-start',
+    },
     TextTopBar: {
         fontSize: 26,
         fontWeight: 'bold',
-        color: '#FFFF'
+        color: '#FFFF',
+        justifyContent: 'flex-start',
     },
 
     HomeScreen: {
