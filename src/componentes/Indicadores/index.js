@@ -29,13 +29,11 @@ export default function Equipamentos() {
             .then((response) => response.json())
             .then((responseJson) => {
                 setMasterData(responseJson);
-                setFilteredData(responseJson);
             })
             .catch((error) => {
                 console.error(error);
             });
     }, []);
-
 
     useEffect(() => {
         async function fetchData() {
@@ -45,12 +43,9 @@ export default function Equipamentos() {
         fetchData();
     });
 
-
-
     const Lista = () => {
-        console.log(descricaoEditadaHoras)
         async function fetchData() {
-            fetch(Rotas.routesIndicadores + 'getIndicadorMtbf/'+descricaoEditadaHoras)
+            fetch(Rotas.routesIndicadores + 'getIndicadorMtbf/' + descricaoEditadaHoras)
                 .then((response) => response.json())
                 .then((responseJson) => {
                     setMasterData(responseJson);
@@ -64,22 +59,16 @@ export default function Equipamentos() {
         fetchData();
     };
 
-
     const Item = () => (
         useEffect(() => {
             async function fetchData() {
-                console.log('before');
                 await delay(100000);
-                console.log('after');
             }
 
             fetchData();
         }),
 
         <>
-            {/* <Graficos item={masterData}></Graficos> */}
-
-
             <View>
                 <Text style={styles.header}>Indicador MTBF mês {masterData[0].mes} </Text>
                 <ProgressChart
@@ -100,11 +89,7 @@ export default function Equipamentos() {
         </>
     );
 
-
-
-
     if (masterData.length > 0) {
-
         return (
             <>
                 <TextInput style={estilos.textInputStyle}
@@ -113,7 +98,7 @@ export default function Equipamentos() {
                     defaultValue={descricaoEditadaHoras}
                     placeholder='Horas programadas em operação'
                 />
-                   <TextInput style={estilos.textInputStyle}
+                <TextInput style={estilos.textInputStyle}
                     onChangeText={(text) => descricaoEditadaDias = text}
                     onChange={(text) => descricaoEditadaDias = text}
                     defaultValue={descricaoEditadaDias}
@@ -123,10 +108,9 @@ export default function Equipamentos() {
                 ></FontAwesome.Button>
                 <Item></Item>
             </>
-
-
         );
     }
+
     if (masterData.length == 0) {
         return (
             <>
@@ -141,11 +125,6 @@ export default function Equipamentos() {
         )
     }
 }
-
-
-
-
-
 
 const chartConfig = {
     backgroundColor: '#1cc910',
