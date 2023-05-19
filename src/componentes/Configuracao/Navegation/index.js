@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { cores } from '../../../estilos';
 
@@ -12,13 +11,8 @@ import { List, Checkbox } from 'react-native-paper';
 
 import {
   SafeAreaView,
-  Text,
   ScrollView,
   StyleSheet,
-  View,
-  FlatList,
-  TextInput,
-  TouchableOpacity,
   StatusBar
 } from 'react-native';
 

@@ -1,19 +1,21 @@
 {
   "expo": {
     "name": "ManutControl",
-    "slug": "ManutControl",
+    "slug": "manutControl-slug",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo1.jpg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo1.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#071c42"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
+    "bundleIdentifier": "com.manutControl.manutcontrol",
+    "buildNumber": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -21,13 +23,22 @@
       "supportsTablet": true
     },
     "android": {
+
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#071c42"
-      }
+      },
+      "compileSdkVersion": 27,
+      "package": "com.manutControl.manutcontrol",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "854f59ba-0132-485b-be01-3951ac96f038"
+      }
     }
   }
 }
