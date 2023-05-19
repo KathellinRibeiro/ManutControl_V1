@@ -1,9 +1,9 @@
 //require('dotenv').config();
 //const connectionString = process.env.DATABASE_URL;
 ///const connectionString = 'http://192.168.43.24:3000/api/';
-const connectionString = 'http://10.0.2.2:3003/api/';
+//const connectionString = 'http://10.0.2.2:3003/api/';
 
-// const connectionString = 'http://15.228.3.6:3003/api/';
+const connectionString = 'http://15.228.3.6:3003/api/';
 
 
 
