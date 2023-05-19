@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Entypo } from '@expo/vector-icons';
+import { List, Checkbox } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,13 +9,9 @@ import { cores } from '../../estilos';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import estilos from './estilos';
 import HomeScreen from '../HomeScreen';
-import Filter from '../HomeScreen/filter'
 import Equipamentos from '../Indicadores'
 import Alerta from '../Alertas'
-import Usuario from '../Configuracao/Usuario';
 import TestNav from '../Configuracao/Navegation';
-import Usuario1 from '../Usuario'
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import styles from './styles';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Rotas from '../../RotasManut';
@@ -400,6 +397,25 @@ export default function App() {
 
 
 
+  function ExcluirContaUsuario() {
+    fetch(Rotas.routesUsuario + 'delete/'+ email, {
+      method: 'DELETE',      
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) =>setLogin(false), setCriarConta(false), setTelaCriarConta(false))
+      .then((json) => {
+        setLogin(false), setCriarConta(false), setTelaCriarConta(false)
+      }
+      ).catch((error) => {
+
+      });
+  };
+
+
+  
+
   function CriarContaUsuario() {
     console.log(senha)
     fetch(Rotas.routesUsuario + 'post', {
@@ -617,32 +633,45 @@ export default function App() {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   else if (flLogin === true) {
+    stateUsuario = {
+      expanded: false,
+    }
+    _handlePress = () =>
+      this.setState({
+        expanded: !stateUsuario.expanded
+      });
     return (
       <>
         {/* <TopBar></TopBar> */}
+
+        <Text style={estilos.TextTopBar}>ManutControl</Text>
+        <View style={estilos.listUsuario}>
+          <List.Accordion
+            title={email}
+            left={props => <List.Icon {...props} />}
+          >
+            <List.Item title="Excluir Conta"
+              onPress={() => [ExcluirContaUsuario()]}
+            />
+            <List.Item title="Logout"
+              onPress={() => [setLogin(false), setCriarConta(false), setTelaCriarConta(false)]}
+            />
+          </List.Accordion>
+        </View>
         <View style={estilos.TopBar}>
-          <Text style={estilos.TextTopBar}>ManutControl</Text>
+
+          {/* <Text style={estilos.TextTopBar}>ManutControl</Text> */}
+
           <View tyle={styles.buttonLogout}>
-            <FontAwesome.Button onPress={() => [setLogin(false), setCriarConta(false), setTelaCriarConta(false)]} name=""
+
+
+
+            {/*   <FontAwesome.Button onPress={() => [setLogin(false), setCriarConta(false), setTelaCriarConta(false)]} name=""
             >
               <Entypo name="arrow-with-circle-right" size={30} color="white" />
 
-            </FontAwesome.Button>
+            </FontAwesome.Button> */}
           </View>
         </View>
 

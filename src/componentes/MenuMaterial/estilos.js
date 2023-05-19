@@ -20,7 +20,6 @@ export default StyleSheet.create({
         fontSize: 26,
         fontWeight: 'bold',
         color: '#FFFF',
-        justifyContent: 'flex-start',
     },
 
     HomeScreen: {
@@ -39,6 +38,14 @@ export default StyleSheet.create({
     NavigationContainer: {
         "backgroundColor": cores.azulPrincipal,
         color: cores.azulPrincipal,
+    },
+    listUsuario: {
+        "backgroundColor": cores.cinza,
+        color: cores.cinza,
+    },
+    user: {
+        "backgroundColor": cores.azulClaro,
+        color: cores.azulClaro,
     },
     tabBarOptions: {
         activeTintColor: cores.claro,

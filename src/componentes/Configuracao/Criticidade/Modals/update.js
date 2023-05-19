@@ -5,8 +5,6 @@ import axios from 'axios';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 const width = Dimensions.get('screen').width;
 import Rotas from '../../../../RotasManut';
-//import ComboboxCriticidade from '../Modals/comboboxCriticidade'
-
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 
@@ -15,19 +13,14 @@ let descricaoEditada;
 
 
 function excluirItem(item) {
-    console.log(item);
-    console.log(item._id);
     fetch(Rotas.routesCriticidade + 'delete/' + item._id, {
         method: 'DELETE',
     });
-    // window.location.reload(true);
 };
 
 function editarItem(item) {
     console.log(item);
     console.log(item._id);
-
-
     fetch(Rotas.routesCriticidade + 'update/' + item._id, {
         method: 'PUT',
         body: JSON.stringify({
@@ -82,7 +75,6 @@ class App extends Component {
                         this.setState({ modalVisible: !modalVisible });
                     }}>
 
-
                     <View >
                         <View style={styles.modalView}>
                             <Text style={styles.textCardStyle}>Editar Criticidade</Text>
@@ -112,26 +104,15 @@ class App extends Component {
                                     <Text style={styles.textStyle}>Cancelar</Text>
                                 </Pressable>
                             </View>
-
                         </View>
                     </View>
                 </Modal>
                 <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
-                // onPress={}
                 ></FontAwesome.Button>
 
-                {/* <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => editar()} name="edit"
-                // onPress={}
-                ></FontAwesome.Button> */}
                 <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(itemOrigem)} name="remove"
-                // onPress={}
                 ></FontAwesome.Button>
-                {/*        <Pressable
-                    style={[styles.button, styles.buttonOpen]}
-                    onPress={() => this.setState({ modalVisible: true })}>
-                    <Text style={styles.textStyle}>Show Modal</Text>
-                    
-                </Pressable> */}
+
             </View>
         );
     }

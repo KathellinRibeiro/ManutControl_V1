@@ -41,7 +41,7 @@ function editar() {
         },
     })
         .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
+        .then((json) => carregarLista());
 };
 
 
@@ -53,6 +53,17 @@ const App = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [display, setDisplay] = useState('none');
     //const [idOrigem, setIdOrigem] = useState('');
+    const carregarLista = () => {
+        fetch(Rotas.routesSetor + 'getAll')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                setFilteredData(responseJson);
+                console.log(filteredData)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     useEffect(() => {
         fetch(Rotas.routesSetor + 'getAll')
@@ -85,22 +96,22 @@ const App = () => {
         setSearch(text);
     };
 
-    const modalEditar = (item ) => {
+    const modalEditar = (item) => {
         console.log(item)
-        itemOrigem = item;  
-        idOrigem=item._id;     
+        itemOrigem = item;
+        idOrigem = item._id;
         descricaoEditada = itemOrigem.Nome;
-       
+
         setDisplay('flex');
         console.log(idOrigem)
     }
-    
-function excluirItem(item) {
-    fetch(Rotas.routesSetor + 'delete/' + item._id, {
-        method: 'DELETE',
-    });
-    // window.location.reload(true);
-};
+
+    function excluirItem(item) {
+        fetch(Rotas.routesSetor + 'delete/' + item._id, {
+            method: 'DELETE',
+        });
+        // window.location.reload(true);
+    };
 
     const ItemView = ({ item }) => {
         return (
@@ -118,26 +129,30 @@ function excluirItem(item) {
                     </Text>
 
                     <View style={estilos.containerItem}>
-                        <FontAwesome.Button style={estilos.botaoItemEditar } onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true)]} name="edit"
+                        <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true)]} name="edit"
                         ></FontAwesome.Button>
-                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(item)} name="remove"
+                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => [excluirItem(item), carregarLista()]} name="remove"
                         ></FontAwesome.Button>
                     </View>
 
                 </View>
 
             </>
-        );    };
+        );
+    };
 
     const getItem = (item) => {
         alert('Id : ' + item._id + '\n\nTarefa : ' + item.Nome + '\n\nCompletada: ');
     };
-    
+
 
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-           
+            <View style={estilos.botaoView}>
+                <FontAwesome.Button style={estilos.botaoItem} onPress={() => [carregarLista()]} name="repeat"
+                ></FontAwesome.Button>
+            </View>
             <View style={estilos.container}>
                 <Incluir></Incluir>
                 <TextInput
@@ -150,57 +165,57 @@ function excluirItem(item) {
                 <FlatList
                     data={filteredData}
                     renderItem={ItemView}
-                    item={item=>item}
+                    item={item => item}
                     keyExtractor={item => item._id}
                 />
-                 <View style={[styles.centeredView, { display }]}>
-                <Modal
-                    animationType="slide"
-                    visible={modalVisible}
-                    transparent={true}
-                    onRequestClose={() => {
-                        Alert.alert('Modal has been closed.');
-                        setModalVisible(false);
-                    }}>
-                    <View >
-                        <View style={[styles.modalView]}>
-                            <Text style={styles.textCardStyle}>Editar Setor</Text>
-                            <View style={styles.cardStyle} >
-                            </View>
-
-                            <SafeAreaView style={styles.viewComponentes}>
-                                <View style={styles.viewModalGeral}>
-                                    <Text style={styles.text}>{idOrigem}</Text>
-                                    <TextInput style={styles.textInputStyle}
-                                        onChangeText={(text) => descricaoEditada = text}
-                                        onChange={(text) => descricaoEditada = text}
-                                        defaultValue={descricaoEditada}
-                                        autoFocus={false}
-                                        onRequestClose={() => {
-                                            setDisplay('none')
-                                            this.setState({ modalVisible: false });
-                                        }}
-                                    />
+                <View style={[styles.centeredView, { display }]}>
+                    <Modal
+                        animationType="slide"
+                        visible={modalVisible}
+                        transparent={true}
+                        onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                            setModalVisible(false);
+                        }}>
+                        <View >
+                            <View style={[styles.modalView]}>
+                                <Text style={styles.textCardStyle}>Editar Setor</Text>
+                                <View style={styles.cardStyle} >
                                 </View>
-                            </SafeAreaView>
-                            <View style={styles.viewButton}>
-                                <Pressable
-                                    style={[styles.button, styles.buttonSave]}
-                                    onPress={() => [editar(), setModalVisible(false), setDisplay('none')]}>
-                                    <Text style={styles.textStyle}>Salvar</Text>
-                                </Pressable>
 
-                                <Pressable
-                                    style={[styles.button, styles.buttonClose]}
-                                    onPress={() => [setModalVisible(false),setDisplay('none')]}>
-                                    <Text style={styles.textStyle}>Cancelar</Text>
-                                </Pressable>
+                                <SafeAreaView style={styles.viewComponentes}>
+                                    <View style={styles.viewModalGeral}>
+                                        <Text style={styles.text}>{idOrigem}</Text>
+                                        <TextInput style={styles.textInputStyle}
+                                            onChangeText={(text) => descricaoEditada = text}
+                                            onChange={(text) => descricaoEditada = text}
+                                            defaultValue={descricaoEditada}
+                                            autoFocus={false}
+                                            onRequestClose={() => {
+                                                setDisplay('none')
+                                                this.setState({ modalVisible: false });
+                                            }}
+                                        />
+                                    </View>
+                                </SafeAreaView>
+                                <View style={styles.viewButton}>
+                                    <Pressable
+                                        style={[styles.button, styles.buttonSave]}
+                                        onPress={() => [editar(), setModalVisible(false), setDisplay('none'), carregarLista()]}>
+                                        <Text style={styles.textStyle}>Salvar</Text>
+                                    </Pressable>
+
+                                    <Pressable
+                                        style={[styles.button, styles.buttonClose]}
+                                        onPress={() => [setModalVisible(false), setDisplay('none'), carregarLista()]}>
+                                        <Text style={styles.textStyle}>Cancelar</Text>
+                                    </Pressable>
+                                </View>
+
                             </View>
-
                         </View>
-                    </View>
-                </Modal>
-            </View>
+                    </Modal>
+                </View>
             </View>
 
         </SafeAreaView>

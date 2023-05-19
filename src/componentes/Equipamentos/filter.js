@@ -97,7 +97,7 @@ function editar() {
         },
     })
         .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
+        .then((json) =>  carregarLista());
 };
 
 function handleChange(event) {
@@ -475,12 +475,21 @@ const App = () => {
         }
     };
 
+    const carregarLista = () => {
+        fetch(Rotas.routesEquipamento + 'getAll')
+          .then((response) => response.json())
+          .then((responseJson) => {
+            setFilteredData(responseJson);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    };
+  
 
-    const modalEditar = (item ) => {
-        console.log(item)
-        itemOrigem = item;  
-        idOrigem=item._id;     
-    
+    const modalEditar = (item) => {
+        itemOrigem = item;
+        idOrigem = item._id;
         idEquipamento = item._id;
         descricaoEquipamento = item.Descricao;
         descricaoTag = item.Tag;
@@ -501,7 +510,6 @@ const App = () => {
         metricInicial = metricInicialOrigem;
         metricFinal = metricFinalOrigem;
         setDisplay('flex');
-        console.log(idOrigem)
     }
 
     const ItemView = ({ item }) => {
@@ -546,13 +554,11 @@ const App = () => {
                     </Text>
 
                     <View style={estilos.containerItem}>
-                    <FontAwesome.Button style={estilos.botaoItemEditar } onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true)]} name="edit"
+                        <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true)]} name="edit"
                         ></FontAwesome.Button>
-                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(item)} name="remove"
+                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => [excluirItem(item), carregarLista()]} name="remove"
                         ></FontAwesome.Button>
-
                     </View>
-
                 </View>
 
             </>
@@ -567,6 +573,10 @@ const App = () => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={estilos.container}>
+                <View style={estilos.botaoView}>
+                    <FontAwesome.Button style={estilos.botaoItem} onPress={() => [carregarLista()]} name="repeat"
+                    ></FontAwesome.Button>
+                </View>
                 {/*   <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => this.setState({ modalVisible: true })} name="edit"
                 // onPress={}
                 ></FontAwesome.Button> */}
@@ -600,7 +610,7 @@ const App = () => {
                         }}>
                         <View >
                             <View style={[styles.modalView]}>
-                                <Text style={styles.textCardStyle}>Editar Setor</Text>
+                                <Text style={styles.textCardStyle}>Editar Equipamento</Text>
                                 <View style={styles.cardStyle} >
                                 </View>
 
@@ -608,44 +618,44 @@ const App = () => {
                                     <View style={styles.viewModalGeral}>
                                         <Text style={styles.text}>{idOrigem}</Text>
                                         <TextInput style={styles.textInputStyle}
-                                        placeholder="Nome Equipamento"
-                                        onChangeText={(text) => descricaoEquipamento = text}
-                                        onChange={(text) => descricaoEquipamento = text}
-                                        defaultValue={descricaoEquipamento}
-                                    />
+                                            placeholder="Nome Equipamento"
+                                            onChangeText={(text) => descricaoEquipamento = text}
+                                            onChange={(text) => descricaoEquipamento = text}
+                                            defaultValue={descricaoEquipamento}
+                                        />
 
-                                    <TextInput style={styles.textInputStyle}
-                                        placeholder="TAG"
-                                        onChangeText={(text) => descricaoTag = text}
-                                        onChange={(text) => descricaoTag = text}
-                                        defaultValue={descricaoTag}
-                                    />
-                                    <View style={styles.comboboxStyle}>
-                                        <Criticidade option={{ idCriticidadeOrigem }} setSelected={idCriticidadeOrigem}></Criticidade>
-                                    </View>
-                                    <View style={styles.comboboxStyle}>
-                                        <Sensor option={{ idSetorOrigem }} setSelected={idSetorOrigem}></Sensor >
-                                    </View>
-                                    <View style={styles.comboboxStyle}>
-                                        <Setor></Setor >
+                                        <TextInput style={styles.textInputStyle}
+                                            placeholder="TAG"
+                                            onChangeText={(text) => descricaoTag = text}
+                                            onChange={(text) => descricaoTag = text}
+                                            defaultValue={descricaoTag}
+                                        />
+                                        <View style={styles.comboboxStyle}>
+                                            <Criticidade option={{ idCriticidadeOrigem }} setSelected={idCriticidadeOrigem}></Criticidade>
+                                        </View>
+                                        <View style={styles.comboboxStyle}>
+                                            <Sensor option={{ idSetorOrigem }} setSelected={idSetorOrigem}></Sensor >
+                                        </View>
+                                        <View style={styles.comboboxStyle}>
+                                            <Setor></Setor >
 
-                                    </View>
+                                        </View>
 
-                                    <View style={styles.comboboxStyle}>
-                                        <Status></Status >
-                                    </View>
+                                        <View style={styles.comboboxStyle}>
+                                            <Status></Status >
+                                        </View>
                                     </View>
                                 </SafeAreaView>
                                 <View style={styles.viewButton}>
                                     <Pressable
                                         style={[styles.button, styles.buttonSave]}
-                                        onPress={() => [editar(), setModalVisible(false), setDisplay('none')]}>
+                                        onPress={() => [editar(), setModalVisible(false), setDisplay('none'), carregarLista()]}>
                                         <Text style={styles.textStyle}>Salvar</Text>
                                     </Pressable>
 
                                     <Pressable
                                         style={[styles.button, styles.buttonClose]}
-                                        onPress={() => [setModalVisible(false), setDisplay('none')]}>
+                                        onPress={() => [setModalVisible(false), setDisplay('none'), carregarLista()]}>
                                         <Text style={styles.textStyle}>Cancelar</Text>
                                     </Pressable>
                                 </View>

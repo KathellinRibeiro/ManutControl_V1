@@ -56,10 +56,6 @@ export default styles = StyleSheet.create({
     marginTop: 10
   },
   buttonLogout: {
-   justifyContent:"flex-end",
-   alignContent:"flex-end",
-   textAlignVertical:"center",
-   marginLeft:8
   },
 
   registerText: {

@@ -28,12 +28,9 @@ import {
 let itemOrigem;
 let descricaoEditada;
 let idOrigem;
-let flErrorEditar = false;
-let flErrorSalvar = false;
 
 function editar() {
     try {
-        flErrorEditar = false
         fetch(Rotas.routesStatus + 'update/' + itemOrigem._id, {
             method: 'PUT',
             body: JSON.stringify({
@@ -45,13 +42,10 @@ function editar() {
         })
             .then((response) => response.json())
             .then((json) => {
-                if (JSON.stringify(json).searchFilter("messege")) {
-                    flErrorEditar = true
-                }
+              carregarLista();
             });
     } catch {
         alert("Houve falha ao salvar os dados, por favor salve novamente")
-        flErrorEditar = true;
     }
 
 
@@ -98,6 +92,17 @@ const App = () => {
         setSearch(text);
     };
 
+    const carregarLista = () => {
+        fetch(Rotas.routesStatus + 'getAll')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                setFilteredData(responseJson);
+                console.log(filteredData)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
     const modalEditar = (item) => {
         console.log(item)
         itemOrigem = item;
@@ -115,11 +120,7 @@ const App = () => {
         // window.location.reload(true);
     };
 
-    function VaidarErrorEditar(){
-        if(flErrorEditar){
-        alert("Falha ao salvar os dados, tente novamente!")
-        }
-    }
+   
 
     const ItemView = ({ item }) => {
         return (
@@ -137,9 +138,9 @@ const App = () => {
                     </Text>
 
                     <View style={estilos.containerItem}>
-                        <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true),VaidarErrorEditar()]} name="edit"
+                        <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true)]} name="edit"
                         ></FontAwesome.Button>
-                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(item)} name="remove"
+                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => [excluirItem(item), carregarLista()]} name="remove"
                         ></FontAwesome.Button>
                     </View>
 
@@ -157,7 +158,10 @@ const App = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
-
+            <View style={estilos.botaoView}>
+                <FontAwesome.Button style={estilos.botaoItem} onPress={() => [carregarLista()]} name="repeat"
+                ></FontAwesome.Button>
+            </View>
             <View style={estilos.container}>
                 <Incluir></Incluir>
                 <TextInput
@@ -205,13 +209,13 @@ const App = () => {
                                 <View style={styles.viewButton}>
                                     <Pressable
                                         style={[styles.button, styles.buttonSave]}
-                                        onPress={() => [editar(), setModalVisible(false), setDisplay('none')]}>
+                                        onPress={() => [editar(), setModalVisible(false), setDisplay('none'), carregarLista()]}>
                                         <Text style={styles.textStyle}>Salvar</Text>
                                     </Pressable>
 
                                     <Pressable
                                         style={[styles.button, styles.buttonClose]}
-                                        onPress={() => [setModalVisible(false), setDisplay('none')]}>
+                                        onPress={() => [setModalVisible(false), setDisplay('none'), carregarLista()]}>
                                         <Text style={styles.textStyle}>Cancelar</Text>
                                     </Pressable>
                                 </View>

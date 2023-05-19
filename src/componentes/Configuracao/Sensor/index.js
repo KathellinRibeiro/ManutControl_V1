@@ -66,7 +66,7 @@ function editar() {
         },
     })
         .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
+        .then((json) => carregarLista());
 };
 
 
@@ -106,6 +106,18 @@ const App = () => {
             setFilteredData(masterData);
         }
         setSearch(text);
+    };
+
+
+    const carregarLista = () => {
+        fetch(Rotas.routesSensor + 'getAll')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                setFilteredData(responseJson);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     const modalEditar = (item) => {
@@ -164,6 +176,10 @@ const App = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <View style={estilos.botaoView}>
+                <FontAwesome.Button style={estilos.botaoItem} onPress={() => [carregarLista()]} name="repeat"
+                ></FontAwesome.Button>
+            </View>
             <View style={estilos.container}>
                 <Incluir></Incluir>
                 <TextInput
@@ -217,13 +233,13 @@ const App = () => {
                                 <View style={styles.viewButton}>
                                     <Pressable
                                         style={[styles.button, styles.buttonSave]}
-                                        onPress={() => [editar(), setModalVisible(false), setDisplay('none')]}>
+                                        onPress={() => [editar(), setModalVisible(false), setDisplay('none'), carregarLista()]}>
                                         <Text style={styles.textStyle}>Salvar</Text>
                                     </Pressable>
 
                                     <Pressable
                                         style={[styles.button, styles.buttonClose]}
-                                        onPress={() => [setModalVisible(false), setDisplay('none')]}>
+                                        onPress={() => [setModalVisible(false), setDisplay('none'), carregarLista()]}>
                                         <Text style={styles.textStyle}>Cancelar</Text>
                                     </Pressable>
                                 </View>

@@ -59,5 +59,16 @@ export default StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: "#008000",
     },
+    botaoItem: {
+        height: 40,
+        borderColor: '#0066CC',
+        alignItems:'center'
+    },
+    botaoView: {
+        height: 40,
+        borderColor: '#0066CC',
+        alignItems:'flex-end',
+        padding:5
+    },
 
 });

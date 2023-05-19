@@ -39,8 +39,14 @@ export default StyleSheet.create({
     botaoItem: {
         height: 40,
         borderColor: '#0066CC',
+        alignItems:'center'
     },
-
+    botaoView: {
+        height: 40,
+        borderColor: '#0066CC',
+        alignItems:'flex-end',
+        paddingEnd:25
+    },
     title: {
         fontSize: 32,
     },

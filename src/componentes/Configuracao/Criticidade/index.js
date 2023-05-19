@@ -7,7 +7,6 @@ import Rotas from '../../../RotasManut';
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Update from './Modals/update'
 import {
     SafeAreaView,
     Text,
@@ -50,7 +49,7 @@ function editar() {
         },
     })
         .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
+        .then((json) =>  carregarLista());
 };
 
 
@@ -73,6 +72,16 @@ const App = () => {
             });
     }, []);
 
+    const carregarLista = () => {
+        fetch(Rotas.routesCriticidade + 'getAll')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                setFilteredData(responseJson);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     const modalEditar = (item) => {
         console.log(item)
@@ -119,9 +128,9 @@ const App = () => {
                     </Text>
 
                     <View style={estilos.containerItem}>
-                        <FontAwesome.Button style={estilos.botaoItemEditar } onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true)]} name="edit"
+                        <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => [modalEditar(item), setDisplay('flex'), setModalVisible(true)]} name="edit"
                         ></FontAwesome.Button>
-                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => excluirItem(item)} name="remove"
+                        <FontAwesome.Button style={estilos.botaoItemExcluir} onPress={() => [excluirItem(item), carregarLista()]} name="remove"
                         ></FontAwesome.Button>
                     </View>
 
@@ -139,6 +148,10 @@ const App = () => {
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
+            <View style={estilos.botaoView}>
+                <FontAwesome.Button style={estilos.botaoItem} onPress={() => [carregarLista()]} name="repeat"
+                ></FontAwesome.Button>
+            </View>
             <View style={estilos.container}>
                 <ModalIncluir></ModalIncluir>
                 <TextInput
@@ -148,10 +161,6 @@ const App = () => {
                     underlineColorAndroid="transparent"
                     placeholder="Procure Aqui"
                 />
-                {/*            <ComboboxCriticidade
-                    onPress={() =>  console.log(this.props.item)}
-
-                    style={estilosConfig.combobox}></ComboboxCriticidade> */}
                 <FlatList
                     data={filteredData}
                     keyExtractor={item => item._id}
@@ -191,13 +200,12 @@ const App = () => {
                             <View style={styles.viewButton}>
                                 <Pressable
                                     style={[styles.button, styles.buttonSave]}
-                                    onPress={() => [editar(), setModalVisible(false), setDisplay('none')]}>
+                                    onPress={() => [editar(), setModalVisible(false), setDisplay('none'), carregarLista()]}>
                                     <Text style={styles.textStyle}>Salvar</Text>
                                 </Pressable>
-
                                 <Pressable
                                     style={[styles.button, styles.buttonClose]}
-                                    onPress={() => [setModalVisible(false), setDisplay('none')]}>
+                                    onPress={() => [setModalVisible(false), setDisplay('none'), carregarLista()]}>
                                     <Text style={styles.textStyle}>Cancelar</Text>
                                 </Pressable>
                             </View>
