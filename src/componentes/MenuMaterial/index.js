@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Entypo } from '@expo/vector-icons';
-import { List, Checkbox } from 'react-native-paper';
+import { List} from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -13,22 +12,17 @@ import Equipamentos from '../Indicadores'
 import Alerta from '../Alertas'
 import TestNav from '../Configuracao/Navegation';
 import styles from './styles';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Rotas from '../../RotasManut';
 import {
   KeyboardAvoidingView,
-  Image,
   TextInput,
   Animated,
   Keyboard,
-  SafeAreaView,
   Text,
   ScrollView,
   StyleSheet,
   View,
-  FlatList,
-  TouchableOpacity,
-  StatusBar
+  TouchableOpacity
 } from 'react-native';
 
 let email;
@@ -149,7 +143,6 @@ function Login() {
           <TextInput
             style={styles.input}
             placeholder="Senha"
-            //keyboardType="visible-password"
             textContentType="password"
             autoCapitalize="none"
             autoCompleteType="password"
@@ -158,11 +151,9 @@ function Login() {
             onChangeText={(text) => senha = text}
             onChange={(text) => senha = text}
           />
-
           <TouchableOpacity style={styles.buttonSubmit}>
             <Text style={styles.submitText}>Acessar</Text>
           </TouchableOpacity>
-
           <TouchableOpacity style={styles.buttonRegister} >
             <Text style={styles.registerText}>Criar conta gratuita</Text>
           </TouchableOpacity>
@@ -174,7 +165,6 @@ function Login() {
 
 
 function Home() {
-  ///window.location.reload();
   return (
     <>
       <View style={estilos.TabScreen}>
@@ -193,8 +183,6 @@ function Equipamento() {
     </>
   );
 }
-
-
 
 const state = {
   mostrarComponente: false
@@ -380,7 +368,6 @@ export default function App() {
     fetch(Rotas.routesUsuario + 'getLogin/' + email + '/' + senha)
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson)
         if (!responseJson) {
           setLogin(false), setCriarConta(false), setDisplayTelas('flex')
         }
@@ -398,13 +385,13 @@ export default function App() {
 
 
   function ExcluirContaUsuario() {
-    fetch(Rotas.routesUsuario + 'delete/'+ email, {
-      method: 'DELETE',      
+    fetch(Rotas.routesUsuario + 'delete/' + email, {
+      method: 'DELETE',
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
     })
-      .then((response) =>setLogin(false), setCriarConta(false), setTelaCriarConta(false))
+      .then((response) => setLogin(false), setCriarConta(false), setTelaCriarConta(false))
       .then((json) => {
         setLogin(false), setCriarConta(false), setTelaCriarConta(false)
       }
@@ -413,11 +400,7 @@ export default function App() {
       });
   };
 
-
-  
-
   function CriarContaUsuario() {
-    console.log(senha)
     fetch(Rotas.routesUsuario + 'post', {
       method: 'POST',
       body: JSON.stringify({
@@ -479,7 +462,7 @@ export default function App() {
       })
     ]).start();
   };
-  if (flLogin === false && flTelaCriarConta === false) {
+  if (flLogin == false && flTelaCriarConta == false) {
     return (
       <>
         <KeyboardAvoidingView style={styles.container}>
@@ -493,7 +476,7 @@ export default function App() {
               style={{
                 opacity: 0.8
               }}
-              source={require('../img/logo1.jpg')}
+              source={require('../img/Logo5.jpg')}
             />
           </View>
 
@@ -551,7 +534,7 @@ export default function App() {
       </>
     );
   }
-  else if (flCriarConta === false && flTelaCriarConta === true) {
+  else if (flCriarConta == false && flTelaCriarConta == true) {
     return (
       <>
         <KeyboardAvoidingView style={styles.container}>
@@ -560,7 +543,7 @@ export default function App() {
               style={{
                 opacity: 0.8
               }}
-              source={require('../img/logo1.jpg')}
+              source={require('../img/Logo5.jpg')}
             />
           </View>
 
@@ -633,7 +616,7 @@ export default function App() {
   }
 
 
-  else if (flLogin === true) {
+  else if (flLogin == true) {
     stateUsuario = {
       expanded: false,
     }
@@ -643,8 +626,6 @@ export default function App() {
       });
     return (
       <>
-        {/* <TopBar></TopBar> */}
-
         <Text style={estilos.TextTopBar}>ManutControl</Text>
         <View style={estilos.listUsuario}>
           <List.Accordion
@@ -660,22 +641,9 @@ export default function App() {
           </List.Accordion>
         </View>
         <View style={estilos.TopBar}>
-
-          {/* <Text style={estilos.TextTopBar}>ManutControl</Text> */}
-
           <View tyle={styles.buttonLogout}>
-
-
-
-            {/*   <FontAwesome.Button onPress={() => [setLogin(false), setCriarConta(false), setTelaCriarConta(false)]} name=""
-            >
-              <Entypo name="arrow-with-circle-right" size={30} color="white" />
-
-            </FontAwesome.Button> */}
           </View>
         </View>
-
-
         <NavigationContainer theme={MyTheme}>
           <MyTabsBottom />
         </NavigationContainer>

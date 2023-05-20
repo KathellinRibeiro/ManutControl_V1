@@ -60,60 +60,13 @@ let idStatus;
 let descricaoStatus;
 
 
-function editar() {
-    //VALIDAR DEPOIS
-    fetch(Rotas.routesEquipamento + 'update/' + idEquipamento, {
-        method: 'PUT',
-        body: JSON.stringify({
-            "Descricao": descricaoEquipamento,
-            "Tag": descricaoTag,
-            "Status":
-            {
-                "_id": idStatus,
-                "Descricao": descricaoStatus,
-            }
-            ,
-            "Local":
-            {
-                "_id": idSetor,
-                "Descricao": descricaoSetor,
-            }
-            ,
-            "Criticidade": {
-                "_id": idCriticidadeOrigem,
-                "Descricao": descricaoCriticidade,
-            },
 
-            "Sensor": {
-                "_id": idSensor,
-                "Descricao": descricaoSensor,
-                "metric_Inicial": metricInicial,
-                "metric_Final": metricFinal,
-            },
-
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) =>  carregarLista());
-};
-
-function handleChange(event) {
-    setSelected({ ...selected, [event.targe.id]: event.target.value });
-}
-
-function excluirItem(item) {
-    fetch(Rotas.routesEquipamento + 'delete/' + item._id, {
-        method: 'DELETE',
-    });
-    // window.location.reload(true);
-};
 const Criticidade = () => {
     const [selectedCriticidade, setSelectedCriticidade] = React.useState({});
 
     const [dataCriticidade, setDataCriticidade] = React.useState("");
+
+
     React.useEffect(() => {
         //Get Values from database
         const loadData = async () => {
@@ -477,15 +430,60 @@ const App = () => {
 
     const carregarLista = () => {
         fetch(Rotas.routesEquipamento + 'getAll')
-          .then((response) => response.json())
-          .then((responseJson) => {
-            setFilteredData(responseJson);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+            .then((response) => response.json())
+            .then((responseJson) => {
+                setFilteredData(responseJson);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
-  
+    function editar() {
+        //VALIDAR DEPOIS
+        fetch(Rotas.routesEquipamento + 'update/' + idEquipamento, {
+            method: 'PUT',
+            body: JSON.stringify({
+                "Descricao": descricaoEquipamento,
+                "Tag": descricaoTag,
+                "Status":
+                {
+                    "_id": idStatus,
+                    "Descricao": descricaoStatus,
+                }
+                ,
+                "Local":
+                {
+                    "_id": idSetor,
+                    "Descricao": descricaoSetor,
+                }
+                ,
+                "Criticidade": {
+                    "_id": idCriticidadeOrigem,
+                    "Descricao": descricaoCriticidade,
+                },
+
+                "Sensor": {
+                    "_id": idSensor,
+                    "Descricao": descricaoSensor,
+                    "metric_Inicial": metricInicial,
+                    "metric_Final": metricFinal,
+                },
+
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => carregarLista());
+    };
+
+    function excluirItem(item) {
+        fetch(Rotas.routesEquipamento + 'delete/' + item._id, {
+            method: 'DELETE',
+        });
+        carregarLista();
+    };
 
     const modalEditar = (item) => {
         itemOrigem = item;

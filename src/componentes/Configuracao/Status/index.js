@@ -29,6 +29,17 @@ let itemOrigem;
 let descricaoEditada;
 let idOrigem;
 
+
+
+const App = () => {
+
+    const [search, setSearch] = useState('');
+    const [filteredData, setFilteredData] = useState([]);
+    const [masterData, setMasterData] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [display, setDisplay] = useState('none');
+
+    
 function editar() {
     try {
         fetch(Rotas.routesStatus + 'update/' + itemOrigem._id, {
@@ -50,15 +61,6 @@ function editar() {
 
 
 };
-
-
-const App = () => {
-
-    const [search, setSearch] = useState('');
-    const [filteredData, setFilteredData] = useState([]);
-    const [masterData, setMasterData] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [display, setDisplay] = useState('none');
     //const [idOrigem, setIdOrigem] = useState('');
 
     useEffect(() => {
@@ -117,7 +119,7 @@ const App = () => {
         fetch(Rotas.routesSetor + 'delete/' + item._id, {
             method: 'DELETE',
         });
-        // window.location.reload(true);
+        carregarLista();
     };
 
    

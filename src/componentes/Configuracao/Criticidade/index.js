@@ -15,42 +15,13 @@ import {
     FlatList,
     TextInput,
     Pressable,
-    Modal,
-    TouchableOpacity,
-    StatusBar
+    Modal
 } from 'react-native';
 
 let itemOrigem;
 let descricaoEditada;
 let idOrigem;
 
-
-function excluirItem(item) {
-    console.log(item);
-    console.log(item._id);
-    fetch(Rotas.routesCriticidade + 'delete/' + item._id, {
-        method: 'DELETE',
-    });
-    // window.location.reload(true);
-};
-
-function editar() {
-    console.log(descricaoEditada);
-    console.log(itemOrigem._id)
-
-
-    fetch(Rotas.routesCriticidade + 'update/' + itemOrigem._id, {
-        method: 'patch',
-        body: JSON.stringify({
-            "Descricao": descricaoEditada,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) =>  carregarLista());
-};
 
 
 const App = () => {
@@ -59,6 +30,33 @@ const App = () => {
     const [masterData, setMasterData] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [display, setDisplay] = useState('none');
+
+
+    function excluirItem(item) {
+        fetch(Rotas.routesCriticidade + 'delete/' + item._id, {
+            method: 'DELETE',
+        });
+        carregarLista();
+    };
+
+    function editar() {
+        console.log(descricaoEditada);
+        console.log(itemOrigem._id)
+
+
+        fetch(Rotas.routesCriticidade + 'update/' + itemOrigem._id, {
+            method: 'patch',
+            body: JSON.stringify({
+                "Descricao": descricaoEditada,
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => carregarLista());
+    };
+
 
     useEffect(() => {
         fetch(Rotas.routesCriticidade + 'getAll')

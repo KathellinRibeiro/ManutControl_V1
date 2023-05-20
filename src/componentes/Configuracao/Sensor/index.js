@@ -27,49 +27,6 @@ import {
     StatusBar
 } from 'react-native';
 
-
-function excluirItem(item) {
-    fetch(Rotas.routesSensor + 'delete/' + item._id, {
-        method: 'DELETE',
-    });
-    // window.location.reload(true);
-};
-
-function editarItem(item) {
-
-
-    fetch(Rotas.routesSensor + 'update/' + item._id, {
-        method: 'PUT',
-        body: JSON.stringify({
-            "Descricao": "Baixa",
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(JSON.stringify(json)));
-};
-
-
-function editar() {
-    fetch(Rotas.routesSensor + 'update/' + itemOrigem._id, {
-        method: 'PUT',
-        body: JSON.stringify({
-            "name": descricaoEditada,
-            "metric_Inicial": metricInicialEditada,
-            "metric_Final": metricFinallEditada
-
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) => carregarLista());
-};
-
-
 const App = () => {
     const [search, setSearch] = useState('');
     const [filteredData, setFilteredData] = useState([]);
@@ -77,6 +34,30 @@ const App = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [display, setDisplay] = useState('none');
 
+
+    function excluirItem(item) {
+        fetch(Rotas.routesSensor + 'delete/' + item._id, {
+            method: 'DELETE',
+        });
+        carregarLista();
+    };
+
+    function editar() {
+        fetch(Rotas.routesSensor + 'update/' + itemOrigem._id, {
+            method: 'PUT',
+            body: JSON.stringify({
+                "name": descricaoEditada,
+                "metric_Inicial": metricInicialEditada,
+                "metric_Final": metricFinallEditada
+
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => carregarLista());
+    };
     useEffect(() => {
         fetch(Rotas.routesSensor + 'getAll')
             .then((response) => response.json())

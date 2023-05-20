@@ -29,21 +29,6 @@ let itemOrigem;
 let descricaoEditada;
 let idOrigem;
 
-function editar() {
-    console.log(itemOrigem._id)
-    fetch(Rotas.routesSetor + 'update/' + itemOrigem._id, {
-        method: 'PUT',
-        body: JSON.stringify({
-            "Nome": descricaoEditada,
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-        .then((response) => response.json())
-        .then((json) => carregarLista());
-};
-
 
 const App = () => {
 
@@ -64,6 +49,22 @@ const App = () => {
                 console.error(error);
             });
     };
+
+    
+function editar() {
+    console.log(itemOrigem._id)
+    fetch(Rotas.routesSetor + 'update/' + itemOrigem._id, {
+        method: 'PUT',
+        body: JSON.stringify({
+            "Nome": descricaoEditada,
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+        .then((response) => response.json())
+        .then((json) => carregarLista());
+};
 
     useEffect(() => {
         fetch(Rotas.routesSetor + 'getAll')
@@ -110,7 +111,7 @@ const App = () => {
         fetch(Rotas.routesSetor + 'delete/' + item._id, {
             method: 'DELETE',
         });
-        // window.location.reload(true);
+        carregarLista();
     };
 
     const ItemView = ({ item }) => {

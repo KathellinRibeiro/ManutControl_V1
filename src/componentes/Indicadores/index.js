@@ -45,11 +45,10 @@ export default function Equipamentos() {
 
     const Lista = () => {
         async function fetchData() {
-            fetch(Rotas.routesIndicadores + 'getIndicadorMtbf/' + descricaoEditadaHoras)
+            fetch(Rotas.routesIndicadores + 'getIndicadorMtbf/' + descricaoEditadaHoras + '/' + descricaoEditadaDias)
                 .then((response) => response.json())
                 .then((responseJson) => {
                     setMasterData(responseJson);
-                    setFilteredData(responseJson);
                 })
                 .catch((error) => {
                     console.error(error);
@@ -96,12 +95,14 @@ export default function Equipamentos() {
                     onChangeText={(text) => descricaoEditadaHoras = text}
                     onChange={(text) => descricaoEditadaHoras = text}
                     defaultValue={descricaoEditadaHoras}
+                    keyboardType='numeric'
                     placeholder='Horas programadas em operação'
                 />
                 <TextInput style={estilos.textInputStyle}
                     onChangeText={(text) => descricaoEditadaDias = text}
                     onChange={(text) => descricaoEditadaDias = text}
                     defaultValue={descricaoEditadaDias}
+                    keyboardType='numeric'
                     placeholder='Dias programados em operação'
                 />
                 <FontAwesome.Button style={estilos.botaoItemEditar} onPress={() => Lista()} name="search"

@@ -140,8 +140,8 @@ class MyComponent extends React.Component {
     return (
       <SafeAreaView style={style.container}>
         <ScrollView>
-          <List.Section title="Configurações">
-            <List.Accordion
+          <List.Section>
+            {/* <List.Accordion
               title="Usuário"
               left={props => <List.Icon {...props} icon="folder" />}
               expanded={this.state.expanded}
@@ -152,7 +152,7 @@ class MyComponent extends React.Component {
                   navigate('Usuario')
                 }
               />
-            </List.Accordion>
+            </List.Accordion> */}
 
             <List.Accordion
               title="Equipamentos"
