@@ -393,11 +393,10 @@ const App = () => {
                 function (item) {
                     if (item.Sensor) {
                         itemSensor = '';
-                        const teste = item.Sensor.Descricao
+                        const teste = item.Sensor._id
                         const itemData = teste.toUpperCase();
                         const textData = selectedSensor.toUpperCase();
                         return itemData.indexOf(textData) > -1;
-
                     }
                 });
             setFilteredData(newData);
@@ -412,11 +411,11 @@ const App = () => {
         if (text) {
             const newData = masterData.filter(
                 function (item) {
-                    if (item.Setor) {
+                    if (item) {
                         itemSetor = '';
-                        const teste = item.Setor.Descricao
+                        const teste = item.Local._id
                         const itemData = teste.toUpperCase();
-                        const textData = selectedSensor.toUpperCase();
+                        const textData = text.toUpperCase();
                         return itemData.indexOf(textData) > -1;
 
                     }
@@ -587,8 +586,8 @@ const App = () => {
                     placeholder="Procure Aqui"
                 />
                 <SelectList setSelected={setSelectedCriticidade} data={dataCriticidade} item={setSelectedCriticidade} onSelect={() => searchFilterCriticidade(selectedCriticidade)} placeholder="Selecione a Criticidade" />
-                <SelectList setSelected={setSelectedSensor} data={dataSensor} item={setSelectedCriticidade} onSelect={() => searchFilterSensor(selectedSensor)} placeholder="Selecione o Sensor" />
-                <SelectList setSelected={setSelectedSetor} data={datasetor} item={setSelectedCriticidade} onSelect={() => searchFilterSetor(selectedSetor)} placeholder="Selecione o Setor" />
+                <SelectList setSelected={setSelectedSensor} data={dataSensor} item={setSelectedSensor} onSelect={() => [ searchFilterSensor(selectedSensor)]} placeholder="Selecione o Sensor" />
+                <SelectList setSelected={setSelectedSetor} data={datasetor} item={setSelectedSetor} onSelect={() =>[searchFilterSetor(selectedSetor)]} placeholder="Selecione o Setor" />
                 <FlatList
                     data={filteredData}
                     keyExtractor={item => item._id}
