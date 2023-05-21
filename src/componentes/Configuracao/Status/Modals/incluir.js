@@ -57,7 +57,6 @@ class App extends Component {
                                     <TextInput style={styles.textInputStyle}
                                         onChangeText={(text) => descricaoEditada = text}
                                         onChange={(text) => descricaoEditada = text}
-                                        defaultValue={descricaoEditada}
                                         placeholder='Descição Status'
                                     />
                                 </View>
@@ -65,7 +64,7 @@ class App extends Component {
                             <View style={styles.viewButton}>
                                 <Pressable
                                     style={[styles.button, styles.buttonSave]}
-                                    onPress={() => incluir()}>
+                                    onPress={() =>[incluir(),this.setState({ modalVisible: !modalVisible })]}>
                                     <Text style={styles.textStyle}>Salvar</Text>
                                 </Pressable>
 

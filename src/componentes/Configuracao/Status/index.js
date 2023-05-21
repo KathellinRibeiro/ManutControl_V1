@@ -116,7 +116,7 @@ function editar() {
     }
 
     function excluirItem(item) {
-        fetch(Rotas.routesSetor + 'delete/' + item._id, {
+        fetch(Rotas.routesStatus + 'delete/' + item._id, {
             method: 'DELETE',
         });
         carregarLista();

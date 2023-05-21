@@ -154,15 +154,30 @@ class MyComponent extends React.Component {
               />
             </List.Accordion> */}
 
+
+
+            <List.Accordion
+              title="Criticidade"
+              left={props => <List.Icon {...props} icon="folder" />}
+              expanded={this.state.expanded6}
+              onPress={this._handlePres6}
+            >
+              <List.Item title="Gerenciador de Criticidade"
+                onPress={() =>
+                  navigate('Criticidade')
+                }
+              />
+            </List.Accordion>
+
             <List.Accordion
               title="Equipamentos"
               left={props => <List.Icon {...props} icon="folder" />}
               expanded={this.state.expanded1}
               onPress={this._handlePres1}
             >
-              <List.Item title="Gerenciador de Equipamentos"   onPress={() =>
-                  navigate('Equipamentos')
-                } />
+              <List.Item title="Gerenciador de Equipamentos" onPress={() =>
+                navigate('Equipamentos')
+              } />
             </List.Accordion>
 
 
@@ -172,7 +187,7 @@ class MyComponent extends React.Component {
               expanded={this.state.expanded3}
               onPress={this._handlePres3}
             >
-              <List.Item title="Gerenciador de sensor"
+              <List.Item title="Gerenciador de Sensor"
                 onPress={() =>
                   navigate('Sensor')
                 } />
@@ -184,36 +199,22 @@ class MyComponent extends React.Component {
               expanded={this.state.expanded4}
               onPress={this._handlePres4}
             >
-              <List.Item title="Gerenciador de setor" 
-               onPress={() =>
-                  navigate('Setor')
-                }/>
-            </List.Accordion>
-
-
-
-            <List.Accordion
-              title="Criticidade"
-              left={props => <List.Icon {...props} icon="folder" />}
-              expanded={this.state.expanded6}
-              onPress={this._handlePres6}
-            >
-              <List.Item title="Gerenciador de criticidade"
+              <List.Item title="Gerenciador de Setor"
                 onPress={() =>
-                  navigate('Criticidade')
-                }
-              />
+                  navigate('Setor')
+                } />
             </List.Accordion>
+
             <List.Accordion
               title="Status"
               left={props => <List.Icon {...props} icon="folder" />}
               expanded={this.state.expanded5}
               onPress={this._handlePres5}
             >
-              <List.Item title="Gerenciador de status"
-               onPress={() =>
-                navigate('Status')
-              } />
+              <List.Item title="Gerenciador de Status"
+                onPress={() =>
+                  navigate('Status')
+                } />
             </List.Accordion>
 
           </List.Section>
@@ -223,9 +224,6 @@ class MyComponent extends React.Component {
   }
 
 }
-
-
-
 
 const UsuarioScreen = ({ navigation, route }) => {
   return <Criticidade></Criticidade>;
@@ -260,7 +258,6 @@ const style = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight,
   },
   item: {
     backgroundColor: cores.azulClaro,
@@ -288,8 +285,5 @@ const style = StyleSheet.create({
   },
 
 });
-
-
-
 export default MyStack;
 

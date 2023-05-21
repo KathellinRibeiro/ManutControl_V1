@@ -649,7 +649,7 @@ export default function App() {
             <List.Item title="Excluir Conta"
               onPress={() => [ExcluirContaUsuario()]}
             />
-            <List.Item title="Logout"
+            <List.Item title="Logout" 
               onPress={() => [setLogin(false), setCriarConta(false), setTelaCriarConta(false)]}
             />
           </List.Accordion>
