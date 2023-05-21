@@ -230,6 +230,19 @@ const MyTheme = {
   },
 };
 
+const MyThemeUsuario = {
+  dark: true,
+  colors: {
+    primary: 'rgb(242, 242, 242)',
+    secundary: 'rgb(242, 242, 242)',
+    background:  cores.azulPrincipal,
+    card: cores.azulClaro,
+    text: 'rgb(242, 242, 242)',
+    border: 'rgb(199, 199, 204)',
+    notification: cores.azulClaro,    
+  },
+};
+
 const Tab = createMaterialBottomTabNavigator();
 const TabTop = createMaterialTopTabNavigator();
 
@@ -476,7 +489,7 @@ export default function App() {
               style={{
                 opacity: 0.8
               }}
-              source={require('../img/Logo5.jpg')}
+              source={require('../img/Logo8.jpg')}
             />
           </View>
 
@@ -543,7 +556,7 @@ export default function App() {
               style={{
                 opacity: 0.8
               }}
-              source={require('../img/Logo5.jpg')}
+              source={require('../img/Logo8.jpg')}
             />
           </View>
 
@@ -628,8 +641,9 @@ export default function App() {
       <>
         <Text style={estilos.TextTopBar}>ManutControl</Text>
         <View style={estilos.listUsuario}>
-          <List.Accordion
+          <List.Accordion theme={MyThemeUsuario}  
             title={email}
+            titleStyle={estilos.listOrigem}
             left={props => <List.Icon {...props} />}
           >
             <List.Item title="Excluir Conta"
@@ -639,10 +653,6 @@ export default function App() {
               onPress={() => [setLogin(false), setCriarConta(false), setTelaCriarConta(false)]}
             />
           </List.Accordion>
-        </View>
-        <View style={estilos.TopBar}>
-          <View tyle={styles.buttonLogout}>
-          </View>
         </View>
         <NavigationContainer theme={MyTheme}>
           <MyTabsBottom />

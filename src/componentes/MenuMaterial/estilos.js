@@ -20,6 +20,7 @@ export default StyleSheet.create({
         fontSize: 26,
         fontWeight: 'bold',
         color: '#FFFF',
+        padding:15,
     },
 
     HomeScreen: {
@@ -42,6 +43,10 @@ export default StyleSheet.create({
     listUsuario: {
         "backgroundColor": cores.cinza,
         color: cores.cinza,
+        paddingBottom:5
+    },
+    listOrigem: {
+        color: cores.cinza
     },
     user: {
         "backgroundColor": cores.azulClaro,
